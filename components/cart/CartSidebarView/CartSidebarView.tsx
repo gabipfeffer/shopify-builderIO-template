@@ -25,7 +25,9 @@ const CartSidebarView: FC = () => {
         .get('cart-upsell-sidebar', {
           cacheSeconds: 120,
           userAttributes: {
-            itemInCart: items.map((item: any) => item.merchandise.product.handle),
+            itemInCart: items.map(
+              (item: any) => item.merchandise.product.handle
+            ),
           } as any,
         })
         .toPromise()
@@ -60,12 +62,7 @@ const CartSidebarView: FC = () => {
       ) : (
         <>
           {items.map((item: any) => (
-            <CartItem
-              key={item.id}
-              item={item}
-              // todo update types
-              currencyCode={item.variant?.priceV2?.currencyCode || 'USD'}
-            />
+            <CartItem key={item.id} item={item} />
           ))}
           <Card sx={{ marginLeft: 'auto', minWidth: '10rem', paddingLeft: 5 }}>
             <Grid gap={1} columns={2} sx={{ my: 3 }}>
