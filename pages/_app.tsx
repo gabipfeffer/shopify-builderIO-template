@@ -6,6 +6,8 @@ import type { AppProps } from 'next/app'
 
 import { builder, Builder } from '@builder.io/react'
 import builderConfig from '@config/builder'
+import { ApolloProvider } from '@apollo/client'
+import StorefrontAPIClient from '@shopify/storefront/client'
 builder.init(builderConfig.apiKey)
 
 import '../blocks/ProductGrid/ProductGrid.builder'
@@ -41,10 +43,10 @@ const Noop: FC = ({ children }) => <>{children}</>
 export default function MyApp({ Component, pageProps }: AppProps) {
   const Layout = (Component as any).Layout || Noop
   return (
-    <>
+    <ApolloProvider client={StorefrontAPIClient}>
       <Layout pageProps={pageProps}>
         <Component {...pageProps} />
       </Layout>
-    </>
+    </ApolloProvider>
   )
 }

@@ -18,6 +18,7 @@
       "@lib/*": ["lib/*"],
       "@assets/*": ["assets/*"],
       "@config/*": ["config/*"],
+      "@shopify/*": ["shopify/*"],
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"]
     }

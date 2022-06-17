@@ -1,72 +1,63 @@
-import { buildClient } from 'shopify-buy'
+import StorefrontAPIClient from '@shopify/storefront/client'
+import { getAllProducts, getStorefrontProduct } from '@shopify/storefront/queries/product'
+import { mapShopifyArrays } from '@utils/shopify'
+import { IProduct } from '@shopify/interfaces/product'
+import { getAllCollections, getCollectionGQL } from '@shopify/storefront/queries/collection'
+import { searchStorefront } from '@shopify/storefront/queries/search'
 
 const fastClone = (obj: any) =>JSON.parse(JSON.stringify(obj));
 
-export function getAllProducts(config: ShopifyBuy.Config, limit?: number) {
-  const client = buildClient(config)
-  return client.product.fetchAll(limit)
-}
-
 export async function getAllProductPaths(
-  config: ShopifyBuy.Config,
   limit?: number
 ): Promise<string[]> {
-  const client = buildClient(config)
-  // interface need update
-  const products: any[] = await client.product.fetchAll(limit)
-  return products.map((val) => val.handle)
+  const { data: { products } } = await StorefrontAPIClient.query({
+    query: getAllProducts(limit)
+  })
+  const mappedProducts = mapShopifyArrays(products?.edges)
+  return mappedProducts.map((product: IProduct) => product.handle)
 }
 
-export async function getProduct(
-  config: ShopifyBuy.Config,
-  options: { id?: string; handle?: string }
-) {
-  const client = buildClient(config)
-  if (options.handle) {
-    return fastClone(await client.product.fetchByHandle(options.handle))
-  }
-  if (!options.id) {
-    throw new Error('A product ID or handle is required')
-  }
-  return fastClone(await client.product.fetch(options.id))
-}
+export async function getProduct(handle: string) {
+  const {
+    data: { product },
+  } = await StorefrontAPIClient.query({
+    query: getStorefrontProduct(handle),
+  })
+  const variants = mapShopifyArrays(product?.variants?.edges)
+  const images = mapShopifyArrays(product?.images?.edges)
 
-export function getAllCollections(config: ShopifyBuy.Config, limit?: number) {
-  const client = buildClient(config)
-  return client.collection.fetchAll(limit)
+  return fastClone({ ...product, variants, images })
 }
 
 export async function getAllCollectionPaths(
-  config: ShopifyBuy.Config,
   limit?: number
 ): Promise<string[]> {
-  const client = buildClient(config)
-  // interface need update
-  const collections: any[] = await client.collection.fetchAll(limit)
-  return collections.map((val) => val.handle)
+  const {
+    data: { collections },
+  } = await StorefrontAPIClient.query({
+    query: getAllCollections(limit),
+  })
+
+  const mappedCollections = mapShopifyArrays(collections?.edges)
+  return mappedCollections.map((collection) => collection.handle)
 }
 
-export async function getCollection(
-  config: ShopifyBuy.Config,
-  options: { id?: string; handle?: string }
-) {
-  const client = buildClient(config)
-  if (options.handle) {
-    return fastClone(await client.collection.fetchByHandle(options.handle))
-  }
-  if (!options.id) {
-    throw new Error('A collection ID or handle is required')
-  }
-  return fastClone(await client.collection.fetch(options.id));
+export async function getCollection(handle: string) {
+  const {
+    data: { collection },
+  } = await StorefrontAPIClient.query({
+    query: getCollectionGQL(handle),
+  })
+
+  return fastClone({ ...collection, products: mapShopifyArrays(collection.products.edges) });
 }
 
 export async function searchProducts(
-  config: ShopifyBuy.Config,
   searchString: string,
 ) {
-  const client = buildClient(config)
-  return client.product.fetchQuery({
-    query: searchString ? `title:*${searchString}*` : '',
-    sortBy: 'title'
+  const { data: { products } } = await StorefrontAPIClient.query({
+    query: searchStorefront(searchString),
   })
+
+  return mapShopifyArrays(products?.edges)
 }

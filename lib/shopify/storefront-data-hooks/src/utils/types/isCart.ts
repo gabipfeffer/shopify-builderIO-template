@@ -1,14 +1,10 @@
-import ShopifyBuy from 'shopify-buy'
+import { ICart } from '@shopify/interfaces/cart'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isCart(potentialCart: any): potentialCart is ShopifyBuy.Cart {
+export function isCart(potentialCart: any): potentialCart is ICart {
   return (
     potentialCart != null &&
     potentialCart.id != null &&
-    potentialCart.webUrl != null &&
-    potentialCart.lineItems != null &&
-    potentialCart.type != null &&
-    potentialCart.type.name === 'Checkout' &&
-    potentialCart.type.kind === 'OBJECT'
+    potentialCart.checkoutUrl != null &&
+    potentialCart.lines != null
   )
 }

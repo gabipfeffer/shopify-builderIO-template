@@ -7,12 +7,11 @@ import { Bag } from '@components/icons'
 import { useCart, useCheckoutUrl } from '@lib/shopify/storefront-data-hooks'
 import CartItem from '../CartItem'
 import { BuilderComponent, builder } from '@builder.io/react'
-import env from '@config/env'
 
 const CartSidebarView: FC = () => {
   const checkoutUrl = useCheckoutUrl()
   const cart = useCart()
-  const subTotal = cart?.subtotalPrice
+  const subTotal = cart?.estimatedCost?.subtotalAmount?.amount
   const total = ' - '
 
   const items = cart?.lineItems ?? []
@@ -26,7 +25,7 @@ const CartSidebarView: FC = () => {
         .get('cart-upsell-sidebar', {
           cacheSeconds: 120,
           userAttributes: {
-            itemInCart: items.map((item: any) => item.variant.product.handle),
+            itemInCart: items.map((item: any) => item.merchandise.product.handle),
           } as any,
         })
         .toPromise()

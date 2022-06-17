@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react'
 import { jsx } from 'theme-ui'
 import { getProduct } from '@lib/shopify/storefront-data-hooks/src/api/operations'
-import shopifyConfig from '@config/shopify'
 import { LoadingDots } from '@components/ui'
 
 interface Props {
@@ -24,9 +23,7 @@ const ProductLoader: React.FC<Props> = ({
   useEffect(() => {
     const fetchProduct = async () => {
       setLoading(true)
-      const result = await getProduct(shopifyConfig, {
-        handle: String(product),
-      })
+      const result = await getProduct(String(product))
       setProduct(result)
       setLoading(false)
     }

@@ -9,7 +9,6 @@ import { BuilderComponent, Builder, builder } from '@builder.io/react'
 import { resolveBuilderContent } from '@lib/resolve-builder-content'
 import '../../blocks/ProductView/ProductView.builder'
 import builderConfig from '@config/builder'
-import shopifyConfig from '@config/shopify'
 import {
   getAllProductPaths,
   getProduct,
@@ -26,9 +25,8 @@ export async function getStaticProps({
   params,
   locale,
 }: GetStaticPropsContext<{ handle: string }>) {
-  const product = await getProduct(shopifyConfig, {
-    handle: params?.handle,
-  })
+  // @ts-ignore
+  const product = await getProduct(params?.handle)
 
   const page = await resolveBuilderContent(builderModel, {
     productHandle: params?.handle,
@@ -46,7 +44,7 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
-  const paths = await getAllProductPaths(shopifyConfig)
+  const paths = await getAllProductPaths()
   return {
     paths: paths.map((path) => `/product/${path}`),
     fallback: 'blocking',

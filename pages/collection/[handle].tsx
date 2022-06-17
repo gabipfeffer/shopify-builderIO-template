@@ -8,7 +8,6 @@ import { Layout } from '@components/common'
 import { BuilderComponent, Builder, builder } from '@builder.io/react'
 import { resolveBuilderContent } from '@lib/resolve-builder-content'
 import builderConfig from '@config/builder'
-import shopifyConfig from '@config/shopify'
 import {
   getCollection,
   getAllCollectionPaths,
@@ -25,9 +24,8 @@ export async function getStaticProps({
   params,
   locale,
 }: GetStaticPropsContext<{ handle: string }>) {
-  const collection = await getCollection(shopifyConfig, {
-    handle: params?.handle,
-  })
+  // @ts-ignore
+  const collection = await getCollection(params?.handle)
 
   const page = await resolveBuilderContent(builderModel, {
     collectionHandle: params?.handle,
@@ -45,7 +43,7 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
-  const paths = await getAllCollectionPaths(shopifyConfig)
+  const paths = await getAllCollectionPaths()
   return {
     paths: paths.map((path) => `/collection/${path}`),
     fallback: 'blocking',

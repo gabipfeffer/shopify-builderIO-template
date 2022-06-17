@@ -1,6 +1,6 @@
-import ShopifyBuy from 'shopify-buy'
 import { LocalStorageKeys } from './keys'
 import { isCart } from '../../utils'
+import { ICart } from '@shopify/interfaces/cart'
 
 function set(key: string, value: string) {
   const isBrowser = typeof window !== 'undefined'
@@ -20,14 +20,13 @@ function get(key: string) {
   }
 
   try {
-    const item = window.localStorage.getItem(key)
-    return item
+    return window.localStorage.getItem(key)
   } catch {
     return null
   }
 }
 
-function getInitialCart(): ShopifyBuy.Cart | null {
+function getInitialCart(): ICart | null {
   const existingCartString = get(LocalStorageKeys.CART)
   if (existingCartString == null) {
     return null
@@ -39,7 +38,7 @@ function getInitialCart(): ShopifyBuy.Cart | null {
       return null
     }
 
-    return existingCart as ShopifyBuy.Cart
+    return existingCart as ICart
   } catch {
     return null
   }
