@@ -1,42 +1,41 @@
 import React, { useState, useEffect } from 'react'
-import ShopifyBuy from 'shopify-buy'
 import { Context } from './Context'
 import { LocalStorage, LocalStorageKeys } from './utils'
+import { useMutation } from '@apollo/client'
+import { createCart } from '@shopify/storefront/mutations/cart'
+import { formatCart } from '@utils/cart'
+import { fetchCart } from '@shopify/storefront/queries/cart'
+import StorefrontAPIClient from '@shopify/storefront/client'
+import { ICart } from '@shopify/interfaces/cart'
 
-export interface CommerceProviderProps extends ShopifyBuy.Config {
+export interface CommerceProviderProps {
   children: React.ReactNode
 }
 
-export function CommerceProvider({
-  storefrontAccessToken,
-  domain,
-  children,
-}: CommerceProviderProps) {
-  if (domain == null || storefrontAccessToken == null) {
-    throw new Error(
-      'Unable to build shopify-buy client object. Please make sure that your access token and domain are correct.'
-    )
-  }
-
+export const CommerceProvider = ({
+ children
+}: CommerceProviderProps) => {
   const initialCart = LocalStorage.getInitialCart()
-  const [cart, setCart] = useState<ShopifyBuy.Cart | null>(initialCart)
+  const [cart, setCart] = useState<ICart | null>(initialCart)
 
-  const isCustomDomain = domain.includes('.')
-
-  const client = ShopifyBuy.buildClient({
-    storefrontAccessToken,
-    domain: isCustomDomain ? domain : `${domain}.myshopify.com`,
+  const [createCartMutation] = useMutation(createCart, {
+    onCompleted: (cartData) => {
+      const formattedCart = formatCart(cartData?.cartCreate?.cart)
+      setCart(formattedCart)
+    }
   })
 
   useEffect(() => {
     async function getNewCart() {
-      const newCart = await client.checkout.create()
-      setCart(newCart)
+      await createCartMutation()
     }
 
     async function refreshExistingCart(cartId: string) {
+
       try {
-        const refreshedCart = await client.checkout.fetch(cartId)
+        const { data: { cart: refreshedCart } } = await StorefrontAPIClient.query({
+          query: fetchCart(cartId)
+        })
 
         if (refreshedCart == null) {
           return getNewCart()
@@ -68,11 +67,8 @@ export function CommerceProvider({
   return (
     <Context.Provider
       value={{
-        client,
         cart,
-        setCart,
-        domain,
-        storefrontAccessToken,
+        setCart
       }}
     >
       {children}

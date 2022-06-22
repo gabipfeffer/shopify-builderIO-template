@@ -2,9 +2,8 @@
 /** @jsx jsx */
 import React, { FC, useState, useEffect } from 'react'
 import { NextSeo } from 'next-seo'
-import { Themed, jsx } from 'theme-ui'
+import { Themed, jsx, Text } from 'theme-ui'
 import { LoadingDots } from '@components/ui'
-import shopifyConfig from '@config/shopify'
 import { ProductGrid, ProductGridProps } from '../ProductGrid/ProductGrid'
 import { getCollection } from '@lib/shopify/storefront-data-hooks/src/api/operations'
 
@@ -29,9 +28,7 @@ const CollectionPreview: FC<Props> = ({
   useEffect(() => {
     const fetchCollection = async () => {
       setLoading(true)
-      const result = await getCollection(shopifyConfig, {
-        handle: collection,
-      })
+      const result = await getCollection(collection)
       setCollection(result)
       setLoading(false)
     }
@@ -62,12 +59,12 @@ const CollectionPreview: FC<Props> = ({
           }}
         />
       )}
-      <div sx={{ display: 'flex', flexDirection: 'column' }}>
-        <span sx={{ mt: 0, mb: 2 }}>
+      <Themed.div sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Text sx={{ mt: 0, mb: 2 }}>
           <Themed.h1>{collection.title}</Themed.h1>
-        </span>
+        </Text>
         <div dangerouslySetInnerHTML={{ __html: collection.description! }} />
-      </div>
+      </Themed.div>
       <Themed.div sx={{ p: 5 }}>
         <ProductGrid {...productGridOptions} products={products} />
       </Themed.div>

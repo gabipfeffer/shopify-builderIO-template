@@ -1,11 +1,22 @@
 import { useContext } from 'react'
 import { Context } from '../Context'
-
 import { useGetLineItem } from './useGetLineItem'
+import { useMutation } from '@apollo/client'
+import { updateLineItem } from '@shopify/storefront/mutations/cart'
+import { formatCart } from '@utils/cart'
 
 export function useUpdateItemQuantity() {
-  const { client, cart, setCart } = useContext(Context)
+  const { cart, setCart } = useContext(Context)
   const getLineItem = useGetLineItem()
+
+  const [updateLineItemMutation] = useMutation(updateLineItem,
+    {
+      onCompleted: (cartData: any) => {
+        const formattedCart = formatCart(cartData?.cartLinesUpdate?.cart)
+        setCart(formattedCart)
+      },
+    }
+  )
 
   async function updateItemQuantity(
     variantId: string | number,
@@ -24,12 +35,13 @@ export function useUpdateItemQuantity() {
       throw new Error(`Item with variantId ${variantId} not in cart`)
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    const newCart = await client.checkout.updateLineItems(cart.id, [
-      { id: lineItem.id, quantity },
-    ])
-    setCart(newCart)
+    await updateLineItemMutation({
+      variables: {
+        // @ts-ignore
+        cartId: cart.id,
+        lines: [{ id: lineItem.id, quantity }],
+      },
+    })
   }
 
   return updateItemQuantity

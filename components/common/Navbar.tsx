@@ -23,7 +23,7 @@ const Navbar: FC = () => {
         .get('announcement-bar', {
           cacheSeconds: 120,
           userAttributes: {
-            itemInCart: items.map((item: any) => item.variant.product.handle),
+            itemInCart: items.map((item: any) => item.merchandise.product.handle),
           } as any,
         })
         .toPromise()

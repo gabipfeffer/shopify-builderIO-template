@@ -1,13 +1,24 @@
 import { useContext } from 'react'
 import { Context } from '../Context'
-import ShopifyBuy from 'shopify-buy'
+import { useMutation } from '@apollo/client'
 import { LineItemPatch } from '../types'
+import { formatCart } from '@utils/cart'
+import { addLineItemToCart } from '@shopify/storefront/mutations/cart'
 
 export function useAddItemsToCart() {
-  const { client, cart, setCart } = useContext(Context)
+  const { cart, setCart } = useContext(Context)
+
+  const [addLineItemsToCart] = useMutation(addLineItemToCart,
+    {
+      onCompleted: (cartData: any) => {
+        const formattedCart = formatCart(cartData?.cartLinesAdd?.cart)
+        setCart(formattedCart)
+      },
+    }
+  )
 
   async function addItemsToCart(items: LineItemPatch[]) {
-    if (cart == null || client == null) {
+    if (cart == null) {
       throw new Error('Called addItemsToCart too soon')
     }
 
@@ -18,32 +29,31 @@ export function useAddItemsToCart() {
     }
 
     items.forEach((item) => {
-      if (item.variantId == null) {
-        throw new Error(`Missing variantId in item`)
+      if (item.merchandiseId == null) {
+        throw new Error(`Missing merchandiseId in item`)
       }
 
       if (item.quantity == null) {
         throw new Error(
-          `Missing quantity in item with variant id: ${item.variantId}`
+          `Missing quantity in item with variant id: ${item.merchandiseId}`
         )
       } else if (typeof item.quantity != 'number') {
         throw new Error(
-          `Quantity is not a number in item with variant id: ${item.variantId}`
+          `Quantity is not a number in item with variant id: ${item.merchandiseId}`
         )
       } else if (item.quantity < 1) {
         throw new Error(
-          `Quantity must not be less than one in item with variant id: ${item.variantId}`
+          `Quantity must not be less than one in item with variant id: ${item.merchandiseId}`
         )
       }
     })
 
-    const newCart = await client.checkout.addLineItems(
-      cart.id,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
-      items as ShopifyBuy.LineItem[]
-    )
-    setCart(newCart)
+    await addLineItemsToCart({
+      variables: {
+        cartId: cart.id,
+        lines: items,
+      },
+    })
   }
 
   return addItemsToCart

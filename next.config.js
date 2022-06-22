@@ -25,6 +25,7 @@ module.exports = bundleAnalyzer({
     // expose env to the browser
     SHOPIFY_STOREFRONT_API_TOKEN: process.env.SHOPIFY_STOREFRONT_API_ACCESS_TOKEN,
     SHOPIFY_STORE_DOMAIN: process.env.SHOPIFY_STORE_DOMAIN,
+    SHOPIFY_ADMIN_API_ACCESS_TOKEN: process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN,
     BUILDER_PUBLIC_KEY: process.env.BUILDER_PUBLIC_KEY,
     IS_DEMO: process.env.IS_DEMO,
   },

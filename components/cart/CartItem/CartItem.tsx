@@ -1,29 +1,22 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { Themed, jsx, Grid, Button, Input, Text, IconButton } from 'theme-ui'
+import { Themed, jsx, Grid, Input, Text, IconButton } from 'theme-ui'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Plus, Minus } from '@components/icons'
 import { getPrice } from '@lib/shopify/storefront-data-hooks/src/utils/product'
-import {
-  useUpdateItemQuantity,
-  useRemoveItemFromCart,
-} from '@lib/shopify/storefront-data-hooks'
+import { useUpdateItemQuantity } from '@lib/shopify/storefront-data-hooks'
 
 const CartItem = ({
-  item,
-  currencyCode,
+  item
 }: {
-  item: /*ShopifyBuy.LineItem todo: check if updated types*/ any
-  currencyCode: string
+  item: any
 }) => {
   const updateItem = useUpdateItemQuantity()
-  const removeItem = useRemoveItemFromCart()
   const [quantity, setQuantity] = useState(item.quantity)
-  const [removing, setRemoving] = useState(false)
   const updateQuantity = async (quantity: number) => {
-    await updateItem(item.variant.id, quantity)
+    await updateItem(item.merchandise.id, quantity)
   }
   const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value)
@@ -47,18 +40,6 @@ const CartItem = ({
       updateQuantity(val)
     }
   }
-  const handleRemove = async () => {
-    setRemoving(true)
-
-    try {
-      // If this action succeeds then there's no need to do `setRemoving(true)`
-      // because the component will be removed from the view
-      await removeItem(item.variant.id)
-    } catch (error) {
-      console.error(error)
-      setRemoving(false)
-    }
-  }
 
   useEffect(() => {
     // Reset the quantity state if the item quantity changes
@@ -69,7 +50,7 @@ const CartItem = ({
 
   return (
     <Grid gap={2} sx={{ width: '100%', m: 12 }} columns={[2]}>
-      <div
+      <Themed.div
         sx={{
           padding: 1,
           border: '1px solid gray',
@@ -82,14 +63,14 @@ const CartItem = ({
           height={130}
           width={130}
           unoptimized
-          alt={item.variant.image.altText}
-          src={item.variant.image.src}
+          alt={item.merchandise.image.altText}
+          src={item.merchandise.image.src}
         />
-      </div>
+      </Themed.div>
       <div>
         <Themed.div
           as={Link}
-          href={`/product/${item.variant.product.handle}/`}
+          href={`/product/${item.merchandise.product.handle}/`}
           sx={{ fontSize: 3, m: 0, fontWeight: 700 }}
         >
           <>
@@ -103,15 +84,15 @@ const CartItem = ({
               }}
             >
               {getPrice(
-                item.variant.priceV2.amount,
-                item.variant.priceV2.currencyCode || 'USD'
+                item.merchandise.priceV2.amount,
+                item.merchandise.priceV2.currencyCode || 'USD'
               )}
             </Text>
           </>
         </Themed.div>
         <Themed.ul sx={{ mt: 2, mb: 0, padding: 0, listStyle: 'none' }}>
           <li>
-            <div sx={{ display: 'flex', justifyItems: 'center' }}>
+            <Themed.div sx={{ display: 'flex', justifyItems: 'center' }}>
               <IconButton onClick={() => increaseQuantity(-1)}>
                 <Minus width={18} height={18} />
               </IconButton>
@@ -133,9 +114,9 @@ const CartItem = ({
               <IconButton onClick={() => increaseQuantity(1)}>
                 <Plus width={18} height={18} />
               </IconButton>
-            </div>
+            </Themed.div>
           </li>
-          {item.variant.selectedOptions.map((option: any) => (
+          {item.merchandise.selectedOptions.map((option: any) => (
             <li key={option.value}>
               {option.name}:{option.value}
             </li>
@@ -147,7 +128,7 @@ const CartItem = ({
 }
 
 /**
- *         
+ *
 
  */
 

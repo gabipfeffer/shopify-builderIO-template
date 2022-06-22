@@ -3,7 +3,8 @@ export interface AttributeInput {
 }
 
 export interface LineItemPatch {
-  variantId: string | number
+  merchandiseId: string | number
   quantity: number
-  customAttributes?: AttributeInput[]
+  attributes?: AttributeInput[]
+  sellingPlanId?: string
 }
