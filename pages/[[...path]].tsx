@@ -22,8 +22,6 @@ import { getLayoutProps } from '@lib/get-layout-props'
 import { useAddItemToCart } from '@lib/shopify/storefront-data-hooks'
 import { useUI } from '@components/ui/context'
 
-const isProduction = process.env.NODE_ENV === 'production'
-
 export async function getStaticProps({
   params,
   locale,
@@ -109,12 +107,12 @@ export default function Path({
           productBoxService: {
             addToCart,
             navigateToCart() {
-              openSidebar();
+              openSidebar()
             },
             navigateToProductPage(product: { handle: string }) {
               router.push(`/product/${product.handle}`)
-            }
-          }
+            },
+          },
         }}
         renderLink={(props: any) => {
           // nextjs link doesn't handle hash links well if it's on the same page (starts with #)
