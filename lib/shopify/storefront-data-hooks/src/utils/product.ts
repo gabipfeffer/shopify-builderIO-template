@@ -1,8 +1,8 @@
-/* 
+/*
   prepareVariantsWithOptions()
 
   This function changes the structure of the variants to
-  more easily get at their options. The original data 
+  more easily get at their options. The original data
   structure looks like this:
 
   {
@@ -52,11 +52,13 @@ export function prepareVariantsWithOptions(
 }
 
 export const getPrice = (price: string, currency: string) =>
-  Intl.NumberFormat(undefined, {
-    currency,
-    minimumFractionDigits: 2,
-    style: 'currency',
-  }).format(parseFloat(price ? price : '0'))
+  currency
+    ? Intl.NumberFormat(undefined, {
+        currency,
+        minimumFractionDigits: 2,
+        style: 'currency',
+      }).format(parseFloat(price ? price : '0'))
+    : price
 
 /*
   prepareVariantsImages()
@@ -109,12 +111,10 @@ export function prepareVariantsImages(
 
   // prepare an array of image objects that include both the image
   // and the optionkey value.
-  const images = Object.keys(imageDictionary).map((key) => {
+  return Object.keys(imageDictionary).map((key) => {
     return {
       [optionKey]: key,
       src: imageDictionary[key],
     }
   })
-
-  return images
 }

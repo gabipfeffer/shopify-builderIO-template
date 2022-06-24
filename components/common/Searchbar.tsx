@@ -3,7 +3,6 @@
 import React, { FC, useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { LoadingDots } from '@components/ui'
-import shopifyConfig from '@config/shopify'
 import { ProductGrid } from 'blocks/ProductGrid/ProductGrid'
 import { Button, Themed, jsx, Input, Label } from 'theme-ui'
 import { searchProducts } from '@lib/shopify/storefront-data-hooks/src/api/operations'
@@ -97,10 +96,7 @@ const SearchModalContent = (props: {
   const [loading, setLoading] = useState(false)
   const getProducts = async (searchTerm: string) => {
     setLoading(true)
-    const results = await searchProducts(
-      shopifyConfig,
-      String(searchTerm),
-    )
+    const results = await searchProducts(String(searchTerm))
     setSearch(searchTerm)
     setProducts(results)
     setLoading(false)
