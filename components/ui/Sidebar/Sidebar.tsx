@@ -16,6 +16,9 @@ const Sidebar: FC<Props> = ({ children, open = false, onClose }) => {
     <BaseModal
       isOpen={open}
       onDismiss={onClose}
+      overlayProps={{
+        style: { zIndex: 4 },
+      }}
       contentProps={{
         style: {
           width,
