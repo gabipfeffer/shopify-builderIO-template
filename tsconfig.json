@@ -36,6 +36,9 @@
       ],
       "@utils/*": [
         "utils/*"
+      ],
+      "@interfaces/*": [
+        "interfaces/*"
       ]
     },
     "incremental": true

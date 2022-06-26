@@ -1,9 +1,11 @@
+import React from 'react'
+
 const Cross = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
-      width="24"
-      height="24"
+      width="12"
+      height="12"
       stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"

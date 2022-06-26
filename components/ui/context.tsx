@@ -1,9 +1,10 @@
-import React, { FC, useMemo } from 'react'
+import React, { FC } from 'react'
+import { ILogo, INavigation } from '@interfaces/header'
 
 export interface State {
   displaySidebar: boolean
-  navigationLinks?: Array<{ link: string; title: string }>
-  logo?: { image?: string; text: string; width: number; height: number }
+  headerNavigation?: Array<INavigation>
+  logo?: ILogo
   toggleSidebar?: any
   closeSidebar?: any
   openSidebar?: any
@@ -12,14 +13,6 @@ export interface State {
 const initialState = {
   displaySidebar: false,
 }
-
-type Action =
-  | {
-      type: 'OPEN_SIDEBAR'
-    }
-  | {
-      type: 'CLOSE_SIDEBAR'
-    }
 
 export const UIContext = React.createContext<State>(initialState)
 
