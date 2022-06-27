@@ -25,28 +25,32 @@ const FooterIcons: FC<{
     }}
   >
     {icons
-      ? Object.entries(icons)?.map(([key, value]) => (
-          <Themed.div
-            key={key}
-            sx={{
-              margin: '0 16px 0 0',
-              display: 'inline-block',
-            }}
-          >
-            <Themed.a
-              target={'_blank'}
+      ? Object.entries(icons)?.map(([key, value]) => {
+          // @ts-ignore
+          const Icon = IconRenders?.[key]
+
+          return (
+            <Themed.div
               key={key}
-              href={value}
               sx={{
-                margin: 0,
-                transition: '.3s',
+                margin: '0 16px 0 0',
+                display: 'inline-block',
               }}
             >
-              {/* @ts-ignore*/}
-              {IconRenders[key]}
-            </Themed.a>
-          </Themed.div>
-        ))
+              <Themed.a
+                target={'_blank'}
+                key={key}
+                href={value}
+                sx={{
+                  margin: 0,
+                  transition: '.3s',
+                }}
+              >
+                <Icon fill={'background'} />
+              </Themed.a>
+            </Themed.div>
+          )
+        })
       : null}
   </Themed.div>
 )
