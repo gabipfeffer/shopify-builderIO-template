@@ -5,8 +5,14 @@ import { Themed, jsx } from 'theme-ui'
 import { IFooter } from '@interfaces/footer'
 import FooterNavigation from '@components/Navigation/FooterNavigation'
 import FooterLegal from '@components/Footer/FooterLegal'
+import Newsletter from '@components/Newsletter/Newsletter'
 
 const Footer: FC<IFooter> = ({ navigation, socialIcons, legalNavigation }) => {
+  const handleNewsletter = (email: string) => {
+    if (!email) return null
+    return null
+  }
+
   return (
     <Themed.div
       as={'footer'}
@@ -15,7 +21,7 @@ const Footer: FC<IFooter> = ({ navigation, socialIcons, legalNavigation }) => {
           padding: '65px 0',
         },
         padding: '40px 0 20px',
-        backgroundColor: 'text',
+        backgroundColor: 'primary',
       }}
     >
       <Themed.div
@@ -46,8 +52,10 @@ const Footer: FC<IFooter> = ({ navigation, socialIcons, legalNavigation }) => {
           }}
         >
           <FooterNavigation navigation={navigation} socialIcons={socialIcons} />
-          {/*TODO: Ask client on how they want to track newsletter signups and whether they want this feature*/}
-          {/*<Newsletter />*/}
+          <Newsletter
+            title={'Exclusive offers, advice & insights. Sign up now!'}
+            onSubmit={handleNewsletter}
+          />
         </Themed.div>
         <FooterLegal navigation={legalNavigation} />
       </Themed.div>
