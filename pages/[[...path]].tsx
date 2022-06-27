@@ -5,7 +5,7 @@ import type {
 } from 'next'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { Layout } from '@components/common'
+import Layout from '@components/Layout/Layout'
 import { BuilderComponent, Builder, builder } from '@builder.io/react'
 import builderConfig from '@config/builder'
 import DefaultErrorPage from 'next/error'

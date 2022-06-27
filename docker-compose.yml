@@ -9,3 +9,8 @@ services:
     volumes:
       - ./pages:/app/pages
       - ./public:/app/public
+      - ./components:/app/components
+      - ./utils:/app/utils
+      - ./lib:/app/lib
+      - ./assets:/app/assets
+      - ./config:/app/config
