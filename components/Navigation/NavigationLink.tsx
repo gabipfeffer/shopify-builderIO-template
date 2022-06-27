@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import React, { FC } from 'react'
 import { jsx, Themed } from 'theme-ui'
-import { INavigation } from '@interfaces/header'
+import { INavigation } from '@interfaces/navigation'
 import Link from 'next/link'
 
 const NavigationLink: FC<{ navigationLink: INavigation }> = ({

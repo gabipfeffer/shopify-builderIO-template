@@ -3,7 +3,7 @@
 import React, { FC, useState } from 'react'
 import { Themed, jsx } from 'theme-ui'
 import { fadeIn } from '@assets/keyframes'
-import { INavigation } from '@interfaces/header'
+import { INavigation } from '@interfaces/navigation'
 import Link from 'next/link'
 
 const MobileNavigationItem: FC<{ navigationSection: INavigation }> = ({

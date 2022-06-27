@@ -3,7 +3,7 @@
 import React, { Dispatch, FC, SetStateAction } from 'react'
 import { Themed, jsx, Button } from 'theme-ui'
 import { fadeIn } from '@assets/keyframes'
-import { INavigation } from '@interfaces/header'
+import { INavigation } from '@interfaces/navigation'
 import MobileNavigationItem from '@components/Navigation/MobileNavigationItem'
 import Cross from '@components/icons/Cross'
 import useWindowScroll from '@lib/hooks/useWindowScroll'
