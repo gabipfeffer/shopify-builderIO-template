@@ -32,7 +32,7 @@ const FooterNavigationLink: FC<IFooterNavigationLink> = ({
         fontSize: '11px',
         textTransform: 'uppercase',
         letterSpacing: '2px',
-        color: '#fff',
+        color: 'background',
         margin: '0 0 15px',
       }}
     >

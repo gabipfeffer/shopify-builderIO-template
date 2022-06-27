@@ -35,7 +35,7 @@ const Header: FC<IHeader> = ({ navigation, logo, theme }) => {
           zIndex: 2,
           width: '100%',
           transition: 'top 150ms ease',
-          borderColor: 'text',
+          borderColor: 'primary',
           borderBottom: '1px solid',
           '@media (max-width: 768px)': {
             top: offset >= 5 ? '0' : '50px',

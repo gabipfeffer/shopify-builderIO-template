@@ -27,7 +27,7 @@ const FooterLegal: FC<{ navigation?: Array<IBasicNavigation> }> = ({
             mt: 0,
           },
           fontSize: '12px',
-          color: '#bfbfbf',
+          color: 'text',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -46,6 +46,7 @@ const FooterLegal: FC<{ navigation?: Array<IBasicNavigation> }> = ({
         <Themed.div
           sx={{
             mr: 0,
+            color: 'background',
             '@media (min-width: 768px)': {
               margin: '5px 35px 5px 0',
             },

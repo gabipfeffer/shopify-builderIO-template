@@ -22,7 +22,7 @@ const LegalNavigationLink: FC<{ navigationLink?: IBasicNavigation }> = ({
       <Themed.a
         key={navigationLink?.title}
         sx={{
-          color: '#BFBFBF',
+          color: 'background',
         }}
         href={navigationLink?.link}
       >
