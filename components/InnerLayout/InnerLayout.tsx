@@ -9,7 +9,7 @@ import { Button } from 'theme-ui'
 import { Sidebar } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
 import { builder, Builder } from '@builder.io/react'
-import themesMap from '@config/theme'
+import theme from '@config/theme'
 import '@builder.io/widgets'
 import 'react-spring-modal/styles.css'
 import NoSSR from '../common/NoSSR'
@@ -21,7 +21,6 @@ const FeatureBar = dynamic(() => import('@components/common/FeatureBar'), {
 })
 
 const InnerLayout: React.FC<{
-  themeName: string
   colorOverrides?: {
     text?: string
     background?: string
@@ -29,11 +28,10 @@ const InnerLayout: React.FC<{
     secondary?: string
     muted?: string
   }
-}> = ({ themeName, children, colorOverrides }) => {
-  const theme = {
-    ...themesMap[themeName],
+}> = ({ children, colorOverrides }) => {
+  const mainTheme = {
+    ...theme,
     colors: {
-      ...themesMap[themeName].colors,
       ...colorOverrides,
     },
   }
@@ -50,8 +48,8 @@ const InnerLayout: React.FC<{
   } = useUI()
 
   return (
-    <ThemeProvider theme={theme}>
-      <Header navigation={headerNavigation} logo={logo} theme={theme} />
+    <ThemeProvider theme={mainTheme}>
+      <Header navigation={headerNavigation} logo={logo} theme={mainTheme} />
       <Themed.div
         sx={{
           margin: `0 auto`,

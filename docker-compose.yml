@@ -13,3 +13,4 @@ services:
       - ./utils:/app/utils
       - ./lib:/app/lib
       - ./assets:/app/assets
+      - ./config:/app/config
