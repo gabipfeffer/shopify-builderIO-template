@@ -14,6 +14,7 @@ import '@builder.io/widgets'
 import 'react-spring-modal/styles.css'
 import NoSSR from '../common/NoSSR'
 import Header from '@components/Header/Header'
+import Footer from '@components/Footer/Footer'
 
 const FeatureBar = dynamic(() => import('@components/common/FeatureBar'), {
   ssr: false,
@@ -36,9 +37,18 @@ const InnerLayout: React.FC<{
       ...colorOverrides,
     },
   }
-  const { displaySidebar, closeSidebar } = useUI()
+
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
-  const { logo, headerNavigation } = useUI()
+  const {
+    logo,
+    headerNavigation,
+    footerNavigation,
+    socialIcons,
+    displaySidebar,
+    closeSidebar,
+    legalNavigation,
+  } = useUI()
+
   return (
     <ThemeProvider theme={theme}>
       <Header navigation={headerNavigation} logo={logo} theme={theme} />
@@ -74,6 +84,11 @@ const InnerLayout: React.FC<{
           }
         />
       </NoSSR>
+      <Footer
+        navigation={footerNavigation}
+        socialIcons={socialIcons}
+        legalNavigation={legalNavigation}
+      />
     </ThemeProvider>
   )
 }

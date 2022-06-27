@@ -1,9 +1,14 @@
 import React, { FC } from 'react'
-import { ILogo, INavigation } from '@interfaces/header'
+import { IBasicNavigation, INavigation } from '@interfaces/navigation'
+import { ILogo } from '@interfaces/header'
+import { ISocialIcons } from '@interfaces/social'
 
 export interface State {
   displaySidebar: boolean
   headerNavigation?: Array<INavigation>
+  footerNavigation?: Array<INavigation>
+  legalNavigation?: Array<IBasicNavigation>
+  socialIcons?: ISocialIcons
   logo?: ILogo
   toggleSidebar?: any
   closeSidebar?: any
