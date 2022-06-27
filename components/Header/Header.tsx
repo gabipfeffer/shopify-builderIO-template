@@ -1,9 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { Themed, jsx } from 'theme-ui'
-import { useCart } from '@lib/shopify/storefront-data-hooks'
-import { builder, BuilderComponent } from '@builder.io/react'
 import Searchbar from '@components/common/Searchbar'
 import { UserNav } from '@components/common'
 import Logo from '@components/Header/Logo'
@@ -12,38 +10,15 @@ import { IHeader } from '@interfaces/header'
 import useWindowScroll from '@lib/hooks/useWindowScroll'
 import HamburgerMenu from '@components/Navigation/HamburgerMenu'
 import MobileNavigation from '@components/Navigation/MobileNavigation'
+import AnnouncementBar from '@components/AnnouncementBar/AnnouncementBar'
 
 const Header: FC<IHeader> = ({ navigation, logo, theme }) => {
-  const [announcement, setAnnouncement] = useState()
-  const cart = useCart()
   const offset = useWindowScroll()
   const [mobileNavigationActive, setMobileNavigationActive] = useState(false)
 
-  useEffect(() => {
-    async function fetchContent() {
-      const items = cart?.lineItems || []
-      const anouncementContent = await builder
-        .get('announcement-bar', {
-          cacheSeconds: 120,
-          userAttributes: {
-            itemInCart: items.map(
-              (item: any) => item.merchandise.product.handle
-            ),
-          } as any,
-        })
-        .toPromise()
-      setAnnouncement(anouncementContent)
-    }
-    fetchContent()
-  }, [cart?.lineItems])
-
   return (
     <React.Fragment>
-      <BuilderComponent
-        content={announcement}
-        data={{ theme }}
-        model="announcement-bar"
-      />
+      <AnnouncementBar theme={theme} />
       <Themed.div
         as="header"
         sx={{
