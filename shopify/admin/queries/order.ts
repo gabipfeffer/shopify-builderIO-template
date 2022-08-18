@@ -5,15 +5,29 @@ query getOrderById {
     id
     tags
     lineItems(first: 15) {
-      edges {
-        node {
+      nodes {
+        title
+        product {
+          tags
+          isSchoolLicense: metafield(key: "SchoolLicense", namespace: "ProductType") {
+            id
+            value
+            namespace
+            key
+          }
+          isCustomerSubscription: metafield(key: "CustomerSubscription", namespace: "ProductType") {
+            id
+            value
+            namespace
+            key
+          }
+        }
+        variant {
+          id
           title
-          variant {
-            title
-          }
-          sellingPlan {
-            name
-          }
+        }
+        sellingPlan {
+          name
         }
       }
     }
@@ -61,6 +75,12 @@ query getOrderById {
     transactions(first: 1) {
       kind
       paymentMethod
+    }
+    customer {
+      id
+      email
+      firstName
+      lastName
     }
   }
 }

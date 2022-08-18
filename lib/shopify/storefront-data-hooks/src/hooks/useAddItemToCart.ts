@@ -7,10 +7,17 @@ export function useAddItemToCart() {
   async function addItemToCart(
     variantId: number | string,
     quantity: number,
-    customAttributes?: AttributeInput[],
-    sellingPlanId?: string
+    sellingPlanId?: string,
+    customAttributes?: AttributeInput[]
   ) {
-    const item = [{ merchandiseId: variantId, quantity, attributes: customAttributes, sellingPlanId: sellingPlanId }]
+    const item = [
+      {
+        merchandiseId: variantId,
+        quantity,
+        attributes: customAttributes,
+        sellingPlanId: sellingPlanId,
+      },
+    ]
 
     return addItemsToCart(item)
   }

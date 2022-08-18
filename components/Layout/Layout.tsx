@@ -32,10 +32,7 @@ const Layout: React.FC<{ pageProps: any }> = ({ children, pageProps }) => {
           return (
             <ManagedUIContext key={data?.id} siteSettings={siteSettings}>
               <Head seoInfo={siteSeoInfo || seoConfig} />
-              <InnerLayout
-                themeName={data?.theme || 'base'}
-                colorOverrides={colorOverrides}
-              >
+              <InnerLayout colorOverrides={colorOverrides}>
                 {children}
               </InnerLayout>
             </ManagedUIContext>

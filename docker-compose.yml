@@ -3,7 +3,9 @@ version: '3'
 services:
   app:
     image: docker-nextjs-dev
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
       - 3000:3000
     volumes:
@@ -14,3 +16,11 @@ services:
       - ./lib:/app/lib
       - ./assets:/app/assets
       - ./config:/app/config
+      - ./shopify:/app/shopify
+      - ./constants:/app/constants
+      - ./interfaces:/app/interfaces
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./thinkific:/app/thinkific
+      - ./bold:/app/bold
+      - ./cognito:/app/cognito
+      - ./app:/app/app

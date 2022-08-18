@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import Layout from '@components/Layout/Layout'
 import { BuilderComponent, Builder, builder } from '@builder.io/react'
 import { resolveBuilderContent } from '@lib/resolve-builder-content'
-import '../../blocks/ProductView/ProductView.builder'
+import '@components/Product/Product.builder'
 import builderConfig from '@config/builder'
 import {
   getAllProductPaths,
@@ -40,6 +40,7 @@ export async function getStaticProps({
       product: product || null,
       ...(await getLayoutProps()),
     },
+    revalidate: 5,
   }
 }
 

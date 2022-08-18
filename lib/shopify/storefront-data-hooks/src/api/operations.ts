@@ -1,17 +1,23 @@
 import StorefrontAPIClient from '@shopify/storefront/client'
-import { getAllProducts, getStorefrontProduct } from '@shopify/storefront/queries/product'
+import {
+  getAllProducts,
+  getStorefrontProduct,
+} from '@shopify/storefront/queries/product'
 import { mapShopifyArrays } from '@utils/shopify'
-import { IProduct } from '@shopify/interfaces/product'
-import { getAllCollections, getCollectionGQL } from '@shopify/storefront/queries/collection'
+import { IProduct, ISellingPlan } from '@interfaces/product'
+import {
+  getAllCollections,
+  getCollectionGQL,
+} from '@shopify/storefront/queries/collection'
 import { searchStorefront } from '@shopify/storefront/queries/search'
 
-const fastClone = (obj: any) =>JSON.parse(JSON.stringify(obj));
+const fastClone = (obj: any) => JSON.parse(JSON.stringify(obj))
 
-export async function getAllProductPaths(
-  limit?: number
-): Promise<string[]> {
-  const { data: { products } } = await StorefrontAPIClient.query({
-    query: getAllProducts(limit)
+export async function getAllProductPaths(limit?: number): Promise<string[]> {
+  const {
+    data: { products },
+  } = await StorefrontAPIClient.query({
+    query: getAllProducts(limit),
   })
   const mappedProducts = mapShopifyArrays(products?.edges)
   return mappedProducts.map((product: IProduct) => product.handle)
@@ -25,13 +31,19 @@ export async function getProduct(handle: string) {
   })
   const variants = mapShopifyArrays(product?.variants?.edges)
   const images = mapShopifyArrays(product?.images?.edges)
+  const sellingPlanGroups = product?.sellingPlanGroups?.edges.map(
+    ({ node }: any) => ({
+      ...node,
+      sellingPlans: node.sellingPlans.edges.map(
+        ({ node }: { node: ISellingPlan }) => node
+      ),
+    })
+  )
 
-  return fastClone({ ...product, variants, images })
+  return fastClone({ ...product, variants, images, sellingPlanGroups })
 }
 
-export async function getAllCollectionPaths(
-  limit?: number
-): Promise<string[]> {
+export async function getAllCollectionPaths(limit?: number): Promise<string[]> {
   const {
     data: { collections },
   } = await StorefrontAPIClient.query({
@@ -49,13 +61,16 @@ export async function getCollection(handle: string) {
     query: getCollectionGQL(handle),
   })
 
-  return fastClone({ ...collection, products: mapShopifyArrays(collection.products.edges) });
+  return fastClone({
+    ...collection,
+    products: mapShopifyArrays(collection.products.edges),
+  })
 }
 
-export async function searchProducts(
-  searchString: string,
-) {
-  const { data: { products } } = await StorefrontAPIClient.query({
+export async function searchProducts(searchString: string) {
+  const {
+    data: { products },
+  } = await StorefrontAPIClient.query({
     query: searchStorefront(searchString),
   })
 

@@ -4,7 +4,8 @@ import React, { FC } from 'react'
 import { Bag, Account } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import { Themed, Button, jsx } from 'theme-ui'
-import { getCookie } from '@utils/cookies'
+import Link from 'next/link'
+import useAccountUrl from '@lib/hooks/useAccountUrl'
 
 interface Props {
   className?: string
@@ -12,12 +13,7 @@ interface Props {
 
 const UserNav: FC<Props> = ({ className, children, ...props }) => {
   const { toggleSidebar } = useUI()
-
-  const accountUrl = () => {
-    const loggedInCookie = getCookie('secure_customer_sig')
-    if (!loggedInCookie) return '/account/login'
-    return '/account'
-  }
+  const accountUrl = useAccountUrl()
 
   return (
     <Themed.div
@@ -30,7 +26,7 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
         <Bag />
       </Button>
       <Button aria-label="Account">
-        <Themed.a href={accountUrl()}>
+        <Themed.a as={Link} href={accountUrl}>
           <Account />
         </Themed.a>
       </Button>

@@ -39,6 +39,7 @@ export async function getStaticProps({
       collection: collection || null,
       ...(await getLayoutProps()),
     },
+    revalidate: 5,
   }
 }
 
@@ -69,6 +70,7 @@ export default function Handle({
     )
   }
 
+  console.log('collection', collection)
   return router.isFallback && isLive ? (
     <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
   ) : (

@@ -10,6 +10,7 @@ export const createAddress = gql`
       customerAccessToken: $customerAccessToken
     ) {
       customerAddress {
+        id
         address1
         address2
         city
@@ -40,6 +41,7 @@ export const updateAddress = gql`
       id: $id
     ) {
       customerAddress {
+        id
         address1
         address2
         city
@@ -53,6 +55,7 @@ export const updateAddress = gql`
       }
       customerUserErrors {
         code
+        message
       }
     }
   }

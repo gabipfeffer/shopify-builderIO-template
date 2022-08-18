@@ -1,9 +1,7 @@
 import '@assets/main.css'
 import 'keen-slider/keen-slider.min.css'
-
 import { FC } from 'react'
 import type { AppProps } from 'next/app'
-
 import { builder, Builder } from '@builder.io/react'
 import builderConfig from '@config/builder'
 import { ApolloProvider } from '@apollo/client'
@@ -12,8 +10,23 @@ builder.init(builderConfig.apiKey)
 
 import '../blocks/ProductGrid/ProductGrid.builder'
 import '../blocks/CollectionView/CollectionView.builder'
-import '../blocks/ProductView/ProductView.builder'
-import '../blocks/CloudinaryImage/CloudinaryImage.builder'
+import '@components/Account/LogIn/LogIn.builder'
+import '@components/Account/Register/Register.builder'
+import '@components/Account/RecoverPassword/RecoverPassword.builder'
+import '@components/Account/ConfirmUserEmail/ConfirmUserEmail.builder'
+import '@components/Account/ConfirmUserPassword/ConfirmUserPassword.builder'
+import '@components/Product/Product.builder'
+
+Builder.register('insertMenu', {
+  name: 'Account Access Components',
+  items: [
+    { name: 'Account Login' },
+    { name: 'Account Registration' },
+    { name: 'Account Password Recovery' },
+    { name: 'Account Email Validation' },
+    { name: 'Account New Password Validation' },
+  ],
+})
 
 Builder.register('insertMenu', {
   name: 'Shopify Collections Components',
@@ -29,13 +42,8 @@ Builder.register('insertMenu', {
   items: [
     { name: 'ProductGrid' },
     { name: 'ProductBox' },
-    { name: 'ProductView' },
+    { name: 'Product Page' },
   ],
-})
-
-Builder.register('insertMenu', {
-  name: 'Cloudinary Components',
-  items: [{ name: 'CloudinaryImage' }],
 })
 
 const Noop: FC = ({ children }) => <>{children}</>

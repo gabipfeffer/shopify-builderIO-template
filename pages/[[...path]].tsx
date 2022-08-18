@@ -11,16 +11,14 @@ import builderConfig from '@config/builder'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { resolveBuilderContent } from '@lib/resolve-builder-content'
-
-builder.init(builderConfig.apiKey)
-import '../blocks/ProductGrid/ProductGrid.builder'
-import '../blocks/CollectionView/CollectionView.builder'
 import { useThemeUI } from '@theme-ui/core'
 import { Link } from '@components/ui'
 import { Themed } from '@theme-ui/mdx'
 import { getLayoutProps } from '@lib/get-layout-props'
 import { useAddItemToCart } from '@lib/shopify/storefront-data-hooks'
 import { useUI } from '@components/ui/context'
+
+builder.init(builderConfig.apiKey)
 
 export async function getStaticProps({
   params,

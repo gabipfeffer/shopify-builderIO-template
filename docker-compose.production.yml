@@ -5,6 +5,6 @@ services:
     image: docker-nextjs
     build:
       context: .
-      dockerfile: Dockerfile.production
+      dockerfile: Dockerfile
     ports:
       - 3000:3000

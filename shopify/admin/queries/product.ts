@@ -1,11 +1,20 @@
-export const getAdminProduct = (id: number) => `
+export const getAdminProduct = ({
+  id,
+  namespace,
+  key,
+}: {
+  id: string
+  namespace: string
+  key: string
+}) => `
 query getProductById {
   product(id: "gid://shopify/Product/${id}") {
+    id
     title
     handle
-    productType
-    featuredImage {
-      url(transform: {maxHeight: 240, maxWidth: 240})
+    metafield(namespace: "${namespace}", key: "${key}") {
+      key
+      value
     }
   }
 }

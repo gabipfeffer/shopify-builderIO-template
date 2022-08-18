@@ -1,5 +1,13 @@
 import { gql } from '@apollo/client'
 
+export const getProductById = async () => {
+  // TODO: Pending implementation.
+  return Promise.resolve({
+    id: Math.random(),
+    thinkificCourse: { id: Math.random() },
+  })
+}
+
 export const getAllProducts = (limit?: number) => gql`
   query getProducts {
     products(first: ${limit || 50}) {
@@ -276,6 +284,12 @@ query getStorefrontProduct {
     description
     createdAt
     availableForSale
+    emailInput: metafield(namespace: "ProductInput", key: "email") {
+      id
+      key
+      namespace
+      value
+    }
   }
 }
 `

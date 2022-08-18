@@ -25,11 +25,32 @@
       "@assets/*": [
         "assets/*"
       ],
+      "@app/*": [
+        "app/*"
+      ],
+      "@cognito/*": [
+        "cognito/*"
+      ],
       "@config/*": [
         "config/*"
       ],
+      "@bold/*": [
+        "bold/*"
+      ],
+      "@constants/*": [
+        "constants/*"
+      ],
+      "@dynamodb/*": [
+        "dynamodb/*"
+      ],
       "@shopify/*": [
         "shopify/*"
+      ],
+      "@sendgrid/*": [
+        "sendgrid/*"
+      ],
+      "@thinkific/*": [
+        "thinkific/*"
       ],
       "@components/*": [
         "components/*"

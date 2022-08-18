@@ -26,20 +26,6 @@ export const getAccount = (customerAccessToken: string) => gql`
               }
             }
           }
-          metafields(first: 50) {
-            edges {
-              node {
-                key
-                description
-                value
-                type
-                createdAt
-                id
-                namespace
-                updatedAt
-              }
-            }
-          }
           orders(first: 30) {
             edges {
               node {

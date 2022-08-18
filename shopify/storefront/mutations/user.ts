@@ -63,6 +63,7 @@ export const userUpdate = gql`
         firstName
         lastName
         acceptsMarketing
+        phone
       }
       customerUserErrors {
         code

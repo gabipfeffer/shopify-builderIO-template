@@ -56,7 +56,7 @@ const InnerLayout: React.FC<{
           px: 20,
           maxWidth: 1920,
           minWidth: '60vw',
-          minHeight: 800,
+          minHeight: 600,
           mt: '92px',
         }}
       >
