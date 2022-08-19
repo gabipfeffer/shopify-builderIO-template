@@ -3,7 +3,7 @@ import { getCookie } from '@utils/cookies'
 import { shopifyLogInCookie } from '@constants/cookies'
 
 const useAccountUrl = () => {
-  const [accountUrl, setAccountUrl] = useState<string>('/account/login')
+  const [accountUrl, setAccountUrl] = useState<string>('/login')
 
   useEffect(() => {
     if (getCookie(shopifyLogInCookie)) {
