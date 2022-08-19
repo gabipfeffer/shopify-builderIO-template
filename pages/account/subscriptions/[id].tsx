@@ -19,68 +19,70 @@ import { ISubscription } from '@interfaces/subscription'
 
 builder.init(builderConfig.apiKey)
 
-export async function getStaticProps({
-  params,
-}: GetStaticPropsContext<{ id: string }>) {
-  const subscription = await getSubscription({ subscription_id: params?.id })
+// export async function getStaticProps({
+//   params,
+// }: GetStaticPropsContext<{ id: string }>) {
+//   const subscription = await getSubscription({ subscription_id: params?.id })
+//
+//   const subscriptionLineItems = await Promise.all(
+//     subscription?.line_items.map(async (line_item: any) => {
+//       const swappable_products = await getLineItemSwappableProducts({
+//         subscription_id: subscription?.id,
+//         line_item_id: line_item.id,
+//       })
+//
+//       return { line_item, swappable_products }
+//     })
+//   )
+//   return {
+//     notFound: !subscription,
+//     props: {
+//       subscriptionLineItems: subscriptionLineItems || null,
+//       subscription: subscription || null,
+//     },
+//     revalidate: 5,
+//   }
+// }
+// export async function getStaticPaths({}: GetStaticPathsContext) {
+//   const subscriptions = await getAllSubscriptions()
+//
+//   return {
+//     paths: subscriptions?.map(
+//       (subscription: ISubscription) =>
+//         `/account/subscriptions/${subscription?.id}`
+//     ),
+//     fallback: 'blocking',
+//   }
+// }
 
-  const subscriptionLineItems = await Promise.all(
-    subscription?.line_items.map(async (line_item: any) => {
-      const swappable_products = await getLineItemSwappableProducts({
-        subscription_id: subscription?.id,
-        line_item_id: line_item.id,
-      })
-
-      return { line_item, swappable_products }
-    })
-  )
-  return {
-    notFound: !subscription,
-    props: {
-      subscriptionLineItems: subscriptionLineItems || null,
-      subscription: subscription || null,
-    },
-    revalidate: 5,
-  }
-}
-export async function getStaticPaths({}: GetStaticPathsContext) {
-  const subscriptions = await getAllSubscriptions()
-
-  return {
-    paths: subscriptions?.map(
-      (subscription: ISubscription) =>
-        `/account/subscriptions/${subscription?.id}`
-    ),
-    fallback: 'blocking',
-  }
-}
-
-export default function Id({
-  subscription,
-  subscriptionLineItems,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Id() {
+// {
+// subscription,
+// subscriptionLineItems,
+// }: InferGetStaticPropsType<typeof getStaticProps>
   const router = useRouter()
   const isLive = !Builder.isEditing && !Builder.isPreviewing
 
-  if (!subscription && isLive) {
-    return (
-      <>
-        <Head>
-          <meta name="robots" content="noindex" />
-          <meta name="title"></meta>
-        </Head>
-        <DefaultErrorPage statusCode={404} />
-      </>
-    )
-  }
+  // if (!subscription && isLive) {
+  //   return (
+  //     <>
+  //       <Head>
+  //         <meta name="robots" content="noindex" />
+  //         <meta name="title"></meta>
+  //       </Head>
+  //       <DefaultErrorPage statusCode={404} />
+  //     </>
+  //   )
+  // }
 
   return router.isFallback && isLive ? (
     <h1>Loading...</h1>
   ) : (
-    <SubscriptionFormWrapper
-      subscription={subscription}
-      subscriptionLineItems={subscriptionLineItems}
-    />
+    <div></div>
+    // <SubscriptionFormWrapper
+    //   subscription={subscription}
+    //   subscriptionLineItems={subscriptionLineItems}
+    // />
   )
 }
 

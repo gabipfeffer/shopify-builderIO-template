@@ -21,7 +21,7 @@ const confirmUserEmail = async ({
 
       if (result) {
         try {
-          window.location.replace('/account/login')
+          window.location.replace('/login')
           resolve(result)
         } catch (e) {
           reject(e)

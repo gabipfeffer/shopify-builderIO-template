@@ -31,7 +31,7 @@ export async function getServerSideProps({
     return {
       redirect: {
         permanent: false,
-        destination: '/account/login',
+        destination: '/login',
       },
     }
   }

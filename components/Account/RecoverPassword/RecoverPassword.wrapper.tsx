@@ -18,7 +18,7 @@ const RecoverPasswordWrapper: FC<{
       const result = await forgotPassword({ email: values.email })
 
       if (result) {
-        window.location.replace('/account/confirm-password')
+        window.location.replace('/confirm-password')
       }
     } catch (e) {
       setErr(true)

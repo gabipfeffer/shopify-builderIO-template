@@ -22,7 +22,7 @@ const ConfirmUserPasswordWrapper: FC<{
       const result = await confirmNewPassword(values)
 
       if (result) {
-        window.location.replace('/account/login')
+        window.location.replace('/login')
       }
     } catch (e) {
       setErr(true)

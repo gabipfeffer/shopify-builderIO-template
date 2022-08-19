@@ -22,7 +22,7 @@ const RegisterWrapper: FC<{ title: string }> = ({ title }) => {
       const result = await registerUser(values)
 
       if (result) {
-        window.location.replace('/account/confirm-email')
+        window.location.replace('/confirm-email')
       }
     } catch (e) {
       setErr(true)

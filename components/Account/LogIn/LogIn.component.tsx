@@ -108,7 +108,7 @@ export const LogInForm: FC<{
                 alignSelf: 'flex-end',
               }}
             >
-              <Themed.a as={Link} href={'/account/recover-password'}>
+              <Themed.a as={Link} href={'/recover-password'}>
                 Recover Password
               </Themed.a>
             </Themed.p>
@@ -161,7 +161,7 @@ export const LogInForm: FC<{
           }}
         >
           Don't have an account with us? Click here to{' '}
-          <Themed.a as={Link} href={'/account/register'}>
+          <Themed.a as={Link} href={'/register'}>
             create an account
           </Themed.a>
           .
