@@ -8,7 +8,6 @@ import { removeCookie } from '@utils/cookies'
 import { cognitoLogInCookie } from '@constants/cookies'
 import OrdersAccountTab from '@components/Account/AccountCenter/OrdersAccountTab/OrdersAccountTab.component'
 import SubscriptionsAccountTab from '@components/Account/AccountCenter/SubscriptionsAccountTab/SubscriptionsAccountTab.component'
-import CoursesAccountTab from '@components/Account/AccountCenter/CoursesAccountTab/CoursesAccountTab.component'
 import GeneralAccountTabWrapper from '@components/Account/AccountCenter/GeneralAccountTab/GeneralAccountTab.wrapper'
 import AddressAccountTabWrapper from '@components/Account/AccountCenter/AddressAccountTab/AddressAccountTab.wrapper'
 
@@ -45,10 +44,12 @@ const AccountCenterWrapper: FC<{
 
   const tabs = [
     <GeneralAccountTabWrapper account={account} />,
-    <AddressAccountTabWrapper addresses={account.addresses} />,
+    <AddressAccountTabWrapper
+      addresses={account.addresses}
+      customerId={account?.id}
+    />,
     <OrdersAccountTab orders={account.orders} />,
     <SubscriptionsAccountTab subscriptions={account.subscriptions} />,
-    <CoursesAccountTab courses={account.courses} />,
   ]
   const ActiveTab = tabs[activeTab]
 

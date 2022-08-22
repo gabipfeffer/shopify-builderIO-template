@@ -14,7 +14,7 @@ const RegisterWrapper: FC<{ title: string }> = ({ title }) => {
     lastName: '',
     email: '',
     password: '',
-    role: roles.PURCHASER,
+    role: roles.CUSTOMER,
   })
 
   const handleSubmit = async () => {

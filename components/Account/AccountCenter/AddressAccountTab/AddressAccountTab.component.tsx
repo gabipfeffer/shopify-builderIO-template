@@ -17,6 +17,7 @@ export const AddressAccountTab: FC<{
   addressValues: IAccountAddress
   onChange: (e: ChangeEvent<HTMLInputElement>) => any
   onSubmit: (e: MouseEvent<HTMLButtonElement>) => any
+  setAsDefault: (e: MouseEvent<HTMLButtonElement>) => any
   setAddressActiveTab: Dispatch<SetStateAction<number>>
   setAddressValues: Dispatch<SetStateAction<IAccountAddress>>
   addAddress: () => any
@@ -26,6 +27,7 @@ export const AddressAccountTab: FC<{
   addressValues,
   onChange,
   onSubmit,
+  setAsDefault,
   setAddressActiveTab,
   addressTabs,
   addAddress,
@@ -118,7 +120,7 @@ export const AddressAccountTab: FC<{
                 options={prop?.options}
                 name={prop?.name}
                 label={prop?.label}
-                value={addressValues[prop?.name as keyof IAccountAddress]}
+                value={addressValues?.[prop?.name as keyof IAccountAddress]}
               />
             )
           }
@@ -135,6 +137,7 @@ export const AddressAccountTab: FC<{
         }}
       >
         <Button onClick={onSubmit}>Save</Button>
+        <Button onClick={setAsDefault}>Set as Default</Button>
         <Button onClick={addAddress}>Add Address</Button>
       </Themed.div>
     </Themed.div>

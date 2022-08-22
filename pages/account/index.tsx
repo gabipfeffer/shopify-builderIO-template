@@ -14,7 +14,7 @@ import { cognitoLogInCookie } from '@constants/cookies'
 import AccountCenterWrapper from '@components/Account/AccountCenter/AccountCenter.wrapper'
 import adminAPIClient from '@shopify/admin/client'
 import { getCustomerByEmail } from '@shopify/admin/queries/customer'
-import { validateLogin } from '@utils/accountCenter'
+import { formatCustomerAccount, validateLogin } from '@utils/accountCenter'
 
 builder.init(builderConfig.apiKey)
 
@@ -49,16 +49,9 @@ export async function getServerSideProps({
 
   // TODO: Fetch + return Customer Subscriptions from Bold
 
-  const filteredAccount = {
-    ...customer,
-    addresses: customer?.addresses || [],
-    orders: customer?.orders?.nodes || [],
-    subscriptions: [],
-  }
-
   return {
     props: {
-      account: filteredAccount || {},
+      account: formatCustomerAccount(customer),
       locale,
       ...(await getLayoutProps()),
     },

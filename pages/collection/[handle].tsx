@@ -70,7 +70,6 @@ export default function Handle({
     )
   }
 
-  console.log('collection', collection)
   return router.isFallback && isLive ? (
     <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
   ) : (

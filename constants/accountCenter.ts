@@ -3,7 +3,6 @@ export const AccountTabs = {
   ADDRESSES: 'Addresses',
   ORDERS: 'Orders',
   SUBSCRIPTIONS: 'Subscriptions',
-  COURSES: 'Courses',
 }
 
 export const AccountTabOrder = [
@@ -11,7 +10,6 @@ export const AccountTabOrder = [
   AccountTabs.ADDRESSES,
   AccountTabs.ORDERS,
   AccountTabs.SUBSCRIPTIONS,
-  AccountTabs.COURSES,
 ]
 
 export const GeneralProfileProps = {
@@ -36,13 +34,13 @@ export const GeneralProfileProps = {
       name: `phone`,
       prop_type: 'text',
     },
-    ACCEPTS_MARKETING: {
-      label: 'I agree to receive marketing material',
-      name: `acceptsMarketing`,
-      prop_type: 'checkbox',
-    },
   },
   address: {
+    ID: {
+      name: `id`,
+      label: 'id',
+      prop_type: '',
+    },
     FIRST_NAME: {
       label: 'First Name',
       name: `firstName`,
@@ -78,20 +76,28 @@ export const GeneralProfileProps = {
       name: `country`,
       prop_type: 'select',
       options: [
-        { label: 'New Zealand', value: 'New Zealand' },
-        { label: 'Australia', value: 'Australia' },
+        { label: 'Uruguay', value: 'Uruguay' },
         { label: 'United States', value: 'United States' },
       ],
     },
-    STATE: {
-      label: 'State',
-      name: `province`,
-      prop_type: 'text',
-    },
+    // STATE: {
+    //   label: 'State',
+    //   name: `provinceCode`,
+    //   prop_type: 'text',
+    // },
     ZIP: {
       label: 'Zip Code',
       name: `zip`,
       prop_type: 'text',
+    },
+    DEFAULT_ADDRESS: {
+      label: 'Set as default',
+      name: `isDefaultAddress`,
+      prop_type: 'select',
+      options: [
+        { label: 'True', value: true },
+        { label: 'False', value: false },
+      ],
     },
   },
 }

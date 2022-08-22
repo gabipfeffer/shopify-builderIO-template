@@ -5,21 +5,15 @@ import { jsx } from 'theme-ui'
 import { IAccountAddress } from '@interfaces/account'
 import { GeneralProfileProps } from '@constants/accountCenter'
 import { addressFormInitialValuesReducer } from '@utils/accountCenter'
-import { useMutation } from '@apollo/client'
-import {
-  createAddress,
-  updateAddress,
-} from '@shopify/storefront/mutations/addresses'
-import { shopifyLogInCookie } from '@constants/cookies'
-import { getCookie } from '@utils/cookies'
 import AddressAccountTab from '@components/Account/AccountCenter/AddressAccountTab/AddressAccountTab.component'
 import useMobile from '@lib/hooks/useMobile'
+import axios from 'axios'
 
 export const AddressAccountTabWrapper: FC<{
   addresses: Array<IAccountAddress>
-}> = ({ addresses }) => {
+  customerId?: string
+}> = ({ addresses, customerId }) => {
   const isMobile = useMobile()
-  const customerAccessToken = getCookie(shopifyLogInCookie)
   const [addressActiveTab, setAddressActiveTab] = useState<number>(0)
   const [addressTabs, setAddressTabs] = useState(
     addresses?.map((address) =>
@@ -31,47 +25,73 @@ export const AddressAccountTabWrapper: FC<{
     addressTabs[addressActiveTab]
   )
 
-  const [addressCreate, { data: addressCreateData }] = useMutation(
-    createAddress
-  )
-  const [addressUpdate, { data: addressUpdateData }] = useMutation(
-    updateAddress
-  )
+  const updateAddress = async ({
+    input,
+  }: {
+    input: { addresses: IAccountAddress[]; id?: string }
+  }) => {
+    try {
+      const { data } = await axios.post(`/api/shopify/customer-update`, {
+        input: {
+          ...input,
+          id: customerId,
+        },
+      })
 
-  const addressFormMutation = {
-    mutation: addressTabs?.[addressActiveTab]?.id
-      ? addressUpdate
-      : addressCreate,
-    mutationData: addressTabs?.[addressActiveTab]?.id
-      ? addressUpdateData
-      : addressCreateData,
+      return data
+    } catch (e) {
+      //  TODO: implement error logging service
+    }
   }
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    const { name, value, checked, type } = e.target
+    const { name, value } = e.target
 
-    if (type === 'checkbox') {
-      setAddressValues({
-        ...addressValues,
-        [name]: checked,
-      })
-    } else {
-      setAddressValues({
-        ...addressValues,
-        [name]: value || null,
-      })
+    setAddressValues({
+      ...addressValues,
+      [name]: value || null,
+    })
+  }
+
+  const setAsDefault = async () => {
+    try {
+      const { data } = await axios.post(
+        `/api/shopify/update-customer-default-address`,
+        {
+          customerId,
+          addressId: addressValues?.id,
+        }
+      )
+
+      return data
+    } catch (e) {
+      //  TODO: implement error logging service
     }
   }
 
   const handleOnSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    const { mutation: addressMutation } = addressFormMutation
-    addressMutation({
-      variables: {
-        address: addressValues,
-        customerAccessToken,
-        id: addressTabs?.[addressActiveTab]?.id || null,
+    const modifiedAddresses = addresses
+
+    if (addressValues?.id) {
+      modifiedAddresses.splice(addressActiveTab, 1, {
+        ...addressValues,
+        id: addressValues?.id,
+        isDefaultAddress: undefined,
+      })
+    } else {
+      modifiedAddresses.push({
+        ...addressValues,
+        id: undefined,
+        isDefaultAddress: undefined,
+      })
+    }
+
+    updateAddress({
+      input: {
+        addresses: addresses,
+        id: customerId || undefined,
       },
     })
   }
@@ -95,6 +115,7 @@ export const AddressAccountTabWrapper: FC<{
     <AddressAccountTab
       onChange={handleInputChange}
       onSubmit={handleOnSubmit}
+      setAsDefault={setAsDefault}
       addAddress={handleAddAddress}
       addressValues={addressValues}
       setAddressValues={setAddressValues}

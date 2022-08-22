@@ -23,15 +23,12 @@ export interface IUserRegistration extends IUserLogin {
 }
 
 export interface IAccount extends IAccountGeneral {
-  courses: Array<IAccountCourse>
   subscriptions: Array<ISubscription>
   orders: Array<IAccountOrder>
   addresses?: Array<IAccountAddress>
   displayName: string
   id: string
 }
-
-export interface IAccountCourse {}
 
 export interface IAccountOrder {
   shippingAddress: {
@@ -97,10 +94,12 @@ export interface IAccountGeneral {
   email: string
   phone: string
   acceptsMarketing: boolean
+  id?: string
 }
 
 export interface IAccountAddress {
-  id: string
+  id?: string
+  isDefaultAddress?: boolean
   address1: string
   address2: string
   city: string
