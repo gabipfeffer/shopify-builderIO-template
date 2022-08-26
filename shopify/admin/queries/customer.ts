@@ -108,6 +108,18 @@ query getCustomerByEmail {
           }
         }
       }
+      defaultAddress {
+        id
+        address1
+        address2
+        city
+        company
+        country
+        province
+        zip
+        firstName
+        lastName
+      }
     }
   }
 }

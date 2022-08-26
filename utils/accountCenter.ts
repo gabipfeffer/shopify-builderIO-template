@@ -24,3 +24,25 @@ export const validateLogin = async (token: string) => {
     return null
   }
 }
+
+export const formatCustomerAccount = (customer: any) => {
+  if (!customer) return {}
+
+  let addresses = customer?.addresses
+  if (customer?.defaultAddress) {
+    const defaultAddressIndex = customer?.addresses.findIndex(
+      (address: IAccountAddress) => address.id === customer?.defaultAddress.id
+    )
+    addresses.splice(defaultAddressIndex, 1, {
+      ...customer?.defaultAddress,
+      isDefaultAddress: true,
+    })
+  }
+
+  return {
+    ...customer,
+    addresses: addresses || [],
+    orders: customer?.orders?.nodes || [],
+    subscriptions: [],
+  }
+}
