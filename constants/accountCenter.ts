@@ -80,24 +80,10 @@ export const GeneralProfileProps = {
         { label: 'United States', value: 'United States' },
       ],
     },
-    // STATE: {
-    //   label: 'State',
-    //   name: `provinceCode`,
-    //   prop_type: 'text',
-    // },
     ZIP: {
       label: 'Zip Code',
       name: `zip`,
       prop_type: 'text',
-    },
-    DEFAULT_ADDRESS: {
-      label: 'Set as default',
-      name: `isDefaultAddress`,
-      prop_type: 'select',
-      options: [
-        { label: 'True', value: true },
-        { label: 'False', value: false },
-      ],
     },
   },
 }

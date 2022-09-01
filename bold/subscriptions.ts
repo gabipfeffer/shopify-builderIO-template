@@ -45,16 +45,12 @@ export const getAllBoldClientSubscriptions = async ({
   }
 }
 
-export const getSubscription = async ({
-  subscription_id,
-}: {
-  subscription_id: string | string[] | undefined
-}) => {
+export const getSubscription = async (subscriptionId: number) => {
   try {
     const {
       data: { subscription },
     } = await BoldAPIClient.get(
-      `/subscriptions/v1/shops/${boldConfig.shopIdentifier}/subscriptions/${subscription_id}`
+      `/subscriptions/v1/shops/${boldConfig.shopIdentifier}/subscriptions/${subscriptionId}`
     )
 
     return subscription

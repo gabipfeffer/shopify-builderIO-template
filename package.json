@@ -74,6 +74,7 @@
     "@types/react-sticky": "^6.0.3",
     "@types/shopify-buy": "^2.10.3",
     "@types/traverse": "^0.6.32",
+    "@types/uuid": "^8.3.4",
     "@vercel/fetch": "^6.1.0",
     "amazon-cognito-identity-js": "^5.2.10",
     "atob": "^2.1.2",
@@ -113,7 +114,8 @@
     "tailwindcss": "^1.9",
     "theme-ui": "^0.6.2",
     "traverse": "^0.6.6",
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^10.0.1",

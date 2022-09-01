@@ -3,30 +3,47 @@ import {
   IVerifyWebhookSignatureParams,
   IGetOrderByIdParams,
   IShopifyOrder,
+  IShopifyCustomer,
+  IFormattedShopifyCustomer,
 } from '@interfaces/shopify'
 
 export const createShopifyClientFailure = (): ShopifyClientDouble => {
-  const getAndFilterShopifyProductsByIds = async (params: { ids: Array<string> }): Promise<any> => {
-    double.getAndFilterShopifyProductsByIdsParamsUsed = params
-    double.getAndFilterShopifyProductsByIdsResult = []
-    return double.getAndFilterShopifyProductsByIdsResult
-  }
-
-  const verifyWebhookSignature = (params: IVerifyWebhookSignatureParams): boolean => {
+  const verifyWebhookSignature = (
+    params: IVerifyWebhookSignatureParams
+  ): boolean => {
     double.verifyWebhookSignatureParamsUsed = params
     return false
   }
 
-  const getOrderById = (params: IGetOrderByIdParams): Promise<IShopifyOrder | null> => {
+  const getOrderById = (
+    params: IGetOrderByIdParams
+  ): Promise<IShopifyOrder | null> => {
     double.getOrderByIdParamsUsed = params
     double.getOrderByIdResult = null
     return double.getOrderByIdResult
   }
 
+  const getCustomerByEmail = (
+    email: string
+  ): Promise<IShopifyCustomer | null> => {
+    double.getCustomerByEmailParamsUsed = email
+    double.getCustomerByEmailResult = null
+    return double.getCustomerByEmailResult
+  }
+
+  const formatShopifyCustomer = (
+    customer: IShopifyCustomer
+  ): Promise<IFormattedShopifyCustomer> => {
+    double.formatShopifyCustomerParamsUsed = customer
+    double.formatShopifyCustomerResult = null
+    return double.formatShopifyCustomerResult
+  }
+
   const double: ShopifyClientDouble = {
-    getAndFilterShopifyProductsByIds,
     verifyWebhookSignature,
     getOrderById,
+    getCustomerByEmail,
+    formatShopifyCustomer,
   }
 
   return double

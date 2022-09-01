@@ -23,11 +23,13 @@ export const AddressAccountTab: FC<{
   addAddress: () => any
   addressTabs: Array<IAccountAddress>
   addressActiveTab: number
+  defaultAddressId?: string
 }> = ({
   addressValues,
   onChange,
   onSubmit,
   setAsDefault,
+  defaultAddressId,
   setAddressActiveTab,
   addressTabs,
   addAddress,
@@ -41,7 +43,6 @@ export const AddressAccountTab: FC<{
         margin: '0 auto',
       }}
     >
-      <Themed.h3>Address</Themed.h3>
       <Themed.div
         sx={{
           width: '100%',
@@ -86,7 +87,8 @@ export const AddressAccountTab: FC<{
                 textAlign: 'center',
               }}
             >
-              Address {index + 1}
+              Address {index + 1}{' '}
+              {defaultAddressId === addressTabs[index].id ? '- Default' : ''}
             </Themed.a>
           </Themed.div>
         ))}
@@ -137,7 +139,9 @@ export const AddressAccountTab: FC<{
         }}
       >
         <Button onClick={onSubmit}>Save</Button>
-        <Button onClick={setAsDefault}>Set as Default</Button>
+        {defaultAddressId !== addressValues?.id ? (
+          <Button onClick={setAsDefault}>Set as Default</Button>
+        ) : null}
         <Button onClick={addAddress}>Add Address</Button>
       </Themed.div>
     </Themed.div>

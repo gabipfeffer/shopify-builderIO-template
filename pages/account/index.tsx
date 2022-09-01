@@ -12,9 +12,7 @@ import { useThemeUI } from '@theme-ui/core'
 import { getLayoutProps } from '@lib/get-layout-props'
 import { cognitoLogInCookie } from '@constants/cookies'
 import AccountCenterWrapper from '@components/Account/AccountCenter/AccountCenter.wrapper'
-import adminAPIClient from '@shopify/admin/client'
-import { getCustomerByEmail } from '@shopify/admin/queries/customer'
-import { formatCustomerAccount, validateLogin } from '@utils/accountCenter'
+import { initializeApplication } from '@app/app'
 
 builder.init(builderConfig.apiKey)
 
@@ -25,9 +23,7 @@ export async function getServerSideProps({
   locale,
 }: GetServerSidePropsContext) {
   const accessToken = req.cookies[cognitoLogInCookie]
-  const validatedToken = await validateLogin(accessToken)
-
-  if (validatedToken === null) {
+  if (!accessToken) {
     return {
       redirect: {
         permanent: false,
@@ -36,26 +32,24 @@ export async function getServerSideProps({
     }
   }
 
-  const {
-    data: {
-      customers: {
-        nodes: [customer],
-      },
-    },
-  } = await adminAPIClient({
-    // @ts-ignore
-    query: getCustomerByEmail(validatedToken?.email),
-  })
+  const customer = await initializeApplication().validateAndLoadCustomer(
+    accessToken
+  )
 
-  // TODO: Fetch + return Customer Subscriptions from Bold
-
-  return {
-    props: {
-      account: formatCustomerAccount(customer),
-      locale,
-      ...(await getLayoutProps()),
-    },
-  }
+  return !customer
+    ? {
+        redirect: {
+          permanent: false,
+          destination: '/login',
+        },
+      }
+    : {
+        props: {
+          account: customer,
+          locale,
+          ...(await getLayoutProps()),
+        },
+      }
 }
 
 export default function Handle({

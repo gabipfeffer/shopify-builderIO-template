@@ -47,6 +47,7 @@ const AccountCenterWrapper: FC<{
     <AddressAccountTabWrapper
       addresses={account.addresses}
       customerId={account?.id}
+      defaultAddressId={account?.defaultAddressId}
     />,
     <OrdersAccountTab orders={account.orders} />,
     <SubscriptionsAccountTab subscriptions={account.subscriptions} />,
