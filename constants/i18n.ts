@@ -28,6 +28,7 @@ const i18nKeys = {
     new: 'common:new',
     password: 'common:password',
     recover: 'common:recover',
+    location: 'common:location',
   },
   account: {
     general: 'account:account_tab_profile',

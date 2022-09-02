@@ -3,10 +3,13 @@
 import React, { FC } from 'react'
 import { Themed, jsx } from 'theme-ui'
 import { IBasicNavigation } from '@interfaces/navigation'
+import { ILocales } from '@interfaces/locale'
+import { useRouter } from 'next/router'
 
 const LegalNavigationLink: FC<{ navigationLink?: IBasicNavigation }> = ({
   navigationLink,
 }) => {
+  const router = useRouter()
   if (!navigationLink) return null
 
   return (
@@ -20,7 +23,7 @@ const LegalNavigationLink: FC<{ navigationLink?: IBasicNavigation }> = ({
       }}
     >
       <Themed.a
-        key={navigationLink?.title}
+        key={navigationLink?.title[router.locale as ILocales]}
         sx={{
           color: 'background',
         }}

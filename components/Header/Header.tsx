@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { Themed, jsx } from 'theme-ui'
 import Searchbar from '@components/common/Searchbar'
 import { UserNav } from '@components/common'
@@ -21,15 +21,24 @@ const Header: FC<IHeader> = ({
   backgroundColor,
   noOffset,
   hideEcommerce,
+  setHeaderHeight,
 }) => {
   const offset = useWindowScroll()
   const [mobileNavigationActive, setMobileNavigationActive] = useState(false)
+  const ref = useRef()
+
+  useEffect(() => {
+    // @ts-ignore
+    const { height, top } = ref?.current?.getBoundingClientRect()
+    setHeaderHeight?.(height + top)
+  }, [ref.current])
 
   return (
     <React.Fragment>
       <AnnouncementBar theme={theme} />
       <Themed.div
         as="header"
+        ref={ref}
         sx={{
           backgroundColor: backgroundColor,
           display: 'grid',
@@ -37,7 +46,7 @@ const Header: FC<IHeader> = ({
           alignItems: 'center',
           margin: '0 auto',
           position: 'fixed',
-          p: ['10px', '0px 50px'],
+          p: ['10px', `${!navigation?.length ? 10 : 0}px 50px`],
           top: noOffset ? 0 : offset >= 5 ? '0' : '33px',
           left: 0,
           right: 0,

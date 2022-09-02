@@ -11,6 +11,7 @@ import { ILocales } from '@interfaces/locale'
 import { useRouter } from 'next/router'
 import LocalDropdownWrapper from '@components/LocaleDropdown/LocalDropdown.wrapper'
 import i18nKeys from '@constants/i18n'
+import { useTranslation } from 'next-i18next'
 
 const MobileNavigation: FC<{
   setMobileNavigationActive: Dispatch<SetStateAction<boolean>>
@@ -25,6 +26,7 @@ const MobileNavigation: FC<{
   setMobileNavigationActive,
   backgroundColor,
 }) => {
+  const { t } = useTranslation()
   const offset = useWindowScroll()
   const router = useRouter()
   return (
@@ -77,9 +79,14 @@ const MobileNavigation: FC<{
         sx={{
           mt: '20px',
           display: 'flex',
+          alignItems: 'center',
           justifyContent: 'flex-end',
+          borderTop: '1px solid',
+          borderBottom: '1px solid',
+          borderColor: 'text',
         }}
       >
+        <Themed.p sx={{ mb: 0 }}>{t(i18nKeys.common.location)}:</Themed.p>
         <LocalDropdownWrapper
           customLabels={i18nKeys.locale.customLabels}
           countries={[

@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React from 'react'
+import React, { useState } from 'react'
 import { ThemeProvider, Themed, jsx } from 'theme-ui'
 import dynamic from 'next/dynamic'
 import { useUI } from '@components/ui/context'
@@ -51,11 +51,13 @@ const InnerLayout: React.FC<{
     noHeaderOffset,
     hideEcommerce,
   } = useUI()
+  const [headerHeight, setHeaderHeight] = useState<number>(0)
   const router = useRouter()
 
   return (
     <ThemeProvider theme={mainTheme}>
       <Header
+        setHeaderHeight={setHeaderHeight}
         hideEcommerce={hideEcommerce?.[router.locale as ILocales]}
         navigation={headerNavigation}
         logo={logo}
@@ -70,7 +72,7 @@ const InnerLayout: React.FC<{
           maxWidth: 1920,
           minWidth: '60vw',
           minHeight: 600,
-          mt: noHeaderOffset ? '73px' : '92px',
+          mt: headerHeight,
         }}
       >
         <main>{children}</main>

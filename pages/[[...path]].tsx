@@ -18,6 +18,7 @@ import { getLayoutProps } from '@lib/get-layout-props'
 import { useAddItemToCart } from '@lib/shopify/storefront-data-hooks'
 import { useUI } from '@components/ui/context'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ILocales } from '@interfaces/locale'
 
 builder.init(builderConfig.apiKey)
 
@@ -80,16 +81,19 @@ export default function Path({
   }
 
   const { title, description, image } = page?.data! || {}
+  const localizedTitle = title[router.locale as ILocales]
+  const localizedDescription = description[router.locale as ILocales]
+
   return (
     <div>
       {title && (
         <NextSeo
-          title={title}
-          description={description}
+          title={localizedTitle}
+          description={localizedDescription}
           openGraph={{
             type: 'website',
-            title,
-            description,
+            title: localizedTitle,
+            description: localizedDescription,
             locale,
             ...(image && {
               images: [
