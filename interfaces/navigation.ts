@@ -1,11 +1,17 @@
 export interface INavigation extends IBasicNavigation {
   sections: Array<{
-    title: string
+    title: {
+      en: string
+      es: string
+    }
     link: string
   }>
 }
 
 export interface IBasicNavigation {
-  title: string
+  title: {
+    en: string
+    es: string
+  }
   link: string
 }

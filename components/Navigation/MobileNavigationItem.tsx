@@ -5,11 +5,14 @@ import { Themed, jsx } from 'theme-ui'
 import { fadeIn } from '@assets/keyframes'
 import { INavigation } from '@interfaces/navigation'
 import Link from 'next/link'
+import { ILocales } from '@interfaces/locale'
+import { useRouter } from 'next/router'
 
 const MobileNavigationItem: FC<{ navigationSection: INavigation }> = ({
   navigationSection,
 }) => {
   const [active, setActive] = useState(false)
+  const router = useRouter()
 
   return (
     <>
@@ -26,7 +29,7 @@ const MobileNavigationItem: FC<{ navigationSection: INavigation }> = ({
           justifyContent: 'space-between',
         }}
       >
-        {navigationSection?.title}
+        {navigationSection?.title[router.locale as ILocales]}
         <Themed.div
           sx={{
             display: 'block',
@@ -64,7 +67,9 @@ const MobileNavigationItem: FC<{ navigationSection: INavigation }> = ({
       >
         {navigationSection.sections?.map((section) => (
           <Themed.li
-            key={`mobile-nav-subsection-${section?.title}`}
+            key={`mobile-nav-subsection-${
+              section?.title[router.locale as ILocales]
+            }`}
             sx={{
               display: 'block',
               mb: '5px',
@@ -79,7 +84,7 @@ const MobileNavigationItem: FC<{ navigationSection: INavigation }> = ({
                 transition: '.3s',
               }}
             >
-              {section.title}
+              {section.title[router.locale as ILocales]}
             </Themed.a>
           </Themed.li>
         ))}

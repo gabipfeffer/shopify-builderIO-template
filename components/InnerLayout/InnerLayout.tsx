@@ -15,6 +15,8 @@ import 'react-spring-modal/styles.css'
 import NoSSR from '../common/NoSSR'
 import Header from '@components/Header/Header'
 import Footer from '@components/Footer/Footer'
+import { useRouter } from 'next/router'
+import { ILocales } from '@interfaces/locale'
 
 const FeatureBar = dynamic(() => import('@components/common/FeatureBar'), {
   ssr: false,
@@ -45,11 +47,22 @@ const InnerLayout: React.FC<{
     displaySidebar,
     closeSidebar,
     legalNavigation,
+    headerBackgroundColor,
+    noHeaderOffset,
+    hideEcommerce,
   } = useUI()
+  const router = useRouter()
 
   return (
     <ThemeProvider theme={mainTheme}>
-      <Header navigation={headerNavigation} logo={logo} theme={mainTheme} />
+      <Header
+        hideEcommerce={hideEcommerce?.[router.locale as ILocales]}
+        navigation={headerNavigation}
+        logo={logo}
+        theme={mainTheme}
+        backgroundColor={headerBackgroundColor}
+        noOffset={noHeaderOffset}
+      />
       <Themed.div
         sx={{
           margin: `0 auto`,
@@ -57,7 +70,7 @@ const InnerLayout: React.FC<{
           maxWidth: 1920,
           minWidth: '60vw',
           minHeight: 600,
-          mt: '92px',
+          mt: noHeaderOffset ? '73px' : '92px',
         }}
       >
         <main>{children}</main>
