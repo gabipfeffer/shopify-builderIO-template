@@ -4,6 +4,8 @@ import React, { FC } from 'react'
 import { Themed, jsx, Button } from 'theme-ui'
 import { IAccount } from '@interfaces/account'
 import AccountCenterTabs from '@components/Account/AccountCenter/AccountCenterTabs.component'
+import { useTranslation } from 'next-i18next'
+import i18nKeys from '@constants/i18n'
 
 export const AccountCenter: FC<{
   activeTab: number
@@ -11,6 +13,7 @@ export const AccountCenter: FC<{
   onTabChange: (index: number) => any
   onSignOut: () => any
 }> = ({ activeTab, onTabChange, Tab, onSignOut }) => {
+  const { t } = useTranslation()
   return (
     <Themed.div
       sx={{
@@ -21,7 +24,7 @@ export const AccountCenter: FC<{
       <AccountCenterTabs activeTab={activeTab} onTabChange={onTabChange} />
       <Themed.div>{Tab}</Themed.div>
       <Button onClick={onSignOut}>
-        <Themed.a href={'/'}>Sign Out</Themed.a>
+        <Themed.a href={'/'}>{t(i18nKeys.common.sign_out)}</Themed.a>
       </Button>
     </Themed.div>
   )

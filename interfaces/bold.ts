@@ -1,24 +1,3 @@
-import {
-  IThinkificUser,
-  IThinkificCourse,
-  IThinkificEnrollment,
-} from '@interfaces/thinkific'
-
-export type IBoldSubscriptionTypes = ISubscriptionCreatedPayload | any
-
-export interface IBoldParsedPayload {
-  boldSubscriptionId: string
-  boldSubscriptionFirstName: string
-  boldSubscriptionLastName: string
-  boldSubscriptionEmail: string
-  boldSubscriptionNextActiveShipDate: string
-  boldSubscriptionShopifyProductIds: Array<string>
-  thinkificUser?: IThinkificUser
-  thinkificCourse?: IThinkificCourse
-  thinkificCourseId?: string
-  thinkificEnrollment?: IThinkificEnrollment
-}
-
 export interface IVerifyWebhookSignatureParams {
   body: string
   signature: string
@@ -26,110 +5,110 @@ export interface IVerifyWebhookSignatureParams {
 
 export interface ISubscriptionCreatedPayload {
   id: number
-  external_id: string
-  customer: null | IBoldCustomer
-  shop_id: number
-  next_order_datetime: string
-  next_payment_datetime: string
-  next_processing_datetime: string
-  subscription_status: string
-  status_changed_at: string
-  sca_url: string
-  payment_method_token: string
-  payment_gateway_public_id: string
-  payment_rrule: string
-  payment_rrule_text: string
-  order_rrule: string
-  order_rrule_text: string
-  last_payment_datetime: string
-  last_order_datetime: string
-  last_processed_datetime: string
-  current_retries: number
-  charged_currency: string
-  base_to_charged_exchange_rate: number
-  base_currency: string
-  line_items: Array<IBoldLineItem>
-  shipping_lines: Array<{
-    id: number
-    name: string
-    code: string
-    price: number
-    value: number
-    value_charged: number
-    tag: string
-    created_at: string
-    updated_at: string
-    subscription_id: number
+  external_id?: string
+  customer?: null | IBoldCustomer
+  shop_id?: number
+  next_order_datetime?: string
+  next_payment_datetime?: string
+  next_processing_datetime?: string
+  subscription_status?: string
+  status_changed_at?: string
+  sca_url?: string
+  payment_method_token?: string
+  payment_gateway_public_id?: string
+  payment_rrule?: string
+  payment_rrule_text?: string
+  order_rrule?: string
+  order_rrule_text?: string
+  last_payment_datetime?: string
+  last_order_datetime?: string
+  last_processed_datetime?: string
+  current_retries?: number
+  charged_currency?: string
+  base_to_charged_exchange_rate?: number
+  base_currency?: string
+  line_items?: Array<IBoldLineItem>
+  shipping_lines?: Array<{
+    id?: number
+    name?: string
+    code?: string
+    price?: number
+    value?: number
+    value_charged?: number
+    tag?: string
+    created_at?: string
+    updated_at?: string
+    subscription_id?: number
   }>
-  billing_address: {
-    id: number
-    shop_identifier: string
-    platform_id: number
-    customer_id: number
-    platform_type: string
-    platform_customer_id: number
-    first_name: string
-    last_name: string
-    company: string
-    phone: string
-    street1: string
-    street2: string
-    city: string
-    province: string
-    province_code: string
-    country: string
-    country_code: string
-    zip: string
-    is_default: boolean
-    created_at: string
-    updated_at: string
+  billing_address?: {
+    id?: number
+    shop_identifier?: string
+    platform_id?: number
+    customer_id?: number
+    platform_type?: string
+    platform_customer_id?: number
+    first_name?: string
+    last_name?: string
+    company?: string
+    phone?: string
+    street1?: string
+    street2?: string
+    city?: string
+    province?: string
+    province_code?: string
+    country?: string
+    country_code?: string
+    zip?: string
+    is_default?: boolean
+    created_at?: string
+    updated_at?: string
   }
-  shipping_address: {
-    id: number
-    shop_identifier: string
-    platform_id: number
-    customer_id: number
-    platform_type: string
-    platform_customer_id: number
-    first_name: string
-    last_name: string
-    company: string
-    phone: string
-    street1: string
-    street2: string
-    city: string
-    province: string
-    province_code: string
-    country: string
-    country_code: string
-    zip: string
-    is_default: boolean
-    created_at: string
-    updated_at: string
+  shipping_address?: {
+    id?: number
+    shop_identifier?: string
+    platform_id?: number
+    customer_id?: number
+    platform_type?: string
+    platform_customer_id?: number
+    first_name?: string
+    last_name?: string
+    company?: string
+    phone?: string
+    street1?: string
+    street2?: string
+    city?: string
+    province?: string
+    province_code?: string
+    country?: string
+    country_code?: string
+    zip?: string
+    is_default?: boolean
+    created_at?: string
+    updated_at?: string
   }
-  idempotency_key: string
-  created_at: string
-  updated_at: string
-  percent_discount: number
-  discount_code: string
-  customer_id: number
-  billing_address_id: number
-  shipping_address_id: number
-  note: string
-  orders_processed: number
-  latest_status_log: {
-    id: number
-    subscription_status: string
-    reason: string
-    metadata: {
-      user: {
-        type: string
-        id: number
-        name: string
+  idempotency_key?: string
+  created_at?: string
+  updated_at?: string
+  percent_discount?: number
+  discount_code?: string
+  customer_id?: number
+  billing_address_id?: number
+  shipping_address_id?: number
+  note?: string
+  orders_processed?: number
+  latest_status_log?: {
+    id?: number
+    subscription_status?: string
+    reason?: string
+    metadata?: {
+      user?: {
+        type?: string
+        id?: number
+        name?: string
       }
     }
-    created_at: string
-    subscription_id: number
+    created_at?: string
+    subscription_id?: number
   }
 }
 

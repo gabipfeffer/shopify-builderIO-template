@@ -10,6 +10,8 @@ import React, {
 import { Button, Input, Label, Themed, jsx } from 'theme-ui'
 import Link from 'next/link'
 import { IUserRegistration } from '@interfaces/account'
+import { useTranslation } from 'next-i18next'
+import i18nKeys from '@constants/i18n'
 
 export const RegisterForm: FC<{
   onSubmit: () => any
@@ -18,6 +20,7 @@ export const RegisterForm: FC<{
   values: IUserRegistration
   setValues: Dispatch<SetStateAction<IUserRegistration>>
 }> = ({ onSubmit, err, title, values, setValues }) => {
+  const { t } = useTranslation()
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const { name, value } = e.target
@@ -65,7 +68,7 @@ export const RegisterForm: FC<{
               color: 'secondary',
             }}
           >
-            This email address is already associated with an account.
+            {t(i18nKeys.account.create_account_error)}
           </Themed.h6>
         </Themed.div>
       ) : null}
@@ -90,7 +93,7 @@ export const RegisterForm: FC<{
             },
           }}
         >
-          <Label htmlFor="firstName">First Name</Label>
+          <Label htmlFor="firstName">{t(i18nKeys.account.first_name)}</Label>
           <Input
             required
             name="firstName"
@@ -110,7 +113,7 @@ export const RegisterForm: FC<{
             },
           }}
         >
-          <Label htmlFor="lastName">Last Name</Label>
+          <Label htmlFor="lastName">{t(i18nKeys.account.last_name)}</Label>
           <Input
             required
             name="lastName"
@@ -141,7 +144,7 @@ export const RegisterForm: FC<{
             },
           }}
         >
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t(i18nKeys.common.email)}</Label>
           <Input
             required
             name="email"
@@ -161,7 +164,7 @@ export const RegisterForm: FC<{
             },
           }}
         >
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t(i18nKeys.common.password)}</Label>
           <Input
             required
             type="password"
@@ -204,7 +207,7 @@ export const RegisterForm: FC<{
             },
           }}
         >
-          Submit
+          {t(i18nKeys.common.submit)}
         </Button>
         <Button
           sx={{
@@ -227,7 +230,7 @@ export const RegisterForm: FC<{
           }}
         >
           <Themed.a as={Link} href={'/'}>
-            Cancel
+            {t(i18nKeys.common.cancel)}
           </Themed.a>
         </Button>
       </Themed.div>

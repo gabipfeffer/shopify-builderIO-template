@@ -6,12 +6,15 @@ import { IAccountGeneral } from '@interfaces/account'
 import { GeneralProfileProps } from '@constants/accountCenter'
 import FormComponents from '@components/Form/FormComponents'
 import { IFormComponents } from '@interfaces/form'
+import { useTranslation } from 'next-i18next'
+import i18nKeys from '@constants/i18n'
 
 export const GeneralAccountTab: FC<{
   generalValues: IAccountGeneral
   onChange: (e: ChangeEvent<HTMLInputElement>) => any
   onSubmit: (e: MouseEvent<HTMLButtonElement>) => any
 }> = ({ generalValues, onChange, onSubmit }) => {
+  const { t } = useTranslation()
   return (
     <Themed.div
       sx={{
@@ -20,7 +23,7 @@ export const GeneralAccountTab: FC<{
       }}
     >
       <Themed.div>
-        <Themed.h3>General</Themed.h3>
+        <Themed.h3>{t(i18nKeys.common.general)}</Themed.h3>
         <Themed.div
           as="form"
           sx={{
@@ -62,7 +65,7 @@ export const GeneralAccountTab: FC<{
           margin: '0 auto',
         }}
       >
-        <Button onClick={onSubmit}>Save</Button>
+        <Button onClick={onSubmit}>{t(i18nKeys.common.save)}</Button>
       </Themed.div>
     </Themed.div>
   )

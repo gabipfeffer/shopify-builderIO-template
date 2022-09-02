@@ -8,30 +8,99 @@ export interface IAdminShopifyProducts {
   }
 }
 
-export interface IShopifySchoolProduct {
-  variantId: string
-  adminEmail: string
-  studentCount: number
-  adminId?: string
-  licenseId?: string
-  adminSessionToken?: string
-}
-
-export interface IShopifyIndividualProduct {
-  variantId: string
-  recipientEmail: string
-  recipientFirstName: string
-  recipientLastName: string
-  thinkificUserId?: string
-  thinkificEnrollmentId?: string
-  thinkificCourseId?: string
-}
-
 export interface IShopifyOrder {
-  id: string
-  customer?: IShopifyCustomer
-  schoolProducts: Array<IShopifySchoolProduct>
-  individualProducts: Array<IShopifyIndividualProduct>
+  shippingAddress: {
+    address1: string
+    address2: string
+    city: string
+    countryCode: string
+    zip: string
+    provinceCode: string
+    province: string
+    name: string
+    country: string
+  }
+  name: string
+  currencyCode: string
+  currentTotalPriceSet: {
+    presentmentMoney: {
+      amount: string
+      currencyCode: string
+    }
+  }
+  lineItems: {
+    nodes: [
+      {
+        title: string
+        quantity: 1
+        discountedUnitPriceSet: {
+          presentmentMoney: {
+            amount: string
+            currencyCode: string
+          }
+        }
+        variant: {
+          price: string
+          title: string
+          image: null
+        }
+      },
+      {
+        title: string
+        quantity: 1
+        discountedUnitPriceSet: {
+          presentmentMoney: {
+            amount: string
+            currencyCode: string
+          }
+        }
+        variant: {
+          price: string
+          title: string
+          image: null
+        }
+      },
+      {
+        title: string
+        quantity: 1
+        discountedUnitPriceSet: {
+          presentmentMoney: {
+            amount: string
+            currencyCode: string
+          }
+        }
+        variant: {
+          price: string
+          title: string
+          image: null
+        }
+      }
+    ]
+  }
+  subtotalPriceSet: {
+    presentmentMoney: {
+      amount: string
+      currencyCode: string
+    }
+  }
+  totalPriceSet: {
+    presentmentMoney: {
+      amount: string
+      currencyCode: string
+    }
+  }
+  totalShippingPriceSet: {
+    presentmentMoney: {
+      amount: string
+      currencyCode: string
+    }
+  }
+  totalTaxSet: {
+    presentmentMoney: {
+      amount: string
+      currencyCode: string
+    }
+  }
 }
 
 export interface IVerifyWebhookSignatureParams {
@@ -44,8 +113,50 @@ export interface IGetOrderByIdParams {
 }
 
 export interface IShopifyCustomer {
-  id: string
-  email: string
-  firstName: string
+  dynamo?: {
+    id: string
+    email: string
+    role: string
+  }
   lastName: string
+  firstName: string
+  displayName?: string
+  email: string
+  id: string
+  acceptsMarketing?: boolean
+  phone?: string
+  addresses?: Array<{
+    id: string
+    address1: string
+    address2: string
+    city: string
+    company: string
+    country: string
+    province: string
+    zip: string
+    firstName: string
+    lastName: string
+  }>
+  orders?:
+    | Array<IShopifyOrder>
+    | {
+        nodes: Array<IShopifyOrder>
+      }
+  defaultAddress?: {
+    id: string
+    address1: string
+    address2: string
+    city: string
+    company: string
+    country: string
+    province: string
+    zip: string
+    firstName: string
+    lastName: string
+  }
+  subscriptions?: Array<any>[]
+}
+
+export interface IFormattedShopifyCustomer extends IShopifyCustomer {
+  defaultAddressId?: string | null
 }

@@ -46,11 +46,8 @@
       "@shopify/*": [
         "shopify/*"
       ],
-      "@sendgrid/*": [
-        "sendgrid/*"
-      ],
-      "@thinkific/*": [
-        "thinkific/*"
+      "@klaviyo/*": [
+        "klaviyo/*"
       ],
       "@components/*": [
         "components/*"

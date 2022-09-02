@@ -12,6 +12,8 @@ import { IAccountAddress } from '@interfaces/account'
 import { GeneralProfileProps } from '@constants/accountCenter'
 import FormComponents from '@components/Form/FormComponents'
 import { IFormComponents } from '@interfaces/form'
+import { useTranslation } from 'next-i18next'
+import i18nKeys from '@constants/i18n'
 
 export const AddressAccountTab: FC<{
   addressValues: IAccountAddress
@@ -23,17 +25,21 @@ export const AddressAccountTab: FC<{
   addAddress: () => any
   addressTabs: Array<IAccountAddress>
   addressActiveTab: number
+  defaultAddressId?: string
 }> = ({
   addressValues,
   onChange,
   onSubmit,
   setAsDefault,
+  defaultAddressId,
   setAddressActiveTab,
   addressTabs,
   addAddress,
   setAddressValues,
   addressActiveTab,
 }) => {
+  const { t } = useTranslation()
+
   return (
     <Themed.div
       sx={{
@@ -41,7 +47,6 @@ export const AddressAccountTab: FC<{
         margin: '0 auto',
       }}
     >
-      <Themed.h3>Address</Themed.h3>
       <Themed.div
         sx={{
           width: '100%',
@@ -86,7 +91,10 @@ export const AddressAccountTab: FC<{
                 textAlign: 'center',
               }}
             >
-              Address {index + 1}
+              {t(i18nKeys.common.address)} {index + 1}
+              {defaultAddressId === addressTabs[index].id
+                ? ` - ${t(i18nKeys.common.default)}`
+                : ''}
             </Themed.a>
           </Themed.div>
         ))}
@@ -137,8 +145,14 @@ export const AddressAccountTab: FC<{
         }}
       >
         <Button onClick={onSubmit}>Save</Button>
-        <Button onClick={setAsDefault}>Set as Default</Button>
-        <Button onClick={addAddress}>Add Address</Button>
+        {defaultAddressId !== addressValues?.id ? (
+          <Button onClick={setAsDefault}>
+            {t(i18nKeys.common.set_as)} {t(i18nKeys.common.default)}
+          </Button>
+        ) : null}
+        <Button onClick={addAddress}>
+          {t(i18nKeys.common.add)} {t(i18nKeys.common.address)}
+        </Button>
       </Themed.div>
     </Themed.div>
   )

@@ -4,10 +4,13 @@ import { Themed, jsx } from 'theme-ui'
 import React, { FC } from 'react'
 import OrderCard from '@components/Orders/OrderCard'
 import { IAccountOrder } from '@interfaces/account'
+import { useTranslation } from 'next-i18next'
+import i18nKeys from '@constants/i18n'
 
 const OrdersAccountTab: FC<{
   orders: Array<IAccountOrder>
 }> = ({ orders }) => {
+  const { t } = useTranslation()
   return (
     <Themed.div
       sx={{
@@ -16,7 +19,7 @@ const OrdersAccountTab: FC<{
       }}
     >
       {!orders?.length ? (
-        <Themed.h6>No recent orders...</Themed.h6>
+        <Themed.h6>{t(i18nKeys.orders.no_orders)}</Themed.h6>
       ) : (
         <Themed.div
           sx={{

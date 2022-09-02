@@ -4,6 +4,8 @@ import React, { Dispatch, FC, MouseEvent, SetStateAction } from 'react'
 import { Button, Input, Label, Themed, jsx } from 'theme-ui'
 import Link from 'next/link'
 import { IUserConfirmNewPassword } from '@interfaces/account'
+import { useTranslation } from 'next-i18next'
+import i18nKeys from '@constants/i18n'
 
 const ConfirmNewPasswordForm: FC<{
   onSubmit: () => any
@@ -13,6 +15,7 @@ const ConfirmNewPasswordForm: FC<{
   values: IUserConfirmNewPassword
   setValues: Dispatch<SetStateAction<IUserConfirmNewPassword>>
 }> = ({ onSubmit, title, help, err, values, setValues }) => {
+  const { t } = useTranslation()
   const handleInputChange = (e: any) => {
     e.preventDefault()
     const { name, value } = e.target
@@ -79,7 +82,7 @@ const ConfirmNewPasswordForm: FC<{
             },
           }}
         >
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t(i18nKeys.common.email)}</Label>
           <Input
             required
             name="email"
@@ -99,7 +102,9 @@ const ConfirmNewPasswordForm: FC<{
             },
           }}
         >
-          <Label htmlFor="validationCode">Validation Code</Label>
+          <Label htmlFor="validationCode">
+            {t(i18nKeys.account.validation_code)}
+          </Label>
           <Input
             required
             name="validationCode"
@@ -127,7 +132,9 @@ const ConfirmNewPasswordForm: FC<{
               },
             }}
           >
-            <Label htmlFor="password">New Password</Label>
+            <Label htmlFor="password">
+              {t(i18nKeys.common.new)} {t(i18nKeys.common.password)}
+            </Label>
             <Input
               required
               type="password"
@@ -146,7 +153,7 @@ const ConfirmNewPasswordForm: FC<{
               color: 'secondary',
             }}
           >
-            Unable to confirm new password for this account.
+            {t(i18nKeys.account.password_validation_error)}
           </Themed.h6>
         </Themed.div>
       ) : null}
@@ -182,7 +189,7 @@ const ConfirmNewPasswordForm: FC<{
             },
           }}
         >
-          Submit
+          {t(i18nKeys.common.submit)}
         </Button>
         <Button
           sx={{
@@ -205,7 +212,7 @@ const ConfirmNewPasswordForm: FC<{
           }}
         >
           <Themed.a as={Link} href={'/'}>
-            Cancel
+            {t(i18nKeys.common.cancel)}
           </Themed.a>
         </Button>
       </Themed.div>

@@ -12,7 +12,8 @@ import axios from 'axios'
 export const AddressAccountTabWrapper: FC<{
   addresses: Array<IAccountAddress>
   customerId?: string
-}> = ({ addresses, customerId }) => {
+  defaultAddressId?: string
+}> = ({ addresses, customerId, defaultAddressId }) => {
   const isMobile = useMobile()
   const [addressActiveTab, setAddressActiveTab] = useState<number>(0)
   const [addressTabs, setAddressTabs] = useState(
@@ -78,19 +79,17 @@ export const AddressAccountTabWrapper: FC<{
       modifiedAddresses.splice(addressActiveTab, 1, {
         ...addressValues,
         id: addressValues?.id,
-        isDefaultAddress: undefined,
       })
     } else {
       modifiedAddresses.push({
         ...addressValues,
         id: undefined,
-        isDefaultAddress: undefined,
       })
     }
 
     updateAddress({
       input: {
-        addresses: addresses,
+        addresses: modifiedAddresses,
         id: customerId || undefined,
       },
     })
@@ -117,6 +116,7 @@ export const AddressAccountTabWrapper: FC<{
       onSubmit={handleOnSubmit}
       setAsDefault={setAsDefault}
       addAddress={handleAddAddress}
+      defaultAddressId={defaultAddressId}
       addressValues={addressValues}
       setAddressValues={setAddressValues}
       addressTabs={addressTabs}

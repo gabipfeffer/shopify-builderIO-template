@@ -3,11 +3,13 @@
 import React, { FC } from 'react'
 import { Themed, jsx } from 'theme-ui'
 import { AccountTabOrder } from '@constants/accountCenter'
+import { useTranslation } from 'next-i18next'
 
 export const AccountCenterTabs: FC<{
   activeTab: number
   onTabChange: (index: number) => any
 }> = ({ activeTab, onTabChange }) => {
+  const { t } = useTranslation()
   return (
     <Themed.div
       sx={{
@@ -44,7 +46,7 @@ export const AccountCenterTabs: FC<{
               textTransform: 'uppercase',
             }}
           >
-            {accountTab}
+            {t(accountTab)}
           </Themed.a>
         </Themed.div>
       ))}

@@ -10,6 +10,8 @@ import React, {
 import { Button, Input, Label, Themed, jsx } from 'theme-ui'
 import Link from 'next/link'
 import { IUserEmailValidation } from '@interfaces/account'
+import i18nKeys from '@constants/i18n'
+import { useTranslation } from 'next-i18next'
 
 export const ConfirmUserEmailForm: FC<{
   onSubmit: () => any
@@ -18,6 +20,7 @@ export const ConfirmUserEmailForm: FC<{
   values: IUserEmailValidation
   setValues: Dispatch<SetStateAction<IUserEmailValidation>>
 }> = ({ onSubmit, err, title, values, setValues }) => {
+  const { t } = useTranslation()
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const { name, value } = e.target
@@ -65,7 +68,7 @@ export const ConfirmUserEmailForm: FC<{
               color: 'secondary',
             }}
           >
-            There was an issue validating your email. Please try again.
+            {t(i18nKeys.account.email_validation_error)}
           </Themed.h6>
         </Themed.div>
       ) : null}
@@ -90,7 +93,7 @@ export const ConfirmUserEmailForm: FC<{
             },
           }}
         >
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t(i18nKeys.common.email)}</Label>
           <Input
             required
             name="email"
@@ -110,7 +113,9 @@ export const ConfirmUserEmailForm: FC<{
             },
           }}
         >
-          <Label htmlFor="password">Validation Code</Label>
+          <Label htmlFor="validation_code">
+            {t(i18nKeys.account.validation_code)}
+          </Label>
           <Input
             required
             type="text"
@@ -153,7 +158,7 @@ export const ConfirmUserEmailForm: FC<{
             },
           }}
         >
-          Submit
+          {t(i18nKeys.common.submit)}
         </Button>
         <Button
           sx={{
@@ -176,7 +181,7 @@ export const ConfirmUserEmailForm: FC<{
           }}
         >
           <Themed.a as={Link} href={'/'}>
-            Cancel
+            {t(i18nKeys.common.cancel)}
           </Themed.a>
         </Button>
       </Themed.div>

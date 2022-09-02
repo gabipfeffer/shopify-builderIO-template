@@ -6,8 +6,11 @@ import { IFooter } from '@interfaces/footer'
 import FooterNavigation from '@components/Navigation/FooterNavigation'
 import FooterLegal from '@components/Footer/FooterLegal'
 import Newsletter from '@components/Newsletter/Newsletter'
+import { useTranslation } from 'next-i18next'
+import i18nKeys from '@constants/i18n'
 
 const Footer: FC<IFooter> = ({ navigation, socialIcons, legalNavigation }) => {
+  const { t } = useTranslation()
   const handleNewsletter = (email: string) => {
     if (!email) return null
     return null
@@ -53,7 +56,7 @@ const Footer: FC<IFooter> = ({ navigation, socialIcons, legalNavigation }) => {
         >
           <FooterNavigation navigation={navigation} socialIcons={socialIcons} />
           <Newsletter
-            title={'Exclusive offers, advice & insights. Sign up now!'}
+            title={t(i18nKeys.footer.newsletter)}
             onSubmit={handleNewsletter}
           />
         </Themed.div>

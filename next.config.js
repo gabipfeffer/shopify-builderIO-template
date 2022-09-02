@@ -1,3 +1,4 @@
+const { i18n } = require('./next-i18next.config')
 const bundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: !!process.env.BUNDLE_ANALYZE,
 })
@@ -45,13 +46,7 @@ module.exports = bundleAnalyzer({
     AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
     AWS_REGION: process.env.AWS_REGION,
+    KLAVIYO_PUBLIC_KEY: process.env.KLAVIYO_PUBLIC_KEY,
   },
-  i18n: {
-    // These are all the locales you want to support in
-    // your application
-    locales: ['en-US'],
-    // This is the default locale you want to be used when visiting
-    // a non-locale prefixed path e.g. `/hello`
-    defaultLocale: 'en-US',
-  },
+  i18n,
 })

@@ -5,8 +5,10 @@ import { jsx } from 'theme-ui'
 import { useCart } from '@lib/shopify/storefront-data-hooks'
 import { builder, BuilderComponent } from '@builder.io/react'
 import { IHeader } from '@interfaces/header'
+import { useRouter } from 'next/router'
 
 const AnnouncementBar: FC<IHeader> = ({ theme }) => {
+  const router = useRouter()
   const [announcement, setAnnouncement] = useState()
   const cart = useCart()
 
@@ -31,7 +33,7 @@ const AnnouncementBar: FC<IHeader> = ({ theme }) => {
   return (
     <BuilderComponent
       content={announcement}
-      data={{ theme }}
+      data={{ theme, locale: router.locale }}
       model="announcement-bar"
     />
   )

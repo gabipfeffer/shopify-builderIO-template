@@ -13,6 +13,12 @@ export interface State {
   toggleSidebar?: any
   closeSidebar?: any
   openSidebar?: any
+  headerBackgroundColor?: string
+  noHeaderOffset?: boolean
+  hideEcommerce?: {
+    en: boolean
+    es: boolean
+  }
 }
 
 const initialState = {

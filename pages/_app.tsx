@@ -6,6 +6,7 @@ import { builder, Builder } from '@builder.io/react'
 import builderConfig from '@config/builder'
 import { ApolloProvider } from '@apollo/client'
 import StorefrontAPIClient from '@shopify/storefront/client'
+import { appWithTranslation } from 'next-i18next'
 builder.init(builderConfig.apiKey)
 
 import '../blocks/ProductGrid/ProductGrid.builder'
@@ -16,6 +17,13 @@ import '@components/Account/RecoverPassword/RecoverPassword.builder'
 import '@components/Account/ConfirmUserEmail/ConfirmUserEmail.builder'
 import '@components/Account/ConfirmUserPassword/ConfirmUserPassword.builder'
 import '@components/Product/Product.builder'
+import '@components/LocaleDropdown/LocaleDropdown.builder'
+import '@components/ContactForm/ContactForm.builder'
+
+Builder.register('insertMenu', {
+  name: 'Localization',
+  items: [{ name: 'Locale Dropdown' }],
+})
 
 Builder.register('insertMenu', {
   name: 'Account Access Components',
@@ -26,6 +34,11 @@ Builder.register('insertMenu', {
     { name: 'Account Email Validation' },
     { name: 'Account New Password Validation' },
   ],
+})
+
+Builder.register('insertMenu', {
+  name: 'Forms',
+  items: [{ name: 'Contact Form' }],
 })
 
 Builder.register('insertMenu', {
@@ -48,7 +61,7 @@ Builder.register('insertMenu', {
 
 const Noop: FC = ({ children }) => <>{children}</>
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   const Layout = (Component as any).Layout || Noop
   return (
     <ApolloProvider client={StorefrontAPIClient}>
@@ -58,3 +71,5 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     </ApolloProvider>
   )
 }
+
+export default appWithTranslation(MyApp)
