@@ -13,6 +13,7 @@ import { getLayoutProps } from '@lib/get-layout-props'
 import { cognitoLogInCookie } from '@constants/cookies'
 import AccountCenterWrapper from '@components/Account/AccountCenter/AccountCenter.wrapper'
 import { initializeApplication } from '@app/app'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 builder.init(builderConfig.apiKey)
 
@@ -47,6 +48,13 @@ export async function getServerSideProps({
         props: {
           account: customer,
           locale,
+          ...(await serverSideTranslations(locale as string, [
+            'account',
+            'common',
+            'subscriptions',
+            'orders',
+            'footer',
+          ])),
           ...(await getLayoutProps()),
         },
       }

@@ -1,8 +1,10 @@
+import i18nKeys from '@constants/i18n'
+
 export const AccountTabs = {
-  GENERAL: 'My Profile',
-  ADDRESSES: 'Addresses',
-  ORDERS: 'Orders',
-  SUBSCRIPTIONS: 'Subscriptions',
+  GENERAL: i18nKeys.account.general,
+  ADDRESSES: i18nKeys.account.addresses,
+  ORDERS: i18nKeys.account.orders,
+  SUBSCRIPTIONS: i18nKeys.account.subscriptions,
 }
 
 export const AccountTabOrder = [
@@ -15,22 +17,22 @@ export const AccountTabOrder = [
 export const GeneralProfileProps = {
   general: {
     FIRST_NAME: {
-      label: 'First Name',
+      label: i18nKeys.account.first_name,
       name: `firstName`,
       prop_type: 'text',
     },
     LAST_NAME: {
-      label: 'Last Name',
+      label: i18nKeys.account.last_name,
       name: `lastName`,
       prop_type: 'text',
     },
     EMAIL: {
-      label: 'Email address',
+      label: i18nKeys.common.email,
       name: `email`,
       prop_type: 'text',
     },
     PHONE: {
-      label: 'Phone Number',
+      label: i18nKeys.account.phone_number,
       name: `phone`,
       prop_type: 'text',
     },
@@ -42,37 +44,37 @@ export const GeneralProfileProps = {
       prop_type: '',
     },
     FIRST_NAME: {
-      label: 'First Name',
+      label: i18nKeys.account.first_name,
       name: `firstName`,
       prop_type: 'text',
     },
     LAST_NAME: {
-      label: 'Last Name',
+      label: i18nKeys.account.last_name,
       name: `lastName`,
       prop_type: 'text',
     },
     COMPANY: {
-      label: 'Company',
+      label: i18nKeys.account.company,
       name: `company`,
       prop_type: 'text',
     },
     ADDRESS_1: {
-      label: 'Address Line 1',
+      label: i18nKeys.account.address_1,
       name: `address1`,
       prop_type: 'text',
     },
     ADDRESS_2: {
-      label: 'Apt, Suite, etc',
+      label: i18nKeys.account.address_2,
       name: `address2`,
       prop_type: 'text',
     },
     CITY: {
-      label: 'City',
+      label: i18nKeys.account.city,
       name: `city`,
       prop_type: 'text',
     },
     COUNTRY: {
-      label: 'Country',
+      label: i18nKeys.account.country,
       name: `country`,
       prop_type: 'select',
       options: [
@@ -81,7 +83,7 @@ export const GeneralProfileProps = {
       ],
     },
     ZIP: {
-      label: 'Zip Code',
+      label: i18nKeys.account.zip_code,
       name: `zip`,
       prop_type: 'text',
     },

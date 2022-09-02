@@ -17,6 +17,7 @@ import { Themed } from '@theme-ui/mdx'
 import { getLayoutProps } from '@lib/get-layout-props'
 import { useAddItemToCart } from '@lib/shopify/storefront-data-hooks'
 import { useUI } from '@components/ui/context'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 builder.init(builderConfig.apiKey)
 
@@ -32,6 +33,12 @@ export async function getStaticProps({
     props: {
       page,
       locale,
+      ...(await serverSideTranslations(locale as string, [
+        '[...path]',
+        'common',
+        'account',
+        'footer',
+      ])),
       ...(await getLayoutProps()),
     },
     // Next.js will attempt to re-generate the page:
@@ -100,7 +107,7 @@ export default function Path({
       <BuilderComponent
         options={{ includeRefs: true } as any}
         model="page"
-        data={{ theme }}
+        data={{ theme, locale }}
         context={{
           productBoxService: {
             addToCart,

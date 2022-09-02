@@ -10,6 +10,8 @@ import React, {
 import { Button, Input, Label, Themed, jsx } from 'theme-ui'
 import Link from 'next/link'
 import { IUserLogin } from '@interfaces/account'
+import { useTranslation } from 'next-i18next'
+import i18nKeys from '@constants/i18n'
 
 export const LogInForm: FC<{
   onSubmit: () => any
@@ -19,6 +21,7 @@ export const LogInForm: FC<{
   values: IUserLogin
   setValues: Dispatch<SetStateAction<IUserLogin>>
 }> = ({ onSubmit, err, title, recoverPassword, values, setValues }) => {
+  const { t } = useTranslation()
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const { name, value } = e.target
@@ -80,7 +83,7 @@ export const LogInForm: FC<{
             },
           }}
         >
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t(i18nKeys.common.email)}</Label>
           <Input name="email" id="email" onChange={handleInputChange} mb={3} />
         </Themed.div>
         <Themed.div
@@ -94,7 +97,7 @@ export const LogInForm: FC<{
             },
           }}
         >
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t(i18nKeys.common.password)}</Label>
           <Input
             type="password"
             name="password"
@@ -109,7 +112,9 @@ export const LogInForm: FC<{
               }}
             >
               <Themed.a as={Link} href={'/recover-password'}>
-                Recover Password
+                <Themed.p>
+                  {t(i18nKeys.common.recover)} {t(i18nKeys.common.password)}
+                </Themed.p>
               </Themed.a>
             </Themed.p>
           ) : null}
@@ -122,7 +127,7 @@ export const LogInForm: FC<{
               color: 'secondary',
             }}
           >
-            Incorrect username or password
+            {t(i18nKeys.account.login_validation_error)}
           </Themed.h6>
         </Themed.div>
       )}
@@ -147,7 +152,7 @@ export const LogInForm: FC<{
           },
         }}
       >
-        Sign in
+        {t(i18nKeys.common.sign_in)}
       </Button>
       <Themed.div
         sx={{
@@ -160,9 +165,9 @@ export const LogInForm: FC<{
             color: 'text',
           }}
         >
-          Don't have an account with us? Click here to{' '}
+          {t(i18nKeys.account.create_account_intro)}{' '}
           <Themed.a as={Link} href={'/register'}>
-            create an account
+            {t(i18nKeys.account.create_account)}
           </Themed.a>
           .
         </Themed.p>

@@ -4,6 +4,8 @@ import React, { Dispatch, FC, MouseEvent, SetStateAction } from 'react'
 import { Button, Input, Label, Themed, jsx } from 'theme-ui'
 import Link from 'next/link'
 import { IUserPasswordRecovery } from '@interfaces/account'
+import { useTranslation } from 'next-i18next'
+import i18nKeys from '@constants/i18n'
 
 const RecoverPasswordForm: FC<{
   onSubmit: () => any
@@ -13,6 +15,7 @@ const RecoverPasswordForm: FC<{
   values: IUserPasswordRecovery
   setValues: Dispatch<SetStateAction<IUserPasswordRecovery>>
 }> = ({ onSubmit, title, help, err, values, setValues }) => {
+  const { t } = useTranslation()
   const handleInputChange = (e: any) => {
     e.preventDefault()
     const { name, value } = e.target
@@ -88,7 +91,7 @@ const RecoverPasswordForm: FC<{
               color: 'secondary',
             }}
           >
-            Unable to find account associated to this email.
+            {t(i18nKeys.account.password_recovery_error)}
           </Themed.h6>
         </Themed.div>
       ) : null}
@@ -124,7 +127,7 @@ const RecoverPasswordForm: FC<{
             },
           }}
         >
-          Submit
+          {t(i18nKeys.common.submit)}
         </Button>
         <Button
           sx={{
@@ -147,7 +150,7 @@ const RecoverPasswordForm: FC<{
           }}
         >
           <Themed.a as={Link} href={'/'}>
-            Cancel
+            {t(i18nKeys.common.cancel)}
           </Themed.a>
         </Button>
       </Themed.div>

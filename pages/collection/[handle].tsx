@@ -16,6 +16,7 @@ import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { useThemeUI } from '@theme-ui/core'
 import { getLayoutProps } from '@lib/get-layout-props'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 builder.init(builderConfig.apiKey!)
 const builderModel = 'collection-page'
@@ -35,8 +36,14 @@ export async function getStaticProps({
   return {
     notFound: !page,
     props: {
+      locale,
       page: page || null,
       collection: collection || null,
+      ...(await serverSideTranslations(locale as string, [
+        'collection',
+        'common',
+        'footer',
+      ])),
       ...(await getLayoutProps()),
     },
     revalidate: 5,
@@ -54,6 +61,7 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
 export default function Handle({
   collection,
   page,
+  locale,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
   const isLive = !Builder.isEditing && !Builder.isPreviewing
@@ -74,10 +82,9 @@ export default function Handle({
     <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
   ) : (
     <BuilderComponent
-      isStatic
       key={collection.id}
       model={builderModel}
-      data={{ collection, theme }}
+      data={{ collection, theme, locale }}
       {...(page && { content: page })}
     />
   )

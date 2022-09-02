@@ -17,6 +17,7 @@ import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { useThemeUI } from 'theme-ui'
 import { getLayoutProps } from '@lib/get-layout-props'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 builder.init(builderConfig.apiKey!)
 
 const builderModel = 'product-page'
@@ -36,8 +37,14 @@ export async function getStaticProps({
   return {
     notFound: !page,
     props: {
+      locale,
       page: page || null,
       product: product || null,
+      ...(await serverSideTranslations(locale as string, [
+        'product',
+        'common',
+        'footer',
+      ])),
       ...(await getLayoutProps()),
     },
     revalidate: 5,
@@ -55,6 +62,7 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
 export default function Handle({
   product,
   page,
+  locale,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
   const isLive = !Builder.isEditing && !Builder.isPreviewing
@@ -76,10 +84,9 @@ export default function Handle({
     <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
   ) : (
     <BuilderComponent
-      isStatic
       key={product!.id}
       model={builderModel}
-      data={{ product, theme }}
+      data={{ product, theme, locale }}
       {...(page && { content: page })}
     />
   )

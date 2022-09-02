@@ -4,10 +4,13 @@ import React, { FC } from 'react'
 import { Themed, jsx } from 'theme-ui'
 import { ISubscription } from '@interfaces/subscription'
 import SubscriptionCard from '@components/Subscriptions/SubscriptionsCard'
+import { useTranslation } from 'next-i18next'
+import i18nKeys from '@constants/i18n'
 
 export const SubscriptionsAccountTab: FC<{
   subscriptions: Array<ISubscription>
 }> = ({ subscriptions }) => {
+  const { t } = useTranslation()
   return (
     <Themed.div
       sx={{
@@ -22,7 +25,7 @@ export const SubscriptionsAccountTab: FC<{
         }}
       >
         {!subscriptions?.length ? (
-          <Themed.h6>No subscriptions...</Themed.h6>
+          <Themed.h6>{t(i18nKeys.subscriptions.no_subscriptions)}</Themed.h6>
         ) : (
           <Themed.div
             sx={{

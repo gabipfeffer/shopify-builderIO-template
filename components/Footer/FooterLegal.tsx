@@ -4,10 +4,13 @@ import React, { FC } from 'react'
 import { Themed, jsx } from 'theme-ui'
 import { IBasicNavigation } from '@interfaces/navigation'
 import LegalNavigationLink from '@components/Navigation/LegalNavigationLink'
+import i18nKeys from '@constants/i18n'
+import { useTranslation } from 'next-i18next'
 
 const FooterLegal: FC<{ navigation?: Array<IBasicNavigation> }> = ({
   navigation,
 }) => {
+  const { t } = useTranslation()
   return (
     <Themed.div
       sx={{
@@ -52,7 +55,7 @@ const FooterLegal: FC<{ navigation?: Array<IBasicNavigation> }> = ({
             },
           }}
         >
-          © 2022. All rights reserved.
+          {t(i18nKeys.footer.rights_reserved)}
         </Themed.div>
       </Themed.div>
     </Themed.div>
