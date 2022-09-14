@@ -34,7 +34,7 @@ export class CdkStack extends cdk.Stack {
         phases: {
           install: {
             'runtime-versions': {
-              nodejs: 12,
+              nodejs: 16,
             },
           },
           pre_build: {
