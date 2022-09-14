@@ -1,10 +1,5 @@
 import * as cdk from 'aws-cdk-lib'
 import { Construct } from 'constructs'
-import {
-  CodeBuildStep,
-  CodePipeline,
-  CodePipelineSource,
-} from 'aws-cdk-lib/pipelines'
 import * as codebuild from 'aws-cdk-lib/aws-codebuild'
 
 export class CdkStack extends cdk.Stack {
@@ -39,7 +34,7 @@ export class CdkStack extends cdk.Stack {
         phases: {
           install: {
             'runtime-versions': {
-              nodejs: 16,
+              nodejs: 12,
             },
           },
           pre_build: {
@@ -49,25 +44,6 @@ export class CdkStack extends cdk.Stack {
             commands: ['echo "Running Tests"', 'npm test'],
           },
         },
-      }),
-    })
-
-    // PIPELINE
-    const repo = CodePipelineSource.gitHub(
-      'gabipfeffer/shopify-builderIO-template',
-      'master',
-      {
-        authentication: cdk.SecretValue.secretsManager('github-token'),
-      }
-    )
-    // The basic pipeline declaration. This sets the initial structure
-    // of our pipeline
-    new CodePipeline(this, 'Pipeline', {
-      pipelineName: 'Pipeline',
-      synth: new CodeBuildStep('SynthStep', {
-        input: repo,
-        installCommands: ['npm install -g aws-cdk'],
-        commands: ['npm run ci', 'npm run build', 'npx cdk synth'],
       }),
     })
   }
