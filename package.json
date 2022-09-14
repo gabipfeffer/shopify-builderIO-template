@@ -10,7 +10,7 @@
     "prettier": "prettier",
     "docker:dev": "docker-compose up",
     "docker:dev:down": "docker-compose down",
-    "test": "npx jest"
+    "test": "jest"
   },
   "prettier": {
     "trailingComma": "es5",

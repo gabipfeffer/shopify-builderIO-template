@@ -37,3 +37,15 @@ yarn-error.log*
 framework
 
 .idea
+
+
+# CDK
+*.js
+!jest.config.js
+*.d.ts
+cdk/node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
