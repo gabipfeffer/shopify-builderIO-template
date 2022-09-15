@@ -16,6 +16,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . ./
 
+ARG BUILDER_PUBLIC_KEY
+ENV BUILDER_PUBLIC_KEY=$BUILDER_PUBLIC_KEY
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
@@ -30,8 +32,7 @@ RUN npm run build
 FROM node:16-alpine AS runner
 WORKDIR /app
 
-ARG BUILDER_PUBLIC_KEY
-ENV BUILDER_PUBLIC_KEY=$BUILDER_PUBLIC_KEY
+
 ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
