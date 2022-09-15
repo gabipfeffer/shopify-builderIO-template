@@ -8,7 +8,7 @@ WORKDIR /app
 
 # If using npm with a `package-lock.json` comment out above and use below instead
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 # Rebuild the source code only when needed
 FROM node:16-alpine AS builder

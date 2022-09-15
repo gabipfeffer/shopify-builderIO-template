@@ -1,5 +1,6 @@
 import * as cdk from 'aws-cdk-lib'
 import { Construct } from 'constructs'
+import * as iam from 'aws-cdk-lib/aws-iam'
 import * as codebuild from 'aws-cdk-lib/aws-codebuild'
 import * as ecr from 'aws-cdk-lib/aws-ecr'
 import * as codepipeline from 'aws-cdk-lib/aws-codepipeline'
@@ -68,6 +69,12 @@ export class CdkStack extends cdk.Stack {
       }),
     })
 
+    buildProject.addToRolePolicy(
+      new iam.PolicyStatement({
+        resources: ['*'],
+        actions: ['ecr:GetAuthorizationToken'],
+      })
+    )
     //  PIPELINE
     const pipeline = new codepipeline.Pipeline(this, 'Pipeline', {
       pipelineName: 'Pipeline',
