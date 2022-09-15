@@ -38,7 +38,6 @@ framework
 
 .idea
 
-
 # CDK
 *.js
 !jest.config.js
