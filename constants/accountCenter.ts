@@ -1,18 +1,39 @@
 import i18nKeys from '@constants/i18n'
+import { EnumUserRole } from '@constants/cognito'
 
 export const AccountTabs = {
-  GENERAL: i18nKeys.account.general,
-  ADDRESSES: i18nKeys.account.addresses,
-  ORDERS: i18nKeys.account.orders,
-  SUBSCRIPTIONS: i18nKeys.account.subscriptions,
+  [EnumUserRole.CUSTOMER]: {
+    GENERAL: i18nKeys.account.general,
+    ADDRESSES: i18nKeys.account.addresses,
+    ORDERS: i18nKeys.account.orders,
+    SUBSCRIPTIONS: i18nKeys.account.subscriptions,
+  },
+  [EnumUserRole.VENDOR]: {
+    SALES: i18nKeys.account.sales,
+    PRODUCTS: i18nKeys.account.products,
+    COLLECTIONS: i18nKeys.account.collections,
+    CLIENTS: i18nKeys.account.clients,
+  },
+  [EnumUserRole.ADMIN]: {
+    VENDORS: i18nKeys.account.vendors,
+  },
 }
 
-export const AccountTabOrder = [
-  AccountTabs.GENERAL,
-  AccountTabs.ADDRESSES,
-  AccountTabs.ORDERS,
-  AccountTabs.SUBSCRIPTIONS,
-]
+export const AccountTabOrder = {
+  [EnumUserRole.CUSTOMER]: [
+    AccountTabs[EnumUserRole.CUSTOMER].GENERAL,
+    AccountTabs[EnumUserRole.CUSTOMER].ADDRESSES,
+    AccountTabs[EnumUserRole.CUSTOMER].ORDERS,
+    AccountTabs[EnumUserRole.CUSTOMER].SUBSCRIPTIONS,
+  ],
+  [EnumUserRole.VENDOR]: [
+    AccountTabs[EnumUserRole.VENDOR].SALES,
+    AccountTabs[EnumUserRole.VENDOR].PRODUCTS,
+    AccountTabs[EnumUserRole.VENDOR].COLLECTIONS,
+    AccountTabs[EnumUserRole.VENDOR].CLIENTS,
+  ],
+  [EnumUserRole.ADMIN]: [AccountTabs[EnumUserRole.ADMIN].VENDORS],
+}
 
 export const GeneralProfileProps = {
   general: {

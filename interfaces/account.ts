@@ -1,4 +1,5 @@
 import { ISubscription } from '@interfaces/subscription'
+import { EnumUserRole } from '@constants/cognito'
 
 export interface IUserPasswordRecovery {
   email: string
@@ -26,8 +27,11 @@ export interface IAccount extends IAccountGeneral {
   subscriptions: Array<ISubscription>
   orders: Array<IAccountOrder>
   addresses?: Array<IAccountAddress>
+  defaultAddress?: IAccountAddress
+  defaultAddressId?: string
   displayName: string
   id: string
+  role: EnumUserRole
 }
 
 export interface IAccountOrder {

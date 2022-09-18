@@ -7,7 +7,7 @@ import {
   IFormattedShopifyCustomer,
 } from '@interfaces/shopify'
 import { v4 as uuidv4 } from 'uuid'
-import { roles } from '../../../../../constants/cognito'
+import { EnumUserRole } from '../../../../../constants/cognito'
 
 export const createShopifyClientSuccess = (): ShopifyClientDouble => {
   const verifyWebhookSignature = (
@@ -31,7 +31,7 @@ export const createShopifyClientSuccess = (): ShopifyClientDouble => {
         dynamo: {
           id: uuidv4(),
           email: Math.random().toString(),
-          role: roles.CUSTOMER,
+          role: EnumUserRole.CUSTOMER,
         },
       },
       subscriptions: [

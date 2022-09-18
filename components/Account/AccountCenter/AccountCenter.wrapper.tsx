@@ -6,14 +6,14 @@ import { jsx } from 'theme-ui'
 import { useRouter } from 'next/router'
 import { removeCookie } from '@utils/cookies'
 import { cognitoLogInCookie } from '@constants/cookies'
-import OrdersAccountTab from '@components/Account/AccountCenter/OrdersAccountTab/OrdersAccountTab.component'
-import SubscriptionsAccountTab from '@components/Account/AccountCenter/SubscriptionsAccountTab/SubscriptionsAccountTab.component'
-import GeneralAccountTabWrapper from '@components/Account/AccountCenter/GeneralAccountTab/GeneralAccountTab.wrapper'
-import AddressAccountTabWrapper from '@components/Account/AccountCenter/AddressAccountTab/AddressAccountTab.wrapper'
+import OrdersAccountTab from '@components/Account/AccountCenter/Customer/OrdersAccountTab/OrdersAccountTab.component'
+import SubscriptionsAccountTab from '@components/Account/AccountCenter/Customer/SubscriptionsAccountTab/SubscriptionsAccountTab.component'
+import GeneralAccountTabWrapper from '@components/Account/AccountCenter/Customer/GeneralAccountTab/GeneralAccountTab.wrapper'
+import AddressAccountTabWrapper from '@components/Account/AccountCenter/Customer/AddressAccountTab/AddressAccountTab.wrapper'
+import { EnumUserRole } from '@constants/cognito'
+import { IAccount } from '@interfaces/account'
 
-const AccountCenterWrapper: FC<{
-  account: any
-}> = ({ account }) => {
+const AccountCenterWrapper: FC<{ account: IAccount }> = ({ account }) => {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState(0)
 
@@ -42,17 +42,22 @@ const AccountCenterWrapper: FC<{
     )
   }
 
-  const tabs = [
-    <GeneralAccountTabWrapper account={account} />,
-    <AddressAccountTabWrapper
-      addresses={account.addresses}
-      customerId={account?.id}
-      defaultAddressId={account?.defaultAddressId}
-    />,
-    <OrdersAccountTab orders={account.orders} />,
-    <SubscriptionsAccountTab subscriptions={account.subscriptions} />,
-  ]
-  const ActiveTab = tabs[activeTab]
+  const tabs = {
+    [EnumUserRole.CUSTOMER]: [
+      <GeneralAccountTabWrapper account={account} />,
+      <AddressAccountTabWrapper
+        addresses={account.addresses || []}
+        customerId={account?.id}
+        defaultAddressId={account?.defaultAddressId}
+      />,
+      <OrdersAccountTab orders={account.orders} />,
+      <SubscriptionsAccountTab subscriptions={account.subscriptions} />,
+    ],
+    [EnumUserRole.ADMIN]: [],
+    [EnumUserRole.VENDOR]: [],
+  }
+
+  const ActiveTab = tabs[account.role][activeTab]
 
   return (
     <AccountCenter
@@ -60,6 +65,7 @@ const AccountCenterWrapper: FC<{
       activeTab={activeTab}
       Tab={ActiveTab}
       onSignOut={handleSignOut}
+      role={account.role}
     />
   )
 }

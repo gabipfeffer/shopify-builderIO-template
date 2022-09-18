@@ -3,7 +3,7 @@
 import React, { ChangeEvent, FC, MouseEvent, useState } from 'react'
 import { jsx } from 'theme-ui'
 import { IAccount, IAccountGeneral } from '@interfaces/account'
-import GeneralAccountTab from '@components/Account/AccountCenter/GeneralAccountTab/GeneralAccountTab.component'
+import GeneralAccountTab from '@components/Account/AccountCenter/Customer/GeneralAccountTab/GeneralAccountTab.component'
 import { GeneralProfileProps } from '@constants/accountCenter'
 import { generalFormInitialValuesReducer } from '@utils/accountCenter'
 import axios from 'axios'

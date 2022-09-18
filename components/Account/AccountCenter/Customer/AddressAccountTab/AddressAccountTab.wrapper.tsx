@@ -5,7 +5,7 @@ import { jsx } from 'theme-ui'
 import { IAccountAddress } from '@interfaces/account'
 import { GeneralProfileProps } from '@constants/accountCenter'
 import { addressFormInitialValuesReducer } from '@utils/accountCenter'
-import AddressAccountTab from '@components/Account/AccountCenter/AddressAccountTab/AddressAccountTab.component'
+import AddressAccountTab from '@components/Account/AccountCenter/Customer/AddressAccountTab/AddressAccountTab.component'
 import useMobile from '@lib/hooks/useMobile'
 import axios from 'axios'
 

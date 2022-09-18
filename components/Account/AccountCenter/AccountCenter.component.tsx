@@ -6,13 +6,15 @@ import { IAccount } from '@interfaces/account'
 import AccountCenterTabs from '@components/Account/AccountCenter/AccountCenterTabs.component'
 import { useTranslation } from 'next-i18next'
 import i18nKeys from '@constants/i18n'
+import { EnumUserRole } from '@constants/cognito'
 
 export const AccountCenter: FC<{
   activeTab: number
   Tab: React.ReactElement<{ account: IAccount }>
   onTabChange: (index: number) => any
   onSignOut: () => any
-}> = ({ activeTab, onTabChange, Tab, onSignOut }) => {
+  role: EnumUserRole
+}> = ({ activeTab, onTabChange, Tab, onSignOut, role }) => {
   const { t } = useTranslation()
   return (
     <Themed.div
@@ -21,7 +23,11 @@ export const AccountCenter: FC<{
         margin: '0 auto',
       }}
     >
-      <AccountCenterTabs activeTab={activeTab} onTabChange={onTabChange} />
+      <AccountCenterTabs
+        activeTab={activeTab}
+        onTabChange={onTabChange}
+        role={role}
+      />
       <Themed.div>{Tab}</Themed.div>
       <Button onClick={onSignOut}>
         <Themed.a href={'/'}>{t(i18nKeys.common.sign_out)}</Themed.a>

@@ -4,12 +4,15 @@ import React, { FC } from 'react'
 import { Themed, jsx } from 'theme-ui'
 import { AccountTabOrder } from '@constants/accountCenter'
 import { useTranslation } from 'next-i18next'
+import { EnumUserRole } from '@constants/cognito'
 
 export const AccountCenterTabs: FC<{
   activeTab: number
   onTabChange: (index: number) => any
-}> = ({ activeTab, onTabChange }) => {
+  role: EnumUserRole
+}> = ({ activeTab, onTabChange, role }) => {
   const { t } = useTranslation()
+  const accountTabs = AccountTabOrder[role]
   return (
     <Themed.div
       sx={{
@@ -24,13 +27,13 @@ export const AccountCenterTabs: FC<{
         },
       }}
     >
-      {AccountTabOrder.map((accountTab: string, index: number) => (
+      {accountTabs.map((accountTab: string, index: number) => (
         <Themed.div
           key={`account-center-tab-${accountTab}`}
           onClick={() => onTabChange(index)}
           sx={{
             display: 'grid',
-            gridTemplateColumns: `repeat(${AccountTabOrder.length} fr)`,
+            gridTemplateColumns: `repeat(${accountTabs.length} fr)`,
             p: '0 10px',
             whiteSpace: 'nowrap',
             borderBottom: index === activeTab ? '2px solid' : 'none',

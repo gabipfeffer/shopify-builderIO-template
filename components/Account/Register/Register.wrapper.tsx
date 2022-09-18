@@ -4,7 +4,7 @@ import React, { FC, useState } from 'react'
 import RegisterForm from '@components/Account/Register/Register.component'
 import { IUserRegistration } from '@interfaces/account'
 import registerUser from '@cognito/registerUser'
-import { roles } from '@constants/cognito'
+import { EnumUserRole } from '@constants/cognito'
 import { jsx } from 'theme-ui'
 
 const RegisterWrapper: FC<{ title: string }> = ({ title }) => {
@@ -14,7 +14,7 @@ const RegisterWrapper: FC<{ title: string }> = ({ title }) => {
     lastName: '',
     email: '',
     password: '',
-    role: roles.CUSTOMER,
+    role: EnumUserRole.CUSTOMER,
   })
 
   const handleSubmit = async () => {

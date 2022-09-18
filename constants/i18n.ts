@@ -31,15 +31,25 @@ const i18nKeys = {
     location: 'common:location',
   },
   account: {
+    // CUSTOMER TABS
     general: 'account:account_tab_profile',
     addresses: 'account:account_tab_addresses',
     orders: 'account:account_tab_orders',
     subscriptions: 'account:account_tab_subscriptions',
+    // VENDOR TABS
+    sales: 'account:account_tab_sales',
+    products: 'account:account_tab_products',
+    collections: 'account:account_tab_collections',
+    clients: 'account:account_tab_clients',
+    // ADMIN TABS
+    vendors: 'account:account_tab_vendors',
+    // ERRORS
     email_validation_error: 'account:email_validation_error',
     password_validation_error: 'account:password_validation_error',
     login_validation_error: 'account:login_validation_error',
     contact_validation_error: 'account:contact_validation_error',
     password_recovery_error: 'account:password_recovery_error',
+    // GENERAL ACCOUNT
     validation_code: 'account:validation_code',
     create_account_intro: 'account:create_account_intro',
     create_account: 'account:create_account',
