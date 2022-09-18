@@ -17,6 +17,7 @@ const i18nKeys = {
     general: 'common:general',
     default: 'common:default',
     save: 'common:save',
+    vendor_name: 'common:vendor_name',
     sign_out: 'common:sign_out',
     sign_in: 'common:sign_in',
     address: 'common:address',

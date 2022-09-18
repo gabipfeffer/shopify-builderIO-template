@@ -7,14 +7,18 @@ import registerUser from '@cognito/registerUser'
 import { EnumUserRole } from '@constants/cognito'
 import { jsx } from 'theme-ui'
 
-const RegisterWrapper: FC<{ title: string }> = ({ title }) => {
+const RegisterWrapper: FC<{ title: string; registerType: EnumUserRole }> = ({
+  title,
+  registerType,
+}) => {
   const [err, setErr] = useState(false)
   const [values, setValues] = useState<IUserRegistration>({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
-    role: EnumUserRole.CUSTOMER,
+    role: registerType,
+    vendor: '',
   })
 
   const handleSubmit = async () => {
@@ -36,6 +40,7 @@ const RegisterWrapper: FC<{ title: string }> = ({ title }) => {
       title={title}
       values={values}
       setValues={setValues}
+      type={registerType}
     />
   )
 }

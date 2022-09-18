@@ -21,15 +21,17 @@ export interface IUserRegistration extends IUserLogin {
   firstName: string
   lastName: string
   role: string
+  vendor: string
 }
 
 export interface IAccount extends IAccountGeneral {
-  subscriptions: Array<ISubscription>
-  orders: Array<IAccountOrder>
+  products?: Array<any>
+  subscriptions?: Array<ISubscription>
+  orders?: Array<IAccountOrder>
   addresses?: Array<IAccountAddress>
   defaultAddress?: IAccountAddress
   defaultAddressId?: string
-  displayName: string
+  displayName?: string
   id: string
   role: EnumUserRole
 }

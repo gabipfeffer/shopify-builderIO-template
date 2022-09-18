@@ -1,5 +1,6 @@
 import { restrictedRegister } from '../../../blocks/utils'
 import dynamic from 'next/dynamic'
+import { EnumUserRole } from '@constants/cognito'
 
 const LazyRegisterForm = dynamic(
   () => import('@components/Account/Register/Register.wrapper'),
@@ -16,6 +17,12 @@ restrictedRegister(
         type: 'string',
         helperText: 'Title for registration component',
         defaultValue: 'Create an Account',
+      },
+      {
+        name: 'registerType',
+        type: 'enum',
+        defaultValue: EnumUserRole.CUSTOMER,
+        enum: [EnumUserRole.CUSTOMER, EnumUserRole.VENDOR],
       },
     ],
     image: 'https://unpkg.com/css.gg@2.0.0/icons/svg/log-in.svg',

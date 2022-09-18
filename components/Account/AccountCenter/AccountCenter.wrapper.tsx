@@ -12,6 +12,7 @@ import GeneralAccountTabWrapper from '@components/Account/AccountCenter/Customer
 import AddressAccountTabWrapper from '@components/Account/AccountCenter/Customer/AddressAccountTab/AddressAccountTab.wrapper'
 import { EnumUserRole } from '@constants/cognito'
 import { IAccount } from '@interfaces/account'
+import ProductAccountTabWrapper from '@components/Account/AccountCenter/Vendor/ProductAccountTab/ProductAccountTab.wrapper'
 
 const AccountCenterWrapper: FC<{ account: IAccount }> = ({ account }) => {
   const router = useRouter()
@@ -54,7 +55,9 @@ const AccountCenterWrapper: FC<{ account: IAccount }> = ({ account }) => {
       <SubscriptionsAccountTab subscriptions={account.subscriptions} />,
     ],
     [EnumUserRole.ADMIN]: [],
-    [EnumUserRole.VENDOR]: [],
+    [EnumUserRole.VENDOR]: [
+      <ProductAccountTabWrapper products={account.products} />,
+    ],
   }
 
   const ActiveTab = tabs[account.role][activeTab]

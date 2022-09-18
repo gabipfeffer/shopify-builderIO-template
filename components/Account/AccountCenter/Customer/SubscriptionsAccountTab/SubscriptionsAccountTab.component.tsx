@@ -8,7 +8,7 @@ import { useTranslation } from 'next-i18next'
 import i18nKeys from '@constants/i18n'
 
 export const SubscriptionsAccountTab: FC<{
-  subscriptions: Array<ISubscription>
+  subscriptions?: Array<ISubscription>
 }> = ({ subscriptions }) => {
   const { t } = useTranslation()
   return (

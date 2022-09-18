@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { IUserRegistration } from '@interfaces/account'
 import { useTranslation } from 'next-i18next'
 import i18nKeys from '@constants/i18n'
+import { EnumUserRole } from '@constants/cognito'
 
 export const RegisterForm: FC<{
   onSubmit: () => any
@@ -19,7 +20,8 @@ export const RegisterForm: FC<{
   title: string
   values: IUserRegistration
   setValues: Dispatch<SetStateAction<IUserRegistration>>
-}> = ({ onSubmit, err, title, values, setValues }) => {
+  type: EnumUserRole
+}> = ({ onSubmit, err, title, values, setValues, type }) => {
   const { t } = useTranslation()
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -175,6 +177,40 @@ export const RegisterForm: FC<{
           />
         </Themed.div>
       </Themed.div>
+      {type === EnumUserRole.VENDOR ? (
+        <Themed.div
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            justifyContent: 'center',
+            '@media (max-width: 768px)': {
+              flexDirection: 'column',
+            },
+          }}
+        >
+          <Themed.div
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '50%',
+              padding: '0 5px',
+              '@media (max-width: 768px)': {
+                width: '100%',
+              },
+            }}
+          >
+            <Label htmlFor="vendor">{t(i18nKeys.common.vendor_name)}</Label>
+            <Input
+              required
+              name="vendor"
+              onChange={handleInputChange}
+              id="vendor"
+              mb={3}
+            />
+          </Themed.div>
+        </Themed.div>
+      ) : null}
       <Themed.div
         sx={{
           display: 'flex',

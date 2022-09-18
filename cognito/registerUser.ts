@@ -8,6 +8,7 @@ const registerUser = async ({
   firstName,
   lastName,
   role,
+  vendor,
 }: IUserRegistration) => {
   const attributeList: Array<CognitoUserAttribute> = [
     new CognitoUserAttribute({
@@ -25,6 +26,10 @@ const registerUser = async ({
     new CognitoUserAttribute({
       Name: 'custom:role',
       Value: role,
+    }),
+    new CognitoUserAttribute({
+      Name: 'custom:vendor',
+      Value: vendor,
     }),
   ]
 

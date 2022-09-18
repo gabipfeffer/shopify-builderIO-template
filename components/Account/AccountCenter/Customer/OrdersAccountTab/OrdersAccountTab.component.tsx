@@ -8,7 +8,7 @@ import { useTranslation } from 'next-i18next'
 import i18nKeys from '@constants/i18n'
 
 const OrdersAccountTab: FC<{
-  orders: Array<IAccountOrder>
+  orders?: Array<IAccountOrder>
 }> = ({ orders }) => {
   const { t } = useTranslation()
   return (
