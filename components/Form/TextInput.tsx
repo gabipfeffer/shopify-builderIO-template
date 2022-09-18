@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import React from 'react'
 import { Input, Label, Themed, jsx } from 'theme-ui'
+import { useTranslation } from 'next-i18next'
 
 interface TextInputProps {
   handleInputChange: any
@@ -22,6 +23,7 @@ const TextInput = ({
   required,
   readOnly,
 }: TextInputProps) => {
+  const { t } = useTranslation()
   return (
     <Themed.div
       sx={{
@@ -39,7 +41,7 @@ const TextInput = ({
           mb: '10px',
         }}
       >
-        {label}
+        {t(label)}
       </Label>
       <Input
         readOnly={readOnly}

@@ -37,7 +37,7 @@ const i18nKeys = {
     subscriptions: 'account:account_tab_subscriptions',
     email_validation_error: 'account:email_validation_error',
     password_validation_error: 'account:password_validation_error',
-    login_validation_error: 'account:password_validation_error',
+    login_validation_error: 'account:login_validation_error',
     contact_validation_error: 'account:contact_validation_error',
     password_recovery_error: 'account:password_recovery_error',
     validation_code: 'account:validation_code',

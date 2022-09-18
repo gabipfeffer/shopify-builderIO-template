@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import React from 'react'
 import { Select, Label, Themed, jsx } from 'theme-ui'
+import { useTranslation } from 'next-i18next'
 
 interface SelectFieldProps {
   handleInputChange: any
@@ -23,6 +24,7 @@ const SelectField = ({
   options,
   required,
 }: SelectFieldProps) => {
+  const { t } = useTranslation()
   return (
     <Themed.div
       sx={{
@@ -40,7 +42,7 @@ const SelectField = ({
           mb: '10px',
         }}
       >
-        {label}
+        {t(label)}
       </Label>
       <Select
         required={required}

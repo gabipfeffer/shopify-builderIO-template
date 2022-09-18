@@ -8,7 +8,6 @@ import { Builder, builder } from '@builder.io/react'
 import builderConfig from '@config/builder'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
-import { useThemeUI } from '@theme-ui/core'
 import { getLayoutProps } from '@lib/get-layout-props'
 import { cognitoLogInCookie } from '@constants/cookies'
 import AccountCenterWrapper from '@components/Account/AccountCenter/AccountCenter.wrapper'
@@ -65,7 +64,7 @@ export default function Handle({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter()
   const isLive = !Builder.isEditing && !Builder.isPreviewing
-  const { theme } = useThemeUI()
+
   if (!account && isLive) {
     return (
       <>

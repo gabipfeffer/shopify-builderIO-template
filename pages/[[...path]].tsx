@@ -81,8 +81,8 @@ export default function Path({
   }
 
   const { title, description, image } = page?.data! || {}
-  const localizedTitle = title[router.locale as ILocales]
-  const localizedDescription = description[router.locale as ILocales]
+  const localizedTitle = title?.[router.locale as ILocales]
+  const localizedDescription = description?.[router.locale as ILocales]
 
   return (
     <div>
