@@ -59,3 +59,18 @@ query getProductById {
   }
 }
 `
+
+export const getProductsByVendor = (vendor: string) => `
+{
+  products(query: "vendor:${vendor}", first: 30) {
+    nodes {
+      id
+      title
+      handle
+      productType
+      publishedOnCurrentChannel
+      totalInventory
+    }
+  }
+}
+`

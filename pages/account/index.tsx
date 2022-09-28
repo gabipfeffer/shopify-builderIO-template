@@ -32,11 +32,9 @@ export async function getServerSideProps({
     }
   }
 
-  const customer = await initializeApplication().validateAndLoadCustomer(
-    accessToken
-  )
+  const account = await initializeApplication().validateAndLoadUser(accessToken)
 
-  return !customer
+  return !account
     ? {
         redirect: {
           permanent: false,
@@ -45,7 +43,7 @@ export async function getServerSideProps({
       }
     : {
         props: {
-          account: customer,
+          account: account,
           locale,
           ...(await serverSideTranslations(locale as string, [
             'account',

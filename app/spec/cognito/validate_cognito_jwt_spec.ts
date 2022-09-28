@@ -33,6 +33,7 @@ describe('validateCognitoJWT', function () {
       expect(result).toStrictEqual({
         email: 'gabriel@goglobal.agency',
         role: 'customer',
+        vendor: '',
       })
       done()
     })

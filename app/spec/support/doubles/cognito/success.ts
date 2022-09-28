@@ -6,6 +6,7 @@ export const createCognitoSuccessDouble = (): ICognitoClientDouble => {
     double.validateCognitoJWTResult = {
       email: 'gabriel@goglobal.agency',
       'custom:role': 'customer',
+      'custom:vendor': '',
     }
     return double.validateCognitoJWTResult
   }

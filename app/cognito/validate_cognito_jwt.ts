@@ -9,6 +9,7 @@ const validateCognitoJWT = (deps: IAppDependencies) => (accessToken: string) =>
         : Promise.resolve({
             email: validatedToken.email,
             role: validatedToken['custom:role'],
+            vendor: validatedToken['custom:vendor'],
           })
     )
 

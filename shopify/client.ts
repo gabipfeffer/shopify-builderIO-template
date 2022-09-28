@@ -5,7 +5,8 @@ import {
   IFormattedShopifyCustomer,
 } from '@interfaces/shopify'
 
-import { getAdminOrder } from '@shopify/admin/queries/order'
+import { getAdminOrder, getOrders } from '@shopify/admin/queries/order'
+import { getProductsByVendor } from '@shopify/admin/queries/product'
 import adminAPIClient from '@shopify/admin/client'
 import { getCustomerByEmail } from '@shopify/admin/queries/customer'
 import {
@@ -66,5 +67,37 @@ export const formatShopifyCustomer = (
     defaultAddressId: customer?.defaultAddress?.id || null,
     // @ts-ignore
     orders: customer?.orders?.nodes || [],
+  }
+}
+
+export const getShopifyProductsByVendor = async (vendor: string) => {
+  try {
+    const {
+      data: {
+        products: { nodes },
+      },
+    } = await adminAPIClient({
+      query: getProductsByVendor(vendor),
+    })
+
+    return nodes
+  } catch (e) {
+    throw new Error(`Error fetching shopify products by vendor: ${vendor}`)
+  }
+}
+
+export const getShopifyOrders = async (after?: string) => {
+  try {
+    const {
+      data: {
+        orders: { edges },
+      },
+    } = await adminAPIClient({
+      query: getOrders(after),
+    })
+
+    return edges
+  } catch (e) {
+    throw new Error(`Error fetching shopify sales`)
   }
 }

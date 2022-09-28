@@ -85,3 +85,69 @@ query getOrderById {
   }
 }
 `
+export const getOrders = (after?: string) => `
+query getOrdersByMonth {
+  orders(
+    first: 10
+    sortKey: CREATED_AT
+    ${after ? `after: ${after}` : ''}
+  ) {
+     edges {
+      node {
+        name
+        id
+        tags
+        createdAt
+        lineItems(first: 10) {
+          nodes {
+            quantity
+            title
+            vendor
+            discountAllocations {
+              allocatedAmountSet {
+                presentmentMoney {
+                amount
+                currencyCode
+              }
+                shopMoney {
+                amount
+                currencyCode
+              }
+              }
+            }
+            discountedTotalSet {
+              presentmentMoney {
+                amount
+                currencyCode
+              }
+              shopMoney {
+                amount
+                currencyCode
+              }
+            }
+            variant {
+              id
+              title
+            }
+            sellingPlan {
+              name
+            }
+          }
+        }
+        discountCode
+        totalDiscounts
+        totalPrice
+        totalTax
+        totalShippingPrice
+        customer {
+          id
+          email
+          firstName
+          lastName
+        }
+      }
+      cursor
+    }
+  }
+}
+`

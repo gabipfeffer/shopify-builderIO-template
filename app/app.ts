@@ -1,8 +1,12 @@
 import { IApp, IAppDependencies } from '@interfaces/app'
 import handleWebhook from '@app/actions/handle_webhook'
-import validateAndLoadCustomer from '@app/actions/validate_and_load_customer'
+import validateAndLoadUser from '@app/actions/validate_and_load_user'
 
-import { getOrderById as getShopifyOrderById } from '@shopify/client'
+import {
+  getOrderById as getShopifyOrderById,
+  getShopifyOrders,
+  getShopifyProductsByVendor,
+} from '@shopify/client'
 import { verifyWebhookSignature as verifyShopifyWebhookSignature } from '@shopify/webhook'
 import { verifyWebhookSignature as verifyBoldWebhookSignature } from '@bold/webhook'
 
@@ -26,6 +30,8 @@ export const initializeApplication = (
     formatShopifyCustomer,
     getShopifyOrderById,
     verifyShopifyWebhookSignature,
+    getShopifyProductsByVendor,
+    getShopifyOrders,
     // Cognito
     validateCognitoJWT,
     // BOLD
@@ -38,6 +44,6 @@ export const initializeApplication = (
 
   return {
     handleWebhook: handleWebhook(deps),
-    validateAndLoadCustomer: validateAndLoadCustomer(deps),
+    validateAndLoadUser: validateAndLoadUser(deps),
   }
 }

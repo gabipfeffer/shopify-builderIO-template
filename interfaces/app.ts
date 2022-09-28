@@ -20,6 +20,8 @@ export interface IAppDependencies {
     customer: IShopifyCustomer
   ) => Promise<IFormattedShopifyCustomer>
   verifyShopifyWebhookSignature?: (params: IVerifyWebhookSignatureParams) => any
+  getShopifyProductsByVendor?: (vendor: string) => Promise<any>
+  getShopifyOrders?: () => Promise<any>
 
   // BOLD
   verifyBoldWebhookSignature?: (params: IVerifyWebhookSignatureParams) => any
@@ -41,9 +43,14 @@ export interface IAppUseCasePayload {
   id?: any
   shopifyOrder?: IShopifyOrder
   boldSubscription?: ISubscriptionCreatedPayload
+  vendor?: string
+  email?: string
+  role?: string
 }
 
 export interface IApp {
   handleWebhook: (payload: IAppUseCasePayload) => Promise<any>
-  validateAndLoadCustomer: (token: string) => Promise<IFormattedShopifyCustomer>
+  validateAndLoadUser: (
+    token: string
+  ) => Promise<IFormattedShopifyCustomer | any>
 }

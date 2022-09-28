@@ -1,4 +1,4 @@
-import validateAndLoadCustomer from '../../actions/validate_and_load_customer'
+import validateAndLoadUser from '../../actions/validate_and_load_user'
 import { createShopifyClientFailure } from '../support/doubles/shopify/failure'
 import { createShopifyClientSuccess } from '../support/doubles/shopify/success'
 import { createCognitoFailureDouble } from '../support/doubles/cognito/failure'
@@ -22,7 +22,7 @@ describe('validateAndLoadCustomer', function () {
 
     const token: string = Math.random().toString()
 
-    validateAndLoadCustomer(deps)(token).catch((error: any) => {
+    validateAndLoadUser(deps)(token).catch((error: any) => {
       expect(cognitoDouble.validateCognitoJWTParamsUsed).toEqual(token)
       expect(cognitoDouble.validateCognitoJWTResult).toEqual(null)
 
@@ -55,11 +55,12 @@ describe('validateAndLoadCustomer', function () {
     const customer_id: string = '6312283111663'
     const role = 'customer'
 
-    validateAndLoadCustomer(deps)(token).then((result: any) => {
+    validateAndLoadUser(deps)(token).then((result: any) => {
       expect(cognitoDouble.validateCognitoJWTParamsUsed).toEqual(token)
       expect(cognitoDouble.validateCognitoJWTResult).toEqual({
         email,
         'custom:role': role,
+        'custom:vendor': '',
       })
 
       expect(shopifyDouble.getCustomerByEmailParamsUsed).toEqual(email)
