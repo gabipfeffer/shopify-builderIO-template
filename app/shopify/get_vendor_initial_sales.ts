@@ -1,4 +1,4 @@
-import { IAppDependencies, IAppUseCasePayload } from '@interfaces/app'
+import { IAppDependencies } from '@interfaces/app'
 
 export default function getVendorShopifyInitialSales(deps: IAppDependencies) {
   return (payload: {
@@ -6,7 +6,7 @@ export default function getVendorShopifyInitialSales(deps: IAppDependencies) {
     role: string
     vendor: string
     products: any[]
-  }): Promise<IAppUseCasePayload> => {
+  }) => {
     return Promise.resolve()
       .then(() => deps.getShopifyOrders?.())
       .then((orders: any) => {
@@ -19,7 +19,7 @@ export default function getVendorShopifyInitialSales(deps: IAppDependencies) {
 
           // TODO: Filter price to display for product purchase
 
-          acc = [...acc, { ...order.node, lineItems }]
+          acc = [...acc, { ...order.node, cursor: order.cursor, lineItems }]
 
           return acc
         }, [])

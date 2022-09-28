@@ -25,6 +25,8 @@ export interface IUserRegistration extends IUserLogin {
 }
 
 export interface IAccount extends IAccountGeneral {
+  collections: Array<any>
+  sales: Array<any>
   products?: Array<any>
   subscriptions?: Array<ISubscription>
   orders?: Array<IAccountOrder>

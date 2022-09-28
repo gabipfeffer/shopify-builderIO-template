@@ -13,6 +13,8 @@ import AddressAccountTabWrapper from '@components/Account/AccountCenter/Customer
 import { EnumUserRole } from '@constants/cognito'
 import { IAccount } from '@interfaces/account'
 import ProductAccountTabWrapper from '@components/Account/AccountCenter/Vendor/ProductAccountTab/ProductAccountTab.wrapper'
+import SalesAccountTabWrapper from '@components/Account/AccountCenter/Vendor/SalesAccountTab/SalesAccountTab.wrapper'
+import CollectionsAccountTabWrapper from '@components/Account/AccountCenter/Vendor/CollectionsAccountTab/CollectionsAccountTab.wrapper'
 
 const AccountCenterWrapper: FC<{ account: IAccount }> = ({ account }) => {
   const router = useRouter()
@@ -56,7 +58,9 @@ const AccountCenterWrapper: FC<{ account: IAccount }> = ({ account }) => {
     ],
     [EnumUserRole.ADMIN]: [],
     [EnumUserRole.VENDOR]: [
+      <SalesAccountTabWrapper sales={account.sales} />,
       <ProductAccountTabWrapper products={account.products} />,
+      <CollectionsAccountTabWrapper collections={account.collections} />,
     ],
   }
 

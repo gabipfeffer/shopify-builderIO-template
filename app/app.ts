@@ -3,9 +3,12 @@ import handleWebhook from '@app/actions/handle_webhook'
 import validateAndLoadUser from '@app/actions/validate_and_load_user'
 
 import {
+  formatShopifyCustomer,
+  getShopifyCustomerByEmail,
   getOrderById as getShopifyOrderById,
   getShopifyOrders,
   getShopifyProductsByVendor,
+  getShopifyCollectionsByVendor,
 } from '@shopify/client'
 import { verifyWebhookSignature as verifyShopifyWebhookSignature } from '@shopify/webhook'
 import { verifyWebhookSignature as verifyBoldWebhookSignature } from '@bold/webhook'
@@ -15,11 +18,6 @@ import {
   getSubscription,
 } from '@bold/subscriptions'
 import { jwtAuth as validateCognitoJWT } from '@cognito/verifyJwt'
-
-import {
-  formatShopifyCustomer,
-  getShopifyCustomerByEmail,
-} from '@shopify/client'
 
 export const initializeApplication = (
   depOverrides?: IAppDependencies
@@ -31,6 +29,7 @@ export const initializeApplication = (
     getShopifyOrderById,
     verifyShopifyWebhookSignature,
     getShopifyProductsByVendor,
+    getShopifyCollectionsByVendor,
     getShopifyOrders,
     // Cognito
     validateCognitoJWT,

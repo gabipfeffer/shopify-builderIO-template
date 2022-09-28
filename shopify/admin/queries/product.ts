@@ -74,3 +74,16 @@ export const getProductsByVendor = (vendor: string) => `
   }
 }
 `
+export const getCollectionsByVendor = `
+query getCollections {
+  collections(first: 50) {
+    nodes {
+      title
+      handle
+      productsCount
+      publishedOnCurrentChannel
+    }
+  }
+}
+
+`

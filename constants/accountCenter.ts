@@ -12,7 +12,6 @@ export const AccountTabs = {
     SALES: i18nKeys.account.sales,
     PRODUCTS: i18nKeys.account.products,
     COLLECTIONS: i18nKeys.account.collections,
-    CLIENTS: i18nKeys.account.clients,
   },
   [EnumUserRole.ADMIN]: {
     VENDORS: i18nKeys.account.vendors,
@@ -30,7 +29,6 @@ export const AccountTabOrder = {
     AccountTabs[EnumUserRole.VENDOR].SALES,
     AccountTabs[EnumUserRole.VENDOR].PRODUCTS,
     AccountTabs[EnumUserRole.VENDOR].COLLECTIONS,
-    AccountTabs[EnumUserRole.VENDOR].CLIENTS,
   ],
   [EnumUserRole.ADMIN]: [AccountTabs[EnumUserRole.ADMIN].VENDORS],
 }

@@ -132,6 +132,16 @@ query getOrdersByMonth {
             sellingPlan {
               name
             }
+            variant {
+              id
+              title
+              inventoryItem {
+                unitCost {
+                  amount
+                  currencyCode
+                }
+              }
+            }
           }
         }
         discountCode

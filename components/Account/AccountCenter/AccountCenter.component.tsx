@@ -38,6 +38,7 @@ export const AccountCenter: FC<{
         <Themed.div
           sx={{
             p: '10px',
+            // width: '100%',
           }}
         >
           {Tab}

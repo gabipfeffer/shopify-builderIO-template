@@ -6,7 +6,10 @@ import {
 } from '@interfaces/shopify'
 
 import { getAdminOrder, getOrders } from '@shopify/admin/queries/order'
-import { getProductsByVendor } from '@shopify/admin/queries/product'
+import {
+  getCollectionsByVendor,
+  getProductsByVendor,
+} from '@shopify/admin/queries/product'
 import adminAPIClient from '@shopify/admin/client'
 import { getCustomerByEmail } from '@shopify/admin/queries/customer'
 import {
@@ -83,6 +86,22 @@ export const getShopifyProductsByVendor = async (vendor: string) => {
     return nodes
   } catch (e) {
     throw new Error(`Error fetching shopify products by vendor: ${vendor}`)
+  }
+}
+
+export const getShopifyCollectionsByVendor = async (vendor: string) => {
+  try {
+    const {
+      data: {
+        collections: { nodes },
+      },
+    } = await adminAPIClient({
+      query: getCollectionsByVendor,
+    })
+
+    return nodes
+  } catch (e) {
+    throw new Error(`Error fetching shopify collections by vendor: ${vendor}`)
   }
 }
 

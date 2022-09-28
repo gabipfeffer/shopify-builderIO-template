@@ -21,6 +21,7 @@ export interface IAppDependencies {
   ) => Promise<IFormattedShopifyCustomer>
   verifyShopifyWebhookSignature?: (params: IVerifyWebhookSignatureParams) => any
   getShopifyProductsByVendor?: (vendor: string) => Promise<any>
+  getShopifyCollectionsByVendor?: (vendor: string) => Promise<any>
   getShopifyOrders?: () => Promise<any>
 
   // BOLD
