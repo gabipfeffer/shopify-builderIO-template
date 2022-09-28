@@ -23,12 +23,26 @@ export const AccountCenter: FC<{
         margin: '0 auto',
       }}
     >
-      <AccountCenterTabs
-        activeTab={activeTab}
-        onTabChange={onTabChange}
-        role={role}
-      />
-      <Themed.div>{Tab}</Themed.div>
+      <Themed.div
+        sx={{
+          display: 'flex',
+          flexDirection: ['column', 'column', 'row'],
+          p: '10px 0',
+        }}
+      >
+        <AccountCenterTabs
+          activeTab={activeTab}
+          onTabChange={onTabChange}
+          role={role}
+        />
+        <Themed.div
+          sx={{
+            p: '10px',
+          }}
+        >
+          {Tab}
+        </Themed.div>
+      </Themed.div>
       <Button onClick={onSignOut}>
         <Themed.a href={'/'}>{t(i18nKeys.common.sign_out)}</Themed.a>
       </Button>

@@ -16,15 +16,13 @@ export const AccountCenterTabs: FC<{
   return (
     <Themed.div
       sx={{
-        width: '100%',
+        width: ['100%', '100%', '25%'],
         display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        '@media (max-width: 768px)': {
-          justifyContent: 'flex-start',
-          overflow: 'scroll',
-          p: '0 0 10px 0',
-        },
+        flexDirection: ['row', 'row', 'column'],
+        justifyContent: 'flex-start',
+        alignItems: 'flex-end',
+        p: ['0 0 10px 0', '0 0 10px 0', '0 10px 0 0'],
+        overflow: ['scroll', 'scroll', 'hidden'],
       }}
     >
       {accountTabs.map((accountTab: string, index: number) => (
@@ -32,12 +30,10 @@ export const AccountCenterTabs: FC<{
           key={`account-center-tab-${accountTab}`}
           onClick={() => onTabChange(index)}
           sx={{
-            display: 'grid',
-            gridTemplateColumns: `repeat(${accountTabs.length} fr)`,
-            p: '0 10px',
             whiteSpace: 'nowrap',
             borderBottom: index === activeTab ? '2px solid' : 'none',
             borderColor: index === activeTab ? 'primary' : 'none',
+            p: ['5px 10px', '5px 10px', '10px 0 10px 20px'],
           }}
         >
           <Themed.a
