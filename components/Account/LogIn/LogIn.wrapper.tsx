@@ -7,6 +7,11 @@ import { IUserLogin } from '@interfaces/account'
 import { jsx } from 'theme-ui'
 import { setCookie } from '@utils/cookies'
 import { cognitoLogInCookie } from '@constants/cookies'
+import { useAccount } from '@lib/hooks/useAccount'
+import {
+  LocalStorage,
+  LocalStorageKeys,
+} from '@lib/shopify/storefront-data-hooks/src/utils'
 
 const LogInWrapper: FC<{ title: string; recoverPassword: boolean }> = ({
   title,
@@ -14,14 +19,18 @@ const LogInWrapper: FC<{ title: string; recoverPassword: boolean }> = ({
 }) => {
   const [err, setErr] = useState(false)
   const [values, setValues] = useState<IUserLogin>({ email: '', password: '' })
+  const { setAccessToken } = useAccount()
 
   const handleSubmit = async () => {
     try {
       const result = await loginUser(values)
+      const accessToken = result?.getIdToken().getJwtToken()
       setCookie({
         name: cognitoLogInCookie,
-        value: result?.getIdToken().getJwtToken(),
+        value: accessToken,
       })
+      LocalStorage.set(LocalStorageKeys.ACCESS_TOKEN, accessToken)
+      setAccessToken(accessToken)
 
       window.location.replace('/account')
     } catch (e) {

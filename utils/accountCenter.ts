@@ -1,5 +1,6 @@
 import { IAccountAddress, IAccountGeneral } from '@interfaces/account'
 import { jwtAuth } from '@cognito/verifyJwt'
+import { useAccount } from '@lib/hooks/useAccount'
 
 export const generalFormInitialValuesReducer = (fixedProps: any, props: any) =>
   <IAccountGeneral>Object.values(fixedProps).reduce((acc, prop) => {
@@ -15,11 +16,21 @@ export const addressFormInitialValuesReducer = (fixedProps: any, props: any) =>
     return acc
   }, {}) || {}
 
-export const validateLogin = async (token: string) => {
-  if (!token) return null
+export const validateLogin = async (token?: string | null) => {
+  if (!token) return window.location.replace('/login')
+  const { setAccountRole, setVendor } = useAccount()
 
   try {
-    return jwtAuth(token)
+    return jwtAuth(token).then((response: any) => {
+      if (!response) return window.location.replace('/login')
+
+      if (response?.['custom:role']) {
+        setAccountRole(response['custom:role'])
+      }
+      if (response?.['custom:vendor']) {
+        setVendor(response['custom:vendor'])
+      }
+    })
   } catch (e) {
     return null
   }

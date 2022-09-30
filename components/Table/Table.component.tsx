@@ -3,6 +3,7 @@
 import React from 'react'
 import { jsx, Themed } from 'theme-ui'
 import TablePagination from '@components/Table/TablePagination.component'
+import Link from 'next/link'
 
 const Table = ({ rows, headers }: { headers: string[]; rows: any[] }) => {
   return (
@@ -39,30 +40,39 @@ const Table = ({ rows, headers }: { headers: string[]; rows: any[] }) => {
         >
           {headers.map((header: string) => (
             <Themed.div key={header}>
-              <Themed.h4>{header}</Themed.h4>
+              <Themed.h4
+                sx={{
+                  fontSize: ['12px', '14px'],
+                }}
+              >
+                {header}
+              </Themed.h4>
             </Themed.div>
           ))}
         </Themed.div>
-        {rows.map((row) => (
-          <Themed.a
-            key={row.handle}
-            sx={{
-              width: '100%',
-              display: 'grid',
-              gridTemplateColumns: `repeat(${headers.length}, 1fr)`,
-              p: '10px',
-              m: '1px 0',
-              borderTop: '1px solid',
-              borderBottom: '1px solid',
-              borderColor: 'primary',
-            }}
-            href={row.handle}
-          >
-            {row.values.map((value: string) => (
-              <Themed.div key={value}>
-                <Themed.h5>{value}</Themed.h5>
-              </Themed.div>
-            ))}
+        {rows.map((row, index) => (
+          <Themed.a as={Link} key={row.handle} href={row.handle}>
+            <Themed.div
+              sx={{
+                cursor: 'pointer',
+                width: '100%',
+                display: 'grid',
+                gridTemplateColumns: `repeat(${headers.length}, 1fr)`,
+                p: '10px',
+                borderTop: index === 0 ? '2px solid' : '1px solid',
+                borderBottom:
+                  index === rows.length - 1 ? '2px solid' : '1px solid',
+                borderColor: 'primary',
+                transition: 'all 0.5s ease',
+                '&:hover': {
+                  transform: 'scale(1.03)',
+                },
+              }}
+            >
+              {row.values.map((value: string) => (
+                <Themed.h5 key={value}>{value}</Themed.h5>
+              ))}
+            </Themed.div>
           </Themed.a>
         ))}
       </Themed.div>

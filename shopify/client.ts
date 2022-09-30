@@ -5,7 +5,11 @@ import {
   IFormattedShopifyCustomer,
 } from '@interfaces/shopify'
 
-import { getAdminOrder, getOrders } from '@shopify/admin/queries/order'
+import {
+  getAdminOrder,
+  getOrderIds,
+  getOrders,
+} from '@shopify/admin/queries/order'
 import {
   getCollectionsByVendor,
   getProductsByVendor,
@@ -116,6 +120,21 @@ export const getShopifyOrders = async (after?: string) => {
     })
 
     return edges
+  } catch (e) {
+    throw new Error(`Error fetching shopify sales`)
+  }
+}
+export const getShopifyOrderIds = async (after?: string) => {
+  try {
+    const {
+      data: {
+        orders: { nodes },
+      },
+    } = await adminAPIClient({
+      query: getOrderIds(after),
+    })
+
+    return nodes
   } catch (e) {
     throw new Error(`Error fetching shopify sales`)
   }

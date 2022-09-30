@@ -4,47 +4,117 @@ query getOrderById {
     name
     id
     tags
+    subtotalLineItemsQuantity
     lineItems(first: 15) {
       nodes {
+        id
         title
-        product {
-          tags
-          isSchoolLicense: metafield(key: "SchoolLicense", namespace: "ProductType") {
-            id
-            value
-            namespace
-            key
-          }
-          isCustomerSubscription: metafield(key: "CustomerSubscription", namespace: "ProductType") {
-            id
-            value
-            namespace
-            key
-          }
-        }
+        vendor
+        quantity
         variant {
           id
           title
+          inventoryItem {
+            unitCost {
+              currencyCode
+              amount
+            }
+          }
         }
         sellingPlan {
           name
         }
+        originalUnitPriceSet {
+          presentmentMoney {
+            amount
+            currencyCode
+          }
+          shopMoney {
+            amount
+            currencyCode
+          }
+        }
+        originalTotalSet {
+          presentmentMoney {
+            amount
+            currencyCode
+          }
+          shopMoney {
+            amount
+            currencyCode
+          }
+        }
+        totalDiscountSet {
+          presentmentMoney {
+            currencyCode
+            amount
+          }
+          shopMoney {
+            amount
+            currencyCode
+          }
+        }
       }
     }
-    fulfillments(first: 3) {
-      deliveredAt
-      createdAt
-      displayStatus
-      estimatedDeliveryAt
+    metafields(first: 30) {
+      edges {
+        node {
+          namespace
+          key
+          value
+        }
+      }
+    }
+    totalPriceSet {
+      presentmentMoney {
+        currencyCode
+        amount
+      }
+    }
+    customer {
       id
-      inTransitAt
-      legacyResourceId
-      name
-      status
-      trackingInfo(first: 2) {
-        company
-        number
-        url
+      email
+      firstName
+      lastName
+    }
+    netPaymentSet {
+      presentmentMoney {
+        amount
+        currencyCode
+      }
+      shopMoney {
+        amount
+        currencyCode
+      }
+    }
+    subtotalPriceSet {
+      presentmentMoney {
+        amount
+        currencyCode
+      }
+      shopMoney {
+        amount
+        currencyCode
+      }
+    }
+    totalTaxSet {
+      presentmentMoney {
+        amount
+        currencyCode
+      }
+      shopMoney {
+        amount
+        currencyCode
+      }
+    }
+    taxLines {
+      title
+      ratePercentage
+      priceSet {
+        presentmentMoney {
+          amount
+          currencyCode
+        }
       }
     }
     shippingAddress {
@@ -57,30 +127,6 @@ query getOrderById {
       name
       province
       zip
-    }
-    metafields(first: 30) {
-      edges {
-        node {
-          namespace
-          key
-          value
-        }
-      }
-    }
-    discountCode
-    totalDiscounts
-    totalPrice
-    totalTax
-    totalShippingPrice
-    transactions(first: 1) {
-      kind
-      paymentMethod
-    }
-    customer {
-      id
-      email
-      firstName
-      lastName
     }
   }
 }
@@ -157,6 +203,19 @@ query getOrdersByMonth {
         }
       }
       cursor
+    }
+  }
+}
+`
+
+export const getOrderIds = (after?: string) => `
+query getOrdersIds {
+    orders(first: 100,
+    sortKey: CREATED_AT,
+    ${after ? `after: ${after}` : ''}
+  ) {
+    nodes {
+      id
     }
   }
 }

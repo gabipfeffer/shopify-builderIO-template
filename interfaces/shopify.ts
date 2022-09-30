@@ -1,14 +1,26 @@
-export interface IAdminShopifyProducts {
-  id: string
-  title: string
-  handle: string
-  metafield: {
-    key: string
-    value: string
-  }
-}
-
 export interface IShopifyOrder {
+  taxLines: Array<{
+    ratePercentage: number
+    priceSet: {
+      presentmentMoney: {
+        amount: string
+        currencyCode: string
+      }
+    }
+    title: string
+  }>
+  netPaymentSet: {
+    presentmentMoney: {
+      amount: string
+      currencyCode: string
+    }
+    shopMoney: {
+      amount: string
+      currencyCode: string
+    }
+  }
+  subtotalLineItemsQuantity: number
+  id: string
   shippingAddress: {
     address1: string
     address2: string
@@ -29,53 +41,28 @@ export interface IShopifyOrder {
     }
   }
   lineItems: {
-    nodes: [
-      {
-        title: string
-        quantity: 1
-        discountedUnitPriceSet: {
-          presentmentMoney: {
-            amount: string
-            currencyCode: string
-          }
-        }
-        variant: {
-          price: string
-          title: string
-          image: null
-        }
-      },
-      {
-        title: string
-        quantity: 1
-        discountedUnitPriceSet: {
-          presentmentMoney: {
-            amount: string
-            currencyCode: string
-          }
-        }
-        variant: {
-          price: string
-          title: string
-          image: null
-        }
-      },
-      {
-        title: string
-        quantity: 1
-        discountedUnitPriceSet: {
-          presentmentMoney: {
-            amount: string
-            currencyCode: string
-          }
-        }
-        variant: {
-          price: string
-          title: string
-          image: null
+    nodes: Array<{
+      vendor: string | null
+      title: string
+      quantity: number
+      discountedUnitPriceSet: {
+        presentmentMoney: {
+          amount: string
+          currencyCode: string
         }
       }
-    ]
+      variant: {
+        inventoryItem: {
+          unitCost: {
+            amount: string
+            currencyCode: string
+          }
+        }
+        price: string
+        title: string
+        image: null
+      }
+    }>
   }
   subtotalPriceSet: {
     presentmentMoney: {
