@@ -90,6 +90,8 @@ export interface IShopifyOrder {
   }
 }
 
+export interface IShopifyProduct {}
+
 export interface IVerifyWebhookSignatureParams {
   signature: string
   body: string

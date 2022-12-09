@@ -18,7 +18,7 @@ const ProductAccountTabWrapper = ({ products }: any) => {
           : t(i18nKeys.product.table_status_inactive),
         `${product.totalInventory} ${t(i18nKeys.product.table_qty_units)}`,
       ],
-      handle: `/account/products/${product.handle}`,
+      handle: `/account/products/${product.id.split('/').reverse()[0]}`,
     }
   })
 

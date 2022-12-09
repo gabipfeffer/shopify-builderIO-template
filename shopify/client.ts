@@ -11,7 +11,9 @@ import {
   getOrders,
 } from '@shopify/admin/queries/order'
 import {
+  getAdminProduct,
   getCollectionsByVendor,
+  getProductIds,
   getProductsByVendor,
 } from '@shopify/admin/queries/product'
 import adminAPIClient from '@shopify/admin/client'
@@ -137,5 +139,38 @@ export const getShopifyOrderIds = async (after?: string) => {
     return nodes
   } catch (e) {
     throw new Error(`Error fetching shopify sales`)
+  }
+}
+
+export const getShopifyProductIds = async (after?: string) => {
+  try {
+    const {
+      data: {
+        products: { nodes },
+      },
+    } = await adminAPIClient({
+      query: getProductIds(after),
+    })
+
+    return nodes
+  } catch (e) {
+    throw new Error(`Error fetching shopify product ids`)
+  }
+}
+
+export const getProductById = async (
+  params: IGetOrderByIdParams
+): Promise<any | null> => {
+  try {
+    const {
+      data: { product },
+    } = await adminAPIClient({
+      query: getAdminProduct(Number(params.id)),
+    })
+
+    return Promise.resolve(product)
+  } catch (e) {
+    console.log('e', e)
+    throw new Error(`Error fetching shopify product: ${params.id}`)
   }
 }

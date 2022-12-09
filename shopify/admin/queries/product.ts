@@ -1,59 +1,34 @@
-export const getAdminProduct = ({
-  id,
-  namespace,
-  key,
-}: {
-  id: string
-  namespace: string
-  key: string
-}) => `
+export const getAdminProduct = (id: number) => `
 query getProductById {
   product(id: "gid://shopify/Product/${id}") {
-    id
+    createdAt
     title
-    handle
-    metafield(namespace: "${namespace}", key: "${key}") {
-      key
-      value
+    publishedOnCurrentChannel
+    bodyHtml
+    images(first: 6) {
+      nodes {
+        id
+        src
+      }
     }
-  }
-}
-`
-
-export const getAdminProductContextualPricing = (
-  id: number,
-  currencyCode: string
-) => `
-query getProductById {
-  product(id: "${id}") {
-    variants(first: 10) {
-      edges {
-        node {
-          id
-          title
-          inventoryItem {
-            inventoryLevels(first: 5) {
-              edges {
-                node {
-                  available
-                  location {
-                    id
-                    name
-                    address {
-                      countryCode
-                    }
-                  }
-                }
-              }
-            }
+    productType
+    variants(first: 20) {
+      nodes {
+        inventoryItem {
+          unitCost {
+            amount
+            currencyCode
           }
-          contextualPricing(context: {country: ${currencyCode}}) {
-            price {
-              amount
-              currencyCode
-            }
-          }
+          sku
+          locationsCount
         }
+        weight
+        weightUnit
+      }
+    }
+    collections(first: 10) {
+      nodes {
+        title
       }
     }
   }
@@ -85,5 +60,14 @@ query getCollections {
     }
   }
 }
+`
 
+export const getProductIds = (after?: string) => `
+query getProductsIds {
+  products(first: 100, sortKey: CREATED_AT, ${after ? `after: ${after}` : ''}) {
+    nodes {
+      id
+    }
+  }
+}
 `
