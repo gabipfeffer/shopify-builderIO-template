@@ -14,6 +14,7 @@ import { IShopifyOrder } from '@interfaces/shopify'
 import { useAccount } from '@lib/hooks/useAccount'
 import { validateLogin } from '@utils/accountCenter'
 import ProductViewWrapper from '@components/Product/ProductView/ProductView.wrapper'
+import LoadingDots from '../../../components/ui/LoadingDots'
 builder.init(builderConfig.apiKey)
 
 export async function getStaticProps({
@@ -62,7 +63,7 @@ export default function Id({
   }
 
   return router.isFallback && isLive ? (
-    <h1>Loading...</h1>
+    <LoadingDots />
   ) : product ? (
     <ProductViewWrapper
       product={product}

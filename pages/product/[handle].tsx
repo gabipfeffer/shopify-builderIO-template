@@ -18,6 +18,7 @@ import Head from 'next/head'
 import { useThemeUI } from 'theme-ui'
 import { getLayoutProps } from '@lib/get-layout-props'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import LoadingDots from '../../components/ui/LoadingDots'
 builder.init(builderConfig.apiKey!)
 
 const builderModel = 'product-page'
@@ -81,7 +82,7 @@ export default function Handle({
   }
 
   return router.isFallback && isLive ? (
-    <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
+    <LoadingDots />
   ) : (
     <BuilderComponent
       key={product!.id}

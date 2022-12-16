@@ -16,6 +16,7 @@ import {
   getLineItemSwappableProducts,
 } from '@bold/subscriptions'
 import { ISubscription } from '@interfaces/subscription'
+import LoadingDots from '../../../components/ui/LoadingDots'
 
 builder.init(builderConfig.apiKey)
 
@@ -56,10 +57,10 @@ builder.init(builderConfig.apiKey)
 // }
 
 export default function Id() {
-// {
-// subscription,
-// subscriptionLineItems,
-// }: InferGetStaticPropsType<typeof getStaticProps>
+  // {
+  // subscription,
+  // subscriptionLineItems,
+  // }: InferGetStaticPropsType<typeof getStaticProps>
   const router = useRouter()
   const isLive = !Builder.isEditing && !Builder.isPreviewing
 
@@ -76,7 +77,7 @@ export default function Id() {
   // }
 
   return router.isFallback && isLive ? (
-    <h1>Loading...</h1>
+    <LoadingDots />
   ) : (
     <div></div>
     // <SubscriptionFormWrapper

@@ -19,6 +19,7 @@ import { useAddItemToCart } from '@lib/shopify/storefront-data-hooks'
 import { useUI } from '@components/ui/context'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ILocales } from '@interfaces/locale'
+import LoadingDots from '../components/ui/LoadingDots'
 
 builder.init(builderConfig.apiKey)
 
@@ -65,7 +66,7 @@ export default function Path({
   const addToCart = useAddItemToCart()
   const { openSidebar } = useUI()
   if (router.isFallback) {
-    return <h1>Loading...</h1>
+    return <LoadingDots />
   }
   // This includes setting the noindex header because static files always return a status 200 but the rendered not found page page should obviously not be indexed
   if (!page && !Builder.isEditing && !Builder.isPreviewing) {
