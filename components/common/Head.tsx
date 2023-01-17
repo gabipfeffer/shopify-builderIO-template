@@ -12,7 +12,7 @@ const Head: FC<{ seoInfo: any }> = (props) => {
         <link
           rel="icon"
           type="image/png"
-          href="https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F2d86a5bb30f44d2db3564aa2962bb093"
+          href="https://cdn.builder.io/api/v1/image/assets%2F31f9cd3ec3644d77b4041dbe51bfceb9%2F695d5e6a72e14442a1dac9aca241a94b"
         />
       </NextHead>
     </>

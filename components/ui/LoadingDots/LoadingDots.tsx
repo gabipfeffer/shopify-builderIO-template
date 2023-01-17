@@ -1,12 +1,20 @@
-import s from './LoadingDots.module.css'
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx, Themed, Spinner } from 'theme-ui'
 
 const LoadingDots: React.FC = () => {
   return (
-    <span className={s.root}>
-      <span />
-      <span />
-      <span />
-    </span>
+    <Themed.div
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '50vh',
+      }}
+    >
+      <Spinner color={'text'} />
+    </Themed.div>
   )
 }
 
