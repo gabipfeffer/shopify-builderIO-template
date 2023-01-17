@@ -33,7 +33,7 @@ const HamburgerMenu: FC<{
         outline: 'none!important',
       }}
     >
-      <svg viewBox="0 0 100 60" width="20" height="21">
+      <svg viewBox="0 0 100 60" width="20" height="21" fill={'white'}>
         <rect width="100" height="7" />
         <rect y="20" width="100" height="7" />
         <rect y="40" width="100" height="7" />

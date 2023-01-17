@@ -35,7 +35,7 @@
   --accents-7: #495057;
   --accents-8: #343a40;
   --accents-9: #212529;
-  --font-sans: -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue',
+  --font-sans: 'Nunito', 'Nunito Sans', -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue',
     'Helvetica', sans-serif;
 }
 
@@ -102,8 +102,6 @@ a {
 }
 
 .animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;

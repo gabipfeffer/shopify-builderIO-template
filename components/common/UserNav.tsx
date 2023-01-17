@@ -1,17 +1,13 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { FC } from 'react'
+import React from 'react'
 import { Bag, Account } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import { Themed, Button, jsx } from 'theme-ui'
 import Link from 'next/link'
 import useAccountUrl from '@lib/hooks/useAccountUrl'
 
-interface Props {
-  className?: string
-}
-
-const UserNav: FC<Props> = ({ className, children, ...props }) => {
+const UserNav = () => {
   const { toggleSidebar } = useUI()
   const accountUrl = useAccountUrl()
 
@@ -22,10 +18,21 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
         gap: '5px',
       }}
     >
-      <Button onClick={toggleSidebar} aria-label="Cart">
+      <Button
+        onClick={toggleSidebar}
+        aria-label="Cart"
+        sx={{
+          background: 'none',
+        }}
+      >
         <Bag />
       </Button>
-      <Button aria-label="Account">
+      <Button
+        aria-label="Account"
+        sx={{
+          background: 'none',
+        }}
+      >
         <Themed.a as={Link} href={accountUrl}>
           <Account />
         </Themed.a>

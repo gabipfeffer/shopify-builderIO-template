@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import React, { FC, useEffect, useRef, useState } from 'react'
 import { Themed, jsx } from 'theme-ui'
-import Searchbar from '@components/common/Searchbar'
+// import Searchbar from '@components/common/Searchbar'
 import { UserNav } from '@components/common'
 import Logo from '@components/Header/Logo'
 import Navigation from '@components/Navigation/Navigation'
@@ -50,7 +50,7 @@ const Header: FC<IHeader> = ({
           top: noOffset ? 0 : offset >= 5 ? '0' : '33px',
           left: 0,
           right: 0,
-          zIndex: 2,
+          zIndex: 5,
           width: '100%',
           transition: 'top 150ms ease',
           '@media (max-width: 768px)': {
@@ -83,7 +83,7 @@ const Header: FC<IHeader> = ({
         >
           {hideEcommerce ? null : (
             <>
-              <Searchbar />
+              {/*<Searchbar />*/}
               <UserNav />
             </>
           )}

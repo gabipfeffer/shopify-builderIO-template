@@ -39,7 +39,7 @@ const MobileNavigation: FC<{
         bottom: 0,
         width: ['75%', '50%', 0],
         height: '100%',
-        background: backgroundColor,
+        backgroundColor: backgroundColor,
         zIndex: 1002,
         padding: '18px',
         top: noOffset ? 0 : offset >= 5 ? '0' : '33px',
@@ -59,6 +59,7 @@ const MobileNavigation: FC<{
         <Button
           sx={{
             p: '8px',
+            backgroundColor: 'background',
           }}
           onClick={() => setMobileNavigationActive(false)}
         >
@@ -81,12 +82,12 @@ const MobileNavigation: FC<{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'flex-end',
-          borderTop: '1px solid',
-          borderBottom: '1px solid',
           borderColor: 'text',
         }}
       >
-        <Themed.p sx={{ mb: 0 }}>{t(i18nKeys.common.location)}:</Themed.p>
+        <Themed.p sx={{ mb: 0, color: 'text' }}>
+          {t(i18nKeys.common.location)}:
+        </Themed.p>
         <LocalDropdownWrapper
           customLabels={i18nKeys.locale.customLabels}
           countries={[

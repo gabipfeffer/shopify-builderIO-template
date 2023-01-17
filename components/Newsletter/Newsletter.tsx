@@ -36,7 +36,7 @@ const Newsletter: FC<{
     >
       <Themed.h4
         sx={{
-          color: '#fff',
+          color: 'text',
           fontSize: '25px',
           margin: '0 0 20px',
           fontWeight: '500',
@@ -91,15 +91,21 @@ const Newsletter: FC<{
                 width: '70%',
                 marginRight: '16px',
                 backgroundColor: 'transparent',
-                color: 'background',
+                color: 'text',
                 textTransform: 'uppercase',
                 letterSpacing: '2px',
                 fontSize: '11px',
                 borderRadius: '100px',
                 border: '1px solid',
-                borderColor: 'background',
+                borderColor: 'text',
                 height: '39px',
                 padding: '0 16px',
+                '&::placeholder': {
+                  color: 'text',
+                },
+                '&::focus': {
+                  outline: 'none',
+                },
               }}
               placeholder="EMAIL"
               autoComplete={'email'}
@@ -109,7 +115,7 @@ const Newsletter: FC<{
             <Button
               sx={{
                 width: '30%',
-                background: 'background',
+                backgroundColor: 'background',
                 color: 'text',
                 padding: '0',
                 outline: 'none',
@@ -121,7 +127,7 @@ const Newsletter: FC<{
                 fontSize: '11px',
                 borderRadius: '100px',
                 border: '1px solid',
-                borderColor: 'primary',
+                borderColor: 'text',
                 height: '39px',
                 '&:hover': {
                   opacity: 0.7,

@@ -28,7 +28,7 @@ const NavigationLink: FC<{
         },
       }}
     >
-      <Themed.a as={Link} href={navigationLink?.link}>
+      <Themed.a href={navigationLink?.link}>
         {navigationLink?.title[router.locale as ILocales]}
       </Themed.a>
       {navigationLink?.sections?.length ? (
@@ -43,7 +43,6 @@ const NavigationLink: FC<{
             alignItems: 'flex-start',
             flexWrap: 'wrap',
             flexDirection: 'column',
-            backgroundColor: backgroundColor,
             '&:hover': {
               display: 'flex',
             },
@@ -53,7 +52,8 @@ const NavigationLink: FC<{
             <Themed.li
               key={`sub-nav-link-${subLink?.title[router.locale as ILocales]}`}
               sx={{
-                p: '5px 0',
+                backgroundColor: backgroundColor,
+                p: '5px',
                 '&:hover': {
                   textDecoration: 'underline',
                 },

@@ -24,7 +24,7 @@ const Footer: FC<IFooter> = ({ navigation, socialIcons, legalNavigation }) => {
           padding: '65px 0',
         },
         padding: '40px 0 20px',
-        backgroundColor: 'primary',
+        backgroundColor: 'background',
       }}
     >
       <Themed.div

@@ -13,14 +13,17 @@ const LocaleDropdown: FC<{
   return (
     <Themed.div
       sx={{
-        margin: 0,
+        margin: 'auto 5px',
+        backgroundColor: 'background',
         button: {
+          minWidth: '80px',
           width: '100%',
           height: '30px',
           p: 0,
+          border: 'none',
           justifyContent: 'flex-end',
           span: {
-            color: 'text',
+            color: 'white',
           },
           '::after': {
             border: 0,
@@ -28,6 +31,10 @@ const LocaleDropdown: FC<{
         },
         '.ReactFlagsSelect-module_flagsSelect__2pfa2': {
           pb: 0,
+          ul: {
+            backgroundColor: 'background',
+            border: 'none',
+          },
         },
       }}
     >
