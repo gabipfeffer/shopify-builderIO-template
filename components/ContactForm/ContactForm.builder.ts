@@ -1,4 +1,4 @@
-import { restrictedRegister } from '../../blocks/utils'
+import { restrictedRegister } from '@utils/builder'
 import dynamic from 'next/dynamic'
 
 const LazyContactForm = dynamic(

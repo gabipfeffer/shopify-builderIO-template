@@ -4,6 +4,7 @@ import { Themed, jsx } from 'theme-ui'
 import { Card, Text } from '@theme-ui/components'
 import { Link, ImageCarousel } from '@components/ui'
 import { getPrice } from '@lib/shopify/storefront-data-hooks/src/utils/product'
+import { mapShopifyArrays } from '@utils/shopify'
 
 export interface ProductCardProps {
   className?: string
@@ -32,6 +33,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
     productVariant?.priceV2?.currencyCode
   )
 
+  // @ts-ignore
+  const images = mapShopifyArrays(product.images.edges)
+
   return (
     <Card
       sx={{
@@ -53,8 +57,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
             sizes={imgSizes}
             alt={product.title}
             images={
-              product.images.length
-                ? product.images
+              images
+                ? images
                 : [
                     {
                       src: `https://via.placeholder.com/${imgWidth}x${imgHeight}`,

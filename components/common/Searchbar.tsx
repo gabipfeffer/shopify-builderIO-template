@@ -3,8 +3,8 @@
 import React, { FC, useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { LoadingDots } from '@components/ui'
-import { ProductGrid } from 'blocks/ProductGrid/ProductGrid'
-import { Button, Themed, jsx, Input, Label } from 'theme-ui'
+import { ProductGrid } from '@components/Collection/ProductGrid/ProductGrid'
+import { Themed, jsx, Input, Label } from 'theme-ui'
 import { searchProducts } from '@lib/shopify/storefront-data-hooks/src/api/operations'
 import { ExpandModal } from 'react-spring-modal'
 import { throttle } from 'lodash'
@@ -58,8 +58,6 @@ const Searchbar: FC<Props> = () => {
 
       <Themed.div
         ref={buttonRef}
-        as={Button}
-        mx={2}
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Search"
       >

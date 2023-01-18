@@ -30,13 +30,9 @@ const FooterNavigationLink: FC<IFooterNavigationLink> = ({
     >
       <Themed.h5
         sx={{
-          '@media (min-width: 1024px)': {
-            margin: '0 0 30px',
-          },
-          fontSize: '11px',
           textTransform: 'uppercase',
           letterSpacing: '2px',
-          color: 'background',
+          color: 'text',
           margin: '0 0 15px',
         }}
       >

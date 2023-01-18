@@ -9,8 +9,8 @@ import StorefrontAPIClient from '@shopify/storefront/client'
 import { appWithTranslation } from 'next-i18next'
 builder.init(builderConfig.apiKey)
 
-import '../blocks/ProductGrid/ProductGrid.builder'
-import '../blocks/CollectionView/CollectionView.builder'
+import '@components/Collection/ProductGrid/ProductGrid.builder'
+import '@components/Collection/CollectionView/CollectionView.builder'
 import '@components/Account/LogIn/LogIn.builder'
 import '@components/Account/Register/Register.builder'
 import '@components/Account/RecoverPassword/RecoverPassword.builder'

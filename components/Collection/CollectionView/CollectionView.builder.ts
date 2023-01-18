@@ -1,9 +1,8 @@
-import { Builder } from '@builder.io/react'
 import { Input } from '@builder.io/sdk'
 import dynamic from 'next/dynamic'
 import { productGridSchema } from '../ProductGrid/ProductGrid.builder'
 import builderConfig from '@config/builder'
-import { restrictedRegister } from 'blocks/utils'
+import { restrictedRegister } from '@utils/builder'
 const LazyCollectionView = dynamic(() => import(`./CollectionView`))
 
 const collectionBoxSchema: Input[] = [
