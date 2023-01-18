@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: docker-nextjs
+    image: vusler-prod
     build:
       context: .
       dockerfile: Dockerfile

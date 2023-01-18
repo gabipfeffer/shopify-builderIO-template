@@ -14,6 +14,8 @@ import {
   IVariant,
 } from '@interfaces/product'
 import { InputEmailTypes } from '@utils/emailInputAttribute'
+import i18nKeys from '@constants/i18n'
+import { useTranslation } from 'next-i18next'
 
 const ProductForm: React.FC<{
   variants: Array<IVariant>
@@ -54,6 +56,8 @@ const ProductForm: React.FC<{
   selectedVariant,
   sellingPlanGroups,
 }) => {
+  const { t } = useTranslation()
+
   return (
     <Themed.div
       sx={{
@@ -67,21 +71,23 @@ const ProductForm: React.FC<{
           alignItems: 'center',
         }}
       >
-        <Themed.div
-          sx={{
-            width: 'auto',
-            mr: '1em',
-            display: 'block',
-          }}
-        >
-          <OptionPicker
-            key="access_type"
-            name="Access Type"
-            options={variants}
-            selected={selectedVariant.title}
-            onChange={(event) => onVariantChange(event.target.value)}
-          />
-        </Themed.div>
+        {variants.length > 1 ? (
+          <Themed.div
+            sx={{
+              width: 'auto',
+              mr: '1em',
+              display: 'block',
+            }}
+          >
+            <OptionPicker
+              key="variant_type"
+              name="Variant"
+              options={variants}
+              selected={selectedVariant.title}
+              onChange={(event) => onVariantChange(event.target.value)}
+            />
+          </Themed.div>
+        ) : null}
         <QuantityPicker
           decreaseQuantity={decreaseQuantity}
           increaseQuantity={increaseQuantity}
@@ -125,13 +131,15 @@ const ProductForm: React.FC<{
         }}
       >
         <Themed.div>
-          <SubscriptionWidget
-            sellingPlanGroups={sellingPlanGroups}
-            selectedSellingPlan={selectedSellingPlan}
-            setSelectedSellingPlan={setSelectedSellingPlan}
-            selectedSellingPlanGroup={selectedSellingPlanGroup}
-            setSelectedSellingPlanGroup={setSelectedSellingPlanGroup}
-          />
+          {sellingPlanGroups.length ? (
+            <SubscriptionWidget
+              sellingPlanGroups={sellingPlanGroups}
+              selectedSellingPlan={selectedSellingPlan}
+              setSelectedSellingPlan={setSelectedSellingPlan}
+              selectedSellingPlanGroup={selectedSellingPlanGroup}
+              setSelectedSellingPlanGroup={setSelectedSellingPlanGroup}
+            />
+          ) : null}
           <Button
             sx={{
               borderRadius: '100px!important',
@@ -149,7 +157,7 @@ const ProductForm: React.FC<{
               whiteSpace: 'nowrap',
               color: 'text',
               border: '1px solid',
-              borderColor: 'primary',
+              borderColor: 'text',
               backgroundColor: 'transparent',
               '@media screen and (max-width: 767px)': {
                 ml: 'auto',
@@ -164,7 +172,9 @@ const ProductForm: React.FC<{
             name="add-to-cart"
             disabled={loading}
           >
-            <Text>Add to Cart {loading && <LoadingDots />}</Text>
+            <Text>
+              {t(i18nKeys.product.add_to_cart)} {loading && <LoadingDots />}
+            </Text>
           </Button>
         </Themed.div>
       </Themed.div>

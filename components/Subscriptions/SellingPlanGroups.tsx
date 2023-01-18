@@ -5,6 +5,8 @@ import { Themed, jsx, Label } from 'theme-ui'
 import SubscriptionIcon from '@components/icons/SubscriptionIcon'
 import OneTimePurchaseIcon from '@components/icons/OneTimePurchaseIcon'
 import { ISellingPlan, ISellingPlanGroup } from '@interfaces/product'
+import { useTranslation } from 'next-i18next'
+import i18nKeys from '@constants/i18n'
 
 const SellingPlanGroups: React.FC<{
   sellingPlanGroups: Array<ISellingPlanGroup>
@@ -19,6 +21,7 @@ const SellingPlanGroups: React.FC<{
   setSelectedSellingPlanGroup,
   selectedSellingPlanGroup,
 }) => {
+  const { t } = useTranslation()
   return (
     <Themed.div
       sx={{
@@ -53,8 +56,8 @@ const SellingPlanGroups: React.FC<{
         >
           <Themed.div
             sx={{
-              borderColor: !selectedSellingPlanGroup ? 'primary' : 'secondary',
-              color: !selectedSellingPlanGroup ? 'primary' : 'secondary',
+              borderColor: !selectedSellingPlanGroup ? 'text' : 'primary',
+              color: !selectedSellingPlanGroup ? 'text' : 'primary',
               fontWeight: !selectedSellingPlanGroup ? 700 : 500,
               display: 'flex!important',
               flexDirection: 'column',
@@ -66,18 +69,18 @@ const SellingPlanGroups: React.FC<{
               transition: '.3s',
               border: '1px solid',
               borderRadius: '5px',
-              backgroundColor: '#fff',
+              backgroundColor: 'background',
             }}
           >
             <OneTimePurchaseIcon />
             <Themed.div
               sx={{
-                color: !selectedSellingPlanGroup ? 'primary' : 'secondary',
+                color: !selectedSellingPlanGroup ? 'text' : 'primary',
                 fontWeight: !selectedSellingPlanGroup ? 700 : 500,
                 textAlign: 'center',
               }}
             >
-              One-time Purchase
+              {t(i18nKeys.product.one_time_purchase)}
             </Themed.div>
           </Themed.div>
         </Label>

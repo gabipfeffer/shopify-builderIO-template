@@ -4,7 +4,6 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { Themed, jsx, Button } from 'theme-ui'
 import { fadeIn } from '@assets/keyframes'
 import ArrowLeft from '../icons/ArrowLeft'
-import ArrowRight from '@components/icons/ArrowRight'
 
 const ProductViewCarouselSlider = ({
   images,
@@ -130,10 +129,10 @@ const ProductViewCarouselSlider = ({
           transform: 'translateY(-50%)',
           position: 'absolute',
           background: 'transparent!important',
-          color: '#393939!important',
+          color: 'text',
         }}
       >
-        <ArrowLeft style={{ overflow: 'hidden' }} />
+        <ArrowLeft style={{ overflow: 'hidden', color: 'text' }} />
       </Button>
       <Button
         onClick={() =>
@@ -158,10 +157,16 @@ const ProductViewCarouselSlider = ({
           transform: 'translateY(-50%)',
           position: 'absolute',
           background: 'transparent!important',
-          color: '#393939!important',
+          color: 'text',
         }}
       >
-        <ArrowRight style={{ overflow: 'hidden' }} />
+        <ArrowLeft
+          style={{
+            overflow: 'hidden',
+            color: 'text',
+            transform: 'rotate(180deg)',
+          }}
+        />
       </Button>
     </Themed.div>
   )

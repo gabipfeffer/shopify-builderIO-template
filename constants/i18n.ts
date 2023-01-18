@@ -73,6 +73,9 @@ const i18nKeys = {
     table_qty_units: 'product:table_qty_units',
     table_status_active: 'product:table_status_active',
     table_status_inactive: 'product:table_status_inactive',
+    one_time_purchase: 'product:one_time_purchase',
+    add_to_cart: 'product:add_to_cart',
+    quantity: 'product:quantity',
   },
   sales: {
     table_header_order_name: 'sales:table_header_order_name',

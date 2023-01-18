@@ -121,7 +121,8 @@ const ProductViewCarouselMainImage = ({
                 borderRadius: '50%',
                 opacity: mainImage === index ? 1 : '.3',
                 cursor: 'pointer',
-                border: '2px solid #393939',
+                border: '2px solid',
+                borderColor: 'text',
               }}
             />
           ))}
