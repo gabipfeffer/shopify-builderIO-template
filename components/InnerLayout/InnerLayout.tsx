@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ThemeProvider, Themed, jsx } from 'theme-ui'
 import dynamic from 'next/dynamic'
 import { useUI } from '@components/ui/context'
@@ -17,6 +17,8 @@ import Header from '@components/Header/Header'
 import Footer from '@components/Footer/Footer'
 import { useRouter } from 'next/router'
 import { ILocales } from '@interfaces/locale'
+import BrandNavigation from '@components/Navigation/BrandNavigation'
+import useWindowScroll from '@lib/hooks/useWindowScroll'
 
 const FeatureBar = dynamic(() => import('@components/common/FeatureBar'), {
   ssr: false,
@@ -30,7 +32,8 @@ const InnerLayout: React.FC<{
     secondary?: string
     muted?: string
   }
-}> = ({ children, colorOverrides }) => {
+  brandData?: any
+}> = ({ children, colorOverrides, brandData }) => {
   const mainTheme = {
     ...theme,
     colors: {
@@ -53,21 +56,47 @@ const InnerLayout: React.FC<{
   } = useUI()
   const [headerHeight, setHeaderHeight] = useState<number>(0)
   const router = useRouter()
+  const offset = useWindowScroll()
+  const ref = useRef()
+
+  useEffect(() => {
+    // @ts-ignore
+    const { height, top } = ref?.current?.getBoundingClientRect()
+    setHeaderHeight?.(height + top)
+  }, [ref.current])
 
   return (
     <ThemeProvider theme={mainTheme}>
-      <Header
-        setHeaderHeight={setHeaderHeight}
-        hideEcommerce={hideEcommerce?.[router.locale as ILocales]}
-        navigation={headerNavigation}
-        logo={logo}
-        theme={mainTheme}
-        backgroundColor={headerBackgroundColor}
-        noOffset={noHeaderOffset}
-      />
+      <Themed.div
+        as={'header'}
+        ref={ref}
+        sx={{
+          zIndex: 5,
+          position: 'fixed',
+          top: noHeaderOffset ? 0 : offset >= 5 ? '0' : '33px',
+          left: 0,
+          right: 0,
+        }}
+      >
+        <Header
+          setHeaderHeight={setHeaderHeight}
+          hideEcommerce={hideEcommerce?.[router.locale as ILocales]}
+          navigation={headerNavigation}
+          logo={logo}
+          theme={mainTheme}
+          backgroundColor={headerBackgroundColor}
+          noOffset={noHeaderOffset}
+        />
+        {brandData?.navigation?.length ? (
+          <BrandNavigation
+            navigation={brandData?.navigation}
+            backgroundColor={brandData?.colors?.primary}
+          />
+        ) : null}
+      </Themed.div>
       <Themed.div
         sx={{
-          mt: headerHeight,
+          marginTop: brandData?.navigation ? 78 : headerHeight,
         }}
       >
         <main>{children}</main>

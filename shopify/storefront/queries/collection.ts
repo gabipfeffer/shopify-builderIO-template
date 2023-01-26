@@ -35,34 +35,15 @@ query getCollection {
       edges {
         node {
           availableForSale
-          collections(first: 10) {
-            edges {
-              node {
-                handle
-                id
-                title
-              }
-            }
-          }
           createdAt
-          description
-          descriptionHtml
           handle
           id
-          images(first: 10) {
-            edges {
-              node {
+          images(first: 2) {
+              nodes {
                 id
                 src
                 altText
               }
-            }
-          }
-          onlineStoreUrl
-          options(first: 10) {
-            id
-            name
-            values
           }
           priceRange {
             maxVariantPrice {
@@ -79,31 +60,30 @@ query getCollection {
           title
           publishedAt
           updatedAt
-          variants(first: 100) {
-            edges {
-              node {
-                availableForSale
-                compareAtPrice
-                compareAtPriceV2 {
-                  amount
-                  currencyCode
-                }
+          variants(first: 5) {
+            nodes {
+              availableForSale
+              compareAtPrice
+              compareAtPriceV2 {
+                amount
+                currencyCode
+              }
+              id
+              image {
+                src
+                altText
                 id
-                image {
-                  src
-                  id
-                }
-                price
-                priceV2 {
-                  amount
-                  currencyCode
-                }
-                sku
-                title
-                unitPrice {
-                  amount
-                  currencyCode
-                }
+              }
+              price
+              priceV2 {
+                amount
+                currencyCode
+              }
+              sku
+              title
+              unitPrice {
+                amount
+                currencyCode
               }
             }
           }

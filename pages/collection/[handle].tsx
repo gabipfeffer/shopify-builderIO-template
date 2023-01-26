@@ -1,3 +1,6 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { Themed, jsx, useThemeUI } from 'theme-ui'
 import type {
   GetStaticPathsContext,
   GetStaticPropsContext,
@@ -14,9 +17,9 @@ import {
 } from '@lib/shopify/storefront-data-hooks/src/api/operations'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
-import { useThemeUI } from '@theme-ui/core'
 import { getLayoutProps } from '@lib/get-layout-props'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import LoadingDots from '../../components/ui/LoadingDots'
 
 builder.init(builderConfig.apiKey!)
 const builderModel = 'collection-page'
@@ -50,7 +53,7 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths({ locales }: GetStaticPathsContext) {
+export async function getStaticPaths() {
   const paths = await getAllCollectionPaths()
   return {
     paths: paths.map((path) => `/collection/${path}`),
@@ -79,7 +82,14 @@ export default function Handle({
   }
 
   return router.isFallback && isLive ? (
-    <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
+    <Themed.div
+      sx={{
+        height: '50vh',
+        display: 'flex',
+      }}
+    >
+      <LoadingDots />
+    </Themed.div>
   ) : (
     <BuilderComponent
       key={collection.id}

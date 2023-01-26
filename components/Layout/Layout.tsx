@@ -18,7 +18,6 @@ const Layout: React.FC<{ pageProps: any }> = ({ children, pageProps }) => {
   return (
     <CommerceProvider {...shopifyConfig}>
       <BuilderContent
-        isStatic
         {...(isLive && { content: builderTheme })}
         modelName="theme"
       >
@@ -32,7 +31,10 @@ const Layout: React.FC<{ pageProps: any }> = ({ children, pageProps }) => {
           return (
             <ManagedUIContext key={data?.id} siteSettings={siteSettings}>
               <Head seoInfo={siteSeoInfo || seoConfig} />
-              <InnerLayout colorOverrides={colorOverrides}>
+              <InnerLayout
+                colorOverrides={colorOverrides}
+                brandData={pageProps?.brandData?.data}
+              >
                 {children}
               </InnerLayout>
             </ManagedUIContext>

@@ -1,11 +1,11 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
+import { Themed, jsx, useThemeUI } from 'theme-ui'
 import type {
   GetStaticPathsContext,
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from 'next'
-import { Themed, jsx } from 'theme-ui'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import Layout from '@components/Layout/Layout'
@@ -14,28 +14,38 @@ import builderConfig from '@config/builder'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { resolveBuilderContent } from '@lib/resolve-builder-content'
-import { useThemeUI } from '@theme-ui/core'
 import { Link } from '@components/ui'
 import { getLayoutProps } from '@lib/get-layout-props'
 import { useAddItemToCart } from '@lib/shopify/storefront-data-hooks'
 import { useUI } from '@components/ui/context'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ILocales } from '@interfaces/locale'
-import LoadingDots from '../components/ui/LoadingDots'
+import LoadingDots from '../../../components/ui/LoadingDots'
 
 builder.init(builderConfig.apiKey)
+
+const modelName = 'brand-page'
 
 export async function getStaticProps({
   params,
   locale,
-}: GetStaticPropsContext<{ path: string[] }>) {
-  const page = await resolveBuilderContent('page', {
+}: GetStaticPropsContext<{ handle: string }>) {
+  const page = await resolveBuilderContent(modelName, {
     locale,
-    urlPath: '/' + (params?.path?.join('/') || ''),
+    urlPath: '/brands/' + params?.handle,
   })
+  const [brandData] = await builder.getAll('brand-data', {
+    query: {
+      name:
+        // @ts-ignore
+        params?.handle.charAt(0).toUpperCase() + params?.handle.slice(1),
+    },
+  })
+
   return {
     props: {
       page,
+      brandData,
       locale,
       ...(await serverSideTranslations(locale as string, [
         '[...path]',
@@ -59,9 +69,10 @@ export async function getStaticPaths() {
   }
 }
 
-export default function Path({
+export default function Index({
   page,
   locale,
+  brandData,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
   const { theme } = useThemeUI()
@@ -79,6 +90,7 @@ export default function Path({
       </Themed.div>
     )
   }
+
   // This includes setting the noindex header because static files always return a status 200 but the rendered not found page page should obviously not be indexed
   if (!page && !Builder.isEditing && !Builder.isPreviewing) {
     return (
@@ -122,8 +134,8 @@ export default function Path({
       )}
       <BuilderComponent
         options={{ includeRefs: true } as any}
-        model="page"
-        data={{ theme, locale }}
+        model={modelName}
+        data={{ theme, locale, brandData }}
         context={{
           productBoxService: {
             addToCart,
@@ -148,4 +160,4 @@ export default function Path({
   )
 }
 
-Path.Layout = Layout
+Index.Layout = Layout

@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { ILocales } from '@interfaces/locale'
 import { useRouter } from 'next/router'
 
-const NavigationLink: FC<{
+const BrandNavigationLink: FC<{
   navigationLink: INavigation
   backgroundColor?: string
 }> = ({ navigationLink, backgroundColor }) => {
@@ -38,7 +38,7 @@ const NavigationLink: FC<{
             pb: '20px',
             pr: '20px',
             position: 'absolute',
-            top: '64px',
+            top: '128px',
             display: 'none',
             alignItems: 'flex-start',
             flexWrap: 'wrap',
@@ -71,4 +71,4 @@ const NavigationLink: FC<{
   )
 }
 
-export default NavigationLink
+export default BrandNavigationLink

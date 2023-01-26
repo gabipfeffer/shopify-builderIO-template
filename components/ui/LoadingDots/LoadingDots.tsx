@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx, Themed, Spinner } from 'theme-ui'
 
-const LoadingDots: React.FC = () => {
+const LoadingDots: React.FC<{ color?: string }> = ({ color }) => {
   return (
     <Themed.div
       sx={{
@@ -10,10 +10,10 @@ const LoadingDots: React.FC = () => {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: '50vh',
+        maxHeight: '350px',
       }}
     >
-      <Spinner color={'text'} />
+      <Spinner color={color || 'text'} />
     </Themed.div>
   )
 }

@@ -1,3 +1,6 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { Themed, jsx, useThemeUI } from 'theme-ui'
 import type {
   GetStaticPathsContext,
   GetStaticPropsContext,
@@ -15,7 +18,6 @@ import {
 } from '@lib/shopify/storefront-data-hooks/src/api/operations'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
-import { useThemeUI } from 'theme-ui'
 import { getLayoutProps } from '@lib/get-layout-props'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import LoadingDots from '../../components/ui/LoadingDots'
@@ -52,7 +54,7 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths({ locales }: GetStaticPathsContext) {
+export async function getStaticPaths() {
   const paths = await getAllProductPaths()
   return {
     paths: paths.map((path) => `/product/${path}`),
@@ -82,7 +84,14 @@ export default function Handle({
   }
 
   return router.isFallback && isLive ? (
-    <LoadingDots />
+    <Themed.div
+      sx={{
+        height: '50vh',
+        display: 'flex',
+      }}
+    >
+      <LoadingDots />
+    </Themed.div>
   ) : (
     <BuilderComponent
       key={product!.id}
