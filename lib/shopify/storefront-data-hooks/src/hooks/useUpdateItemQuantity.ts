@@ -9,14 +9,12 @@ export function useUpdateItemQuantity() {
   const { cart, setCart } = useContext(Context)
   const getLineItem = useGetLineItem()
 
-  const [updateLineItemMutation] = useMutation(updateLineItem,
-    {
-      onCompleted: (cartData: any) => {
-        const formattedCart = formatCart(cartData?.cartLinesUpdate?.cart)
-        setCart(formattedCart)
-      },
-    }
-  )
+  const [updateLineItemMutation] = useMutation(updateLineItem, {
+    onCompleted: (cartData: any) => {
+      const formattedCart = formatCart(cartData?.cartLinesUpdate?.cart)
+      setCart(formattedCart)
+    },
+  })
 
   async function updateItemQuantity(
     variantId: string | number,

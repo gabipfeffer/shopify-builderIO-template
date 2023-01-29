@@ -1,20 +1,64 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React from 'react'
-import { Themed, jsx, Text } from 'theme-ui'
+import React, { Dispatch, SetStateAction } from 'react'
+import { Themed, jsx, Text, Button } from 'theme-ui'
 import { getPrice } from '@lib/shopify/storefront-data-hooks/src/utils/product'
+import {
+  IProduct,
+  ISellingPlan,
+  ISellingPlanGroup,
+  IVariant,
+} from '@interfaces/product'
+import OptionPicker from '../common/OptionPicker'
+import QuantityPicker from '@components/common/QuantityPicker'
+import SubscriptionWidget from '@components/Subscriptions/SubscriptionWidget'
+import i18nKeys from '@constants/i18n'
+import { LoadingDots } from '@components/ui'
+import { useTranslation } from 'next-i18next'
 
-const ProductDetails: React.FC<any> = ({ product, variant, description }) => {
+const ProductDetails: React.FC<{
+  product: IProduct
+  description?: string
+  variant: IVariant
+  variants: Array<IVariant>
+  addToCart: () => Promise<any>
+  loading: boolean
+  selectedVariant: IVariant
+  onVariantChange: (id: string) => any
+  decreaseQuantity: () => void
+  increaseQuantity: () => void
+  setQuantity: Dispatch<SetStateAction<number>>
+  quantity: number
+  selectedSellingPlan: ISellingPlan | undefined
+  setSelectedSellingPlan: Dispatch<SetStateAction<ISellingPlan | undefined>>
+  selectedSellingPlanGroup: ISellingPlanGroup | undefined
+  setSelectedSellingPlanGroup: Dispatch<
+    SetStateAction<ISellingPlanGroup | undefined>
+  >
+  sellingPlanGroups: Array<ISellingPlanGroup>
+}> = ({
+  product,
+  variant,
+  description,
+  variants,
+  addToCart,
+  loading,
+  selectedVariant,
+  onVariantChange,
+  decreaseQuantity,
+  increaseQuantity,
+  setQuantity,
+  quantity,
+  selectedSellingPlan,
+  setSelectedSellingPlan,
+  selectedSellingPlanGroup,
+  setSelectedSellingPlanGroup,
+  sellingPlanGroups,
+}) => {
+  const { t } = useTranslation()
+
   return (
-    <Themed.div
-      sx={{
-        display: 'block',
-        position: 'relative',
-        float: 'left',
-        verticalAlign: 'top',
-        width: '100%',
-      }}
-    >
+    <Themed.div>
       <Themed.div>
         <Themed.h3
           sx={{
@@ -22,7 +66,7 @@ const ProductDetails: React.FC<any> = ({ product, variant, description }) => {
               textAlign: 'left',
             },
             mb: '9px',
-            color: '#5c5c5c',
+            color: 'text',
             fontSize: '13px',
             fontWeight: 500,
             textAlign: 'center',
@@ -72,8 +116,8 @@ const ProductDetails: React.FC<any> = ({ product, variant, description }) => {
             <Themed.div
               sx={{
                 fontSize: '20px',
-                float: 'none',
                 mb: 0,
+                color: 'text',
               }}
             >
               <Text
@@ -89,17 +133,125 @@ const ProductDetails: React.FC<any> = ({ product, variant, description }) => {
       </Themed.div>
       <Themed.div
         sx={{
-          '@media (min-width: 768px)': {
-            display: 'block',
-          },
-          mb: '20px',
-          display: 'none',
+          display: 'block',
+          position: 'relative',
         }}
       >
-        <Themed.div>
-          <Themed.div dangerouslySetInnerHTML={{ __html: description }} />
+        <Themed.div
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          {variants.length > 1 ? (
+            <Themed.div
+              sx={{
+                width: 'auto',
+                mr: '1em',
+                display: 'block',
+              }}
+            >
+              <OptionPicker
+                key="variant_type"
+                name="Variant"
+                options={variants}
+                selected={selectedVariant.title}
+                onChange={(event) => onVariantChange(event.target.value)}
+              />
+            </Themed.div>
+          ) : null}
+        </Themed.div>
+        <Themed.div
+          sx={{
+            'media screen and (max-width: 767px)': {
+              maxWidth: '100%',
+              ml: 'auto',
+              mr: 'auto',
+            },
+            display: 'block',
+            position: 'relative',
+            mb: '10px',
+          }}
+        >
+          <Themed.div
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              '@media (max-width: 768px)': {
+                gap: '20px',
+                flexDirection: 'column',
+                alignItems: 'center',
+              },
+            }}
+          >
+            <QuantityPicker
+              decreaseQuantity={decreaseQuantity}
+              increaseQuantity={increaseQuantity}
+              selected={quantity}
+              onChange={(event) => setQuantity(Number(event.target.value))}
+            />
+            <Button
+              sx={{
+                borderRadius: '100px!important',
+                fontSize: '11px!important',
+                textTransform: 'uppercase',
+                letterSpacing: '1.1px!important',
+                width: '100%!important',
+                transition: '.3s!important',
+                maxWidth: '100%',
+                fontWeight: '500',
+                display: 'block',
+                height: '44px',
+                whiteSpace: 'nowrap',
+                color: 'text',
+                border: '1px solid',
+                borderColor: 'text',
+                backgroundColor: 'transparent',
+                '@media screen and (max-width: 767px)': {
+                  ml: 'auto',
+                  mr: 'auto',
+                },
+                '&:hover': {
+                  color: 'background',
+                  backgroundColor: 'text',
+                },
+              }}
+              onClick={addToCart}
+              name="add-to-cart"
+              disabled={loading}
+            >
+              <Text>
+                {t(i18nKeys.product.add_to_cart)} {loading && <LoadingDots />}
+              </Text>
+            </Button>
+            {sellingPlanGroups.length ? (
+              <SubscriptionWidget
+                sellingPlanGroups={sellingPlanGroups}
+                selectedSellingPlan={selectedSellingPlan}
+                setSelectedSellingPlan={setSelectedSellingPlan}
+                selectedSellingPlanGroup={selectedSellingPlanGroup}
+                setSelectedSellingPlanGroup={setSelectedSellingPlanGroup}
+              />
+            ) : null}
+          </Themed.div>
         </Themed.div>
       </Themed.div>
+      {description ? (
+        <Themed.div
+          sx={{
+            mt: '50px',
+            mb: '20px',
+          }}
+        >
+          <Themed.div
+            dangerouslySetInnerHTML={{ __html: description }}
+            sx={{
+              color: 'text',
+            }}
+          />
+        </Themed.div>
+      ) : null}
     </Themed.div>
   )
 }

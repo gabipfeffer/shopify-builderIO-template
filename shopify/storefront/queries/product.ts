@@ -240,6 +240,7 @@ query getStorefrontProduct {
     publishedAt
     tags
     title
+    descriptionHtml
     totalInventory
     updatedAt
     vendor

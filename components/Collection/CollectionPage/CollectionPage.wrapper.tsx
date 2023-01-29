@@ -8,11 +8,16 @@ import CollectionPage from '@components/Collection/CollectionPage/CollectionPage
 import { IProductCard } from '@components/Product/ProductCard/ProductCard'
 
 interface Props {
-  collection: string | any // ShopifyBuy.Collection once their types are up to date
+  collection: string | any
+  cardProps: {
+    imgWidth: number | string
+    imgHeight: number | string
+  }
 }
 
 const CollectionPageWrapper: FC<Props> = ({
   collection: initialCollection,
+  cardProps,
 }) => {
   const [collection, setCollection] = useState(initialCollection)
   const [products, setProducts] = useState(collection.products)
@@ -84,6 +89,7 @@ const CollectionPageWrapper: FC<Props> = ({
 
   return (
     <CollectionPage
+      cardProps={cardProps}
       filters={filters}
       products={products}
       selectedFilters={selectedFilters}

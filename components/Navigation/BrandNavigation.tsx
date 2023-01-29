@@ -26,18 +26,27 @@ const BrandNavigation: FC<{
     >
       <Themed.div
         sx={{
-          display: ['none', 'none', 'flex'],
-          justifyContent: ['center'],
+          display: 'flex',
+          justifyContent: 'center',
+          width: '100%',
+          '@media (max-width: 768px)': {
+            display: 'block',
+          },
         }}
       >
         <Themed.ul
           sx={{
-            display: ['none', 'none', 'flex'],
+            display: 'flex',
             flexBasis: 0,
             minWidth: 240,
             justifyContent: 'space-evenly',
             alignItems: 'center',
             flexWrap: 'nowrap',
+            '@media (max-width: 768px)': {
+              overflowX: 'scroll',
+              gap: '30px',
+              justifyContent: 'flex-start',
+            },
           }}
         >
           {navigation?.map(({ navLink }: any) => (

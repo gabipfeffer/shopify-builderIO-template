@@ -2,32 +2,21 @@ import { gql } from '@apollo/client'
 
 export const searchStorefront = (searchString: string) => gql`
 query searchStorefront {
-  products(query: "title:*${searchString}*", first: 100) {
+  products(query: "title:*${searchString}* OR vendor:*${searchString}* OR tag:*${searchString}* OR product_type:*${searchString}*", first: 30) {
     edges {
       node {
         vendor
         availableForSale
-        collections(first: 10) {
-          edges {
-            node {
-              handle
-              id
-              title
-            }
-          }
-        }
         createdAt
         description
         descriptionHtml
         handle
         id
-        images(first: 10) {
-          edges {
-            node {
-              id
-              src
-              altText
-            }
+        images(first: 2) {
+          nodes {
+            id
+            src
+            altText
           }
         }
         onlineStoreUrl
@@ -51,39 +40,29 @@ query searchStorefront {
         title
         publishedAt
         updatedAt
-        variants(first: 100) {
-          edges {
-            node {
-              availableForSale
-              compareAtPrice
-              compareAtPriceV2 {
-                amount
-                currencyCode
-              }
+        variants(first: 5) {
+          nodes {
+            availableForSale
+            compareAtPrice
+            compareAtPriceV2 {
+              amount
+              currencyCode
+            }
+            id
+            image {
+              src
               id
-              image {
-                src
-                id
-              }
-              price
-              priceV2 {
-                amount
-                currencyCode
-              }
-              sku
-              title
-              unitPrice {
-                amount
-                currencyCode
-              }
-              unitPriceMeasurement {
-                measuredType
-                quantityUnit
-                quantityValue
-                referenceUnit
-                referenceValue
-              }
-              weight
+            }
+            price
+            priceV2 {
+              amount
+              currencyCode
+            }
+            sku
+            title
+            unitPrice {
+              amount
+              currencyCode
             }
           }
         }

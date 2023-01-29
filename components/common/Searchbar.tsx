@@ -3,13 +3,13 @@
 import React, { FC, useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { LoadingDots } from '@components/ui'
-import { ProductGrid } from '@components/Collection/ProductGrid/ProductGrid'
-import { Themed, jsx, Input, Label } from 'theme-ui'
+import { Themed, jsx, Input, Label, Button } from 'theme-ui'
 import { searchProducts } from '@lib/shopify/storefront-data-hooks/src/api/operations'
 import { ExpandModal } from 'react-spring-modal'
 import { throttle } from 'lodash'
 import 'react-spring-modal/styles.css'
 import { Cross } from '@components/icons'
+import CollectionGridWrapper from '@components/Collection/CollectionGrid/CollectionGrid.wrapper'
 
 interface Props {
   className?: string
@@ -62,21 +62,43 @@ const Searchbar: FC<Props> = () => {
         aria-label="Search"
       >
         {isOpen ? (
-          <Cross />
-        ) : (
-          <svg
-            width="20"
-            height="22"
-            viewBox="0 0 20 22"
-            fill="none"
-            stroke="currentColor"
+          <Button
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Cart"
+            sx={{
+              background: 'none',
+              '&:focus': {
+                outline: 'none',
+              },
+            }}
           >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-            />
-          </svg>
+            <Cross />
+          </Button>
+        ) : (
+          <Button
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Cart"
+            sx={{
+              background: 'none',
+              '&:focus': {
+                outline: 'none',
+              },
+            }}
+          >
+            <svg
+              width="22"
+              height="24"
+              viewBox="0 0 20 22"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              />
+            </svg>
+          </Button>
         )}
       </Themed.div>
     </React.Fragment>
@@ -119,14 +141,24 @@ const SearchModalContent = (props: {
         justifyContent: 'center',
         p: [1, 2],
         width: '100%',
+        backgroundColor: '#FFFFF4',
       }}
     >
       <Input
         type="search"
-        sx={{ marginBottom: 15 }}
         defaultValue={props.initialSearch}
         placeholder="Search for products..."
         onChange={(event) => throttleSearch(event.target.value)}
+        sx={{
+          border: '2px solid',
+          borderColor: 'background',
+          marginBottom: '15px',
+          backgroundColor: '#FFFFF4',
+          borderRadius: '15px',
+          '&:focus': {
+            outline: 'none',
+          },
+        }}
       />
       {loading ? (
         <LoadingDots />
@@ -135,16 +167,15 @@ const SearchModalContent = (props: {
           <Label>
             Search Results for "<strong>{search}</strong>"
           </Label>
-          <ProductGrid
+          <CollectionGridWrapper
+            collection={{ products }}
             cardProps={{
-              imgHeight: 540,
-              imgWidth: 540,
-              imgPriority: false,
+              imgHeight: 250,
+              imgWidth: 250,
             }}
-            products={products}
             offset={0}
             limit={products.length}
-          ></ProductGrid>
+          />
         </>
       ) : (
         <span>

@@ -10,8 +10,10 @@ import { useAddItemToCart } from '@lib/shopify/storefront-data-hooks'
 import { useUI } from '@components/ui/context'
 import LoadingDots from '@components/ui/LoadingDots'
 
-interface ProductCardProps {
+export interface ProductCardProps {
   product: IProductCard
+  imgWidth: number | string
+  imgHeight: number | string
 }
 interface IProductVariant {
   availableForSale: boolean
@@ -34,6 +36,7 @@ interface IProductVariant {
 }
 
 export interface IProductCard {
+  id: string
   tags: string[] | []
   title: string
   handle: string
@@ -59,7 +62,11 @@ export interface IProductCard {
   }
 }
 
-const ProductCard: FC<ProductCardProps> = ({ product }) => {
+const ProductCard: FC<ProductCardProps> = ({
+  product,
+  imgWidth,
+  imgHeight,
+}) => {
   const addItem = useAddItemToCart()
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
@@ -97,7 +104,11 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         {loading ? (
           <LoadingDots color={'background'} />
         ) : (
-          <ProductCardImages images={images} />
+          <ProductCardImages
+            images={images}
+            width={imgWidth}
+            height={imgHeight}
+          />
         )}
         <Themed.div
           sx={{

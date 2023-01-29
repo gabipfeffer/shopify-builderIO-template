@@ -1,18 +1,12 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { Themed, jsx, Grid, Input, Text, IconButton } from 'theme-ui'
+import { Themed, jsx, Input } from 'theme-ui'
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
-import { Plus, Minus } from '@components/icons'
 import { getPrice } from '@lib/shopify/storefront-data-hooks/src/utils/product'
 import { useUpdateItemQuantity } from '@lib/shopify/storefront-data-hooks'
 
-const CartItem = ({
-  item
-}: {
-  item: any
-}) => {
+const CartItem = ({ item }: { item: any }) => {
   const updateItem = useUpdateItemQuantity()
   const [quantity, setQuantity] = useState(item.quantity)
   const updateQuantity = async (quantity: number) => {
@@ -23,23 +17,16 @@ const CartItem = ({
 
     if (Number.isInteger(val) && val >= 0) {
       setQuantity(val)
-    }
-  }
-  const handleBlur = () => {
-    const val = Number(quantity)
-
-    if (val !== item.quantity) {
       updateQuantity(val)
     }
   }
-  const increaseQuantity = (n = 1) => {
-    const val = Number(quantity) + n
-
-    if (Number.isInteger(val) && val >= 0) {
-      setQuantity(val)
-      updateQuantity(val)
-    }
-  }
+  // const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const val = Number(e.target.value)
+  //
+  //   if (val !== item.quantity) {
+  //     updateQuantity(val)
+  //   }
+  // }
 
   useEffect(() => {
     // Reset the quantity state if the item quantity changes
@@ -49,81 +36,134 @@ const CartItem = ({
   }, [item.quantity])
 
   return (
-    <Grid gap={2} sx={{ width: '100%', m: 12 }} columns={[2]}>
+    <Themed.div
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        width: '100%',
+        borderBottom: '1px solid',
+        borderColor: 'background',
+        p: '20px 10px',
+        maxWidth: '600px',
+        margin: '0 auto',
+      }}
+    >
       <Themed.div
         sx={{
-          padding: 1,
-          border: '1px solid gray',
           display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          width: '100%',
+          alignItems: 'flex-start',
+          gap: '15px',
+          '@media (max-width: 768px)': {
+            gridTemplateColumns: '1fr 1fr',
+          },
         }}
       >
-        <Image
-          height={130}
-          width={130}
-          unoptimized
-          alt={item.merchandise.image.altText}
+        {/* GRID 1 */}
+        <Themed.img
           src={item.merchandise.image.src}
+          sx={{
+            height: 'auto',
+            maxWidth: '150px',
+          }}
         />
-      </Themed.div>
-      <div>
+        {/* GRID 2 */}
         <Themed.div
-          as={Link}
-          href={`/product/${item.merchandise.product.handle}/`}
-          sx={{ fontSize: 3, m: 0, fontWeight: 700 }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}
         >
-          <>
-            {item.title}
-            <Text
+          <Themed.div>
+            <Themed.a
+              as={Link}
+              href={`/product/${item.merchandise.product.handle}/`}
+              sx={{ fontSize: 3, m: 0, fontWeight: 700 }}
+            >
+              <Themed.p
+                sx={{
+                  fontSize: 3,
+                  fontWeight: 700,
+                  whiteSpace: 'nowrap',
+                  color: 'background',
+                }}
+              >
+                {item.merchandise.product.title}
+              </Themed.p>
+            </Themed.a>
+            {/*{item.sellingPlanAllocation.sellingPlan ? (*/}
+            {/*  <Themed.p>{item.sellingPlanAllocation.sellingPlan.name}</Themed.p>*/}
+            {/*) : null}*/}
+            <Themed.ul sx={{ mt: 2, mb: 0, padding: 0, listStyle: 'none' }}>
+              {item.merchandise.selectedOptions.length > 1
+                ? item.merchandise.selectedOptions.map((option: any) => (
+                    <Themed.li
+                      key={option.value}
+                      sx={{
+                        color: 'background',
+                      }}
+                    >
+                      {option.name}: {option.value}
+                    </Themed.li>
+                  ))
+                : null}
+            </Themed.ul>
+          </Themed.div>
+
+          {/* GRID 3 */}
+          <Themed.div>
+            <Input
               sx={{
-                fontSize: 4,
+                width: 'auto',
+                backgroundColor: '#FFFFF4',
+                color: 'background',
+                border: '2px solid',
+                borderColor: 'background',
                 fontWeight: 700,
-                display: 'block',
-                marginLeft: 'auto',
+                height: '100%',
+                textAlign: 'center',
+                'input::-webkit-outer-spin-button': {
+                  '-webkit-appearance': 'none',
+                  margin: 0,
+                },
+                'input::-webkit-inner-spin-button': {
+                  '-webkit-appearance': 'none',
+                  margin: 0,
+                },
+                '&:focus': {
+                  outline: 'none',
+                },
+              }}
+              type="number"
+              max={99}
+              min={0}
+              value={quantity}
+              onChange={handleQuantity}
+              // onBlur={handleBlur}
+            />
+          </Themed.div>
+          {/* GRID 4 */}
+          <Themed.div>
+            <Themed.p
+              sx={{
+                fontWeight: 700,
+                color: 'background',
+                m: 0,
               }}
             >
               {getPrice(
                 item.merchandise.priceV2.amount,
                 item.merchandise.priceV2.currencyCode || 'USD'
               )}
-            </Text>
-          </>
+            </Themed.p>
+          </Themed.div>
         </Themed.div>
-        <Themed.ul sx={{ mt: 2, mb: 0, padding: 0, listStyle: 'none' }}>
-          <li>
-            <Themed.div sx={{ display: 'flex', justifyItems: 'center' }}>
-              <IconButton onClick={() => increaseQuantity(-1)}>
-                <Minus width={18} height={18} />
-              </IconButton>
-
-              <label>
-                <Input
-                  sx={{
-                    height: '100%',
-                    textAlign: 'center',
-                  }}
-                  type="number"
-                  max={99}
-                  min={0}
-                  value={quantity}
-                  onChange={handleQuantity}
-                  onBlur={handleBlur}
-                />
-              </label>
-              <IconButton onClick={() => increaseQuantity(1)}>
-                <Plus width={18} height={18} />
-              </IconButton>
-            </Themed.div>
-          </li>
-          {item.merchandise.selectedOptions.map((option: any) => (
-            <li key={option.value}>
-              {option.name}:{option.value}
-            </li>
-          ))}
-        </Themed.ul>
-      </div>
-    </Grid>
+      </Themed.div>
+    </Themed.div>
   )
 }
 

@@ -21,27 +21,19 @@ const ProductViewCarouselSlider = ({
   return (
     <Themed.div
       sx={{
-        userSelect: 'none',
-        outline: 0,
+        width: '90%',
+        padding: '10px 35px 10px 45px;',
         position: 'relative',
-        p: '0 30px',
-        m: '5px auto',
-        '@media screen and (max-width: 767px)': {
-          ml: '-40px',
-          mr: '-40px',
-          width: 'auto',
-          maxWidth: 'none',
-        },
-        '@media screen and (max-width: 549px)': {
-          ml: '-20px',
-          mr: '-20px',
-        },
+        margin: '0 auto',
+        maxWidth: '640px',
+        overflow: 'visible',
+        bg: 'background',
+        borderRadius: '15px',
       }}
     >
       <Themed.div
         sx={{
           height: '123px',
-          touchAction: 'pan-y',
           cursor: 'grab',
           overflow: 'hidden',
           position: 'relative',
@@ -51,6 +43,7 @@ const ProductViewCarouselSlider = ({
         <Themed.div
           sx={{
             left: '0px',
+            m: '0 20px',
             position: 'absolute',
             width: '100%',
             height: '100%',
@@ -84,6 +77,7 @@ const ProductViewCarouselSlider = ({
               >
                 <Themed.img
                   sx={{
+                    borderRadius: '15px',
                     backgroundSize: '45px auto!important',
                     background: 'none',
                     animation: `${fadeIn} .65s ease`,
@@ -119,16 +113,15 @@ const ProductViewCarouselSlider = ({
           '@media screen and (min-width: 768px)': {
             display: 'block',
           },
-          border: 0,
           zIndex: 100,
           cursor: 'pointer',
           top: '50%',
-          padding: '5px',
+          padding: '0 15px',
           alignItems: 'center',
           justifyContent: 'center',
           transform: 'translateY(-50%)',
           position: 'absolute',
-          background: 'transparent!important',
+          background: 'transparent',
           color: 'text',
         }}
       >
@@ -147,16 +140,15 @@ const ProductViewCarouselSlider = ({
           '@media screen and (min-width: 768px)': {
             display: 'block',
           },
-          border: 0,
           zIndex: 100,
           cursor: 'pointer',
           top: '50%',
-          padding: '5px',
+          padding: '0 35px',
           alignItems: 'center',
           justifyContent: 'center',
           transform: 'translateY(-50%)',
           position: 'absolute',
-          background: 'transparent!important',
+          background: 'transparent',
           color: 'text',
         }}
       >

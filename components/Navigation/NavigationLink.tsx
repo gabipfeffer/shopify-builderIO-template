@@ -44,6 +44,7 @@ const NavigationLink: FC<{
             flexWrap: 'wrap',
             flexDirection: 'column',
             backgroundColor: backgroundColor,
+            zIndex: 5,
             '&:hover': {
               display: 'flex',
             },

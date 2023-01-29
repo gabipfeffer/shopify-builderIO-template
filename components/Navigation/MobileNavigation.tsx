@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 import LocalDropdownWrapper from '@components/LocaleDropdown/LocalDropdown.wrapper'
 import i18nKeys from '@constants/i18n'
 import { useTranslation } from 'next-i18next'
+import { UserNav } from '@components/common'
 
 const MobileNavigation: FC<{
   setMobileNavigationActive: Dispatch<SetStateAction<boolean>>
@@ -69,6 +70,7 @@ const MobileNavigation: FC<{
       {navigation?.length
         ? navigation?.map((navigationSection) => (
             <MobileNavigationItem
+              setMobileNavigationActive={setMobileNavigationActive}
               navigationSection={navigationSection}
               key={`mobile-nav-section-${
                 navigationSection?.title[router.locale as ILocales]
@@ -99,12 +101,14 @@ const MobileNavigation: FC<{
       <Themed.ul
         sx={{
           opacity: 1,
-          display: 'block',
+          display: 'flex',
           padding: '16px 0',
           transition: '.3s',
+          justifyContent: 'flex-end',
           animation: `${fadeIn} .65s ease`,
         }}
       >
+        <UserNav setMobileNavigationActive={setMobileNavigationActive} />
         {/*  TODO: Set Cart/Account/Searchbar buttons with mobile styles */}
       </Themed.ul>
     </Themed.div>

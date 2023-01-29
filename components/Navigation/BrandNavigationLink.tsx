@@ -15,7 +15,7 @@ const BrandNavigationLink: FC<{
   return (
     <Themed.li
       sx={{
-        zIndex: 999,
+        zIndex: 4,
         '@media (min-width: 768px)': {
           padding: '20px',
         },

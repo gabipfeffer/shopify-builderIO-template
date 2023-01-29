@@ -5,7 +5,6 @@ import { Themed, jsx } from 'theme-ui'
 import { NextSeo } from 'next-seo'
 import ProductViewCarousel from '@components/ProductViewCarousel/ProductViewCarousel'
 import ProductDetails from '@components/Product/ProductDetails'
-import ProductForm from '@components/Product/ProductForm'
 import {
   IProduct,
   ISellingPlan,
@@ -22,8 +21,6 @@ const Product: FC<{
   loading: boolean
   selectedVariant: IVariant
   images: Array<{ src: string }>
-  emailInputs: Array<string>
-  setEmailInputs: Dispatch<SetStateAction<Array<string>>>
   onVariantChange: (id: string) => any
   decreaseQuantity: () => void
   increaseQuantity: () => void
@@ -45,8 +42,6 @@ const Product: FC<{
   loading,
   selectedVariant,
   images,
-  emailInputs,
-  setEmailInputs,
   onVariantChange,
   decreaseQuantity,
   increaseQuantity,
@@ -140,42 +135,20 @@ const Product: FC<{
             >
               <Themed.div
                 sx={{
-                  '@media screen and (min-width: 768px)': {
-                    pl: 0,
-                  },
-                  '@media screen and (max-width: 767px)': {
-                    pl: 0,
-                    margin: '30px auto 0',
-                  },
-                  pl: '70px',
+                  bg: 'background',
+                  borderRadius: '15px',
+                  p: '25px',
                 }}
               >
                 <ProductDetails
                   product={product}
                   variant={selectedVariant}
-                  description={selectedVariant?.descriptionHtml}
-                />
-              </Themed.div>
-              <Themed.div
-                sx={{
-                  display: 'block',
-                  position: 'relative',
-                  float: 'left',
-                  verticalAlign: 'top',
-                  clear: 'both',
-                  padding: 0,
-                  width: '100%',
-                }}
-              >
-                <ProductForm
+                  description={description}
                   selectedSellingPlan={selectedSellingPlan}
                   setSelectedSellingPlan={setSelectedSellingPlan}
                   quantity={quantity}
                   setQuantity={setQuantity}
                   decreaseQuantity={decreaseQuantity}
-                  emailInput={product?.emailInput}
-                  emailInputs={emailInputs}
-                  setEmailInputs={setEmailInputs}
                   increaseQuantity={increaseQuantity}
                   onVariantChange={onVariantChange}
                   selectedVariant={selectedVariant}

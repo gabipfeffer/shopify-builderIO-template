@@ -10,7 +10,17 @@ const CollectionPage: FC<{
   filters: any
   selectedFilters: any
   setSelectedFilters: any
-}> = ({ products, filters, selectedFilters, setSelectedFilters }) => {
+  cardProps: {
+    imgWidth: number | string
+    imgHeight: number | string
+  }
+}> = ({
+  products,
+  filters,
+  selectedFilters,
+  setSelectedFilters,
+  cardProps,
+}) => {
   return (
     <Themed.div
       sx={{
@@ -52,7 +62,11 @@ const CollectionPage: FC<{
         }}
       >
         {products?.map((product: any) => (
-          <ProductCard product={product} />
+          <ProductCard
+            product={product}
+            imgWidth={cardProps?.imgWidth}
+            imgHeight={cardProps?.imgHeight}
+          />
         ))}
       </Themed.div>
     </Themed.div>

@@ -6,14 +6,7 @@ import OptionPicker from '@components/common/OptionPicker'
 import QuantityPicker from '@components/common/QuantityPicker'
 import { LoadingDots } from '@components/ui'
 import SubscriptionWidget from '@components/Subscriptions/SubscriptionWidget'
-import ProductControlledArrayInputs from '@components/Product/ProductControlledArrayInputs'
-import {
-  IMetafield,
-  ISellingPlan,
-  ISellingPlanGroup,
-  IVariant,
-} from '@interfaces/product'
-import { InputEmailTypes } from '@utils/emailInputAttribute'
+import { ISellingPlan, ISellingPlanGroup, IVariant } from '@interfaces/product'
 import i18nKeys from '@constants/i18n'
 import { useTranslation } from 'next-i18next'
 
@@ -23,8 +16,7 @@ const ProductForm: React.FC<{
   loading: boolean
   selectedVariant: IVariant
   onVariantChange: (id: string) => any
-  emailInputs: Array<string>
-  setEmailInputs: Dispatch<SetStateAction<Array<string>>>
+
   decreaseQuantity: () => void
   increaseQuantity: () => void
   setQuantity: Dispatch<SetStateAction<number>>
@@ -36,12 +28,8 @@ const ProductForm: React.FC<{
     SetStateAction<ISellingPlanGroup | undefined>
   >
   sellingPlanGroups: Array<ISellingPlanGroup>
-  emailInput?: IMetafield
 }> = ({
   onVariantChange,
-  emailInput,
-  emailInputs,
-  setEmailInputs,
   decreaseQuantity,
   increaseQuantity,
   quantity,
@@ -94,29 +82,6 @@ const ProductForm: React.FC<{
           selected={quantity}
           onChange={(event) => setQuantity(Number(event.target.value))}
         />
-      </Themed.div>
-      <Themed.div
-        sx={{
-          'media screen and (max-width: 767px)': {
-            maxWidth: '100%',
-            ml: 'auto',
-            mr: 'auto',
-          },
-          display: 'block',
-          position: 'relative',
-          mb: '10px',
-        }}
-      >
-        {emailInput ? (
-          <ProductControlledArrayInputs
-            quantity={quantity}
-            type={
-              InputEmailTypes[emailInput?.value as keyof typeof InputEmailTypes]
-            }
-            emailInputs={emailInputs}
-            setEmailInputs={setEmailInputs}
-          />
-        ) : null}
       </Themed.div>
       <Themed.div
         sx={{

@@ -12,6 +12,7 @@ builder.init(builderConfig.apiKey)
 import '@components/Collection/ProductGrid/ProductGrid.builder'
 import '@components/Collection/CollectionView/CollectionView.builder'
 import '@components/Collection/CollectionPage/CollectionPage.builder'
+import '@components/Collection/CollectionGrid/CollectionGrid.builder'
 import '@components/Account/LogIn/LogIn.builder'
 import '@components/Account/Register/Register.builder'
 import '@components/Account/RecoverPassword/RecoverPassword.builder'
@@ -49,6 +50,7 @@ Builder.register('insertMenu', {
     { name: 'ProductCollectionGrid' },
     { name: 'CollectionView' },
     { name: 'Collection Page' },
+    { name: 'Collection Grid' },
   ],
 })
 

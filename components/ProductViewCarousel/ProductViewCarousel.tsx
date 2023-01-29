@@ -46,6 +46,9 @@ const ProductViewCarousel = ({
         },
         width: '100%',
         float: 'none',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
       }}
     >
       <ProductViewCarouselMainImage

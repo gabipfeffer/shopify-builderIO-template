@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import React, { FC, useState } from 'react'
 import { Themed, jsx } from 'theme-ui'
-// import Searchbar from '@components/common/Searchbar'
+import Searchbar from '@components/common/Searchbar'
 import { UserNav } from '@components/common'
 import Logo from '@components/Header/Logo'
 import Navigation from '@components/Navigation/Navigation'
@@ -36,7 +36,7 @@ const Header: FC<IHeader> = ({
           gridTemplateColumns: ['1fr 1fr', '1fr 1fr', '1fr 1fr 1fr'],
           alignItems: 'center',
           margin: '0 auto',
-          p: ['10px', `${!navigation?.length ? 10 : 0}px 50px`],
+          p: ['10px', `${!navigation?.length ? 10 : 0}px 30px`],
           width: '100%',
           transition: 'top 150ms ease',
           '@media (max-width: 768px)': {
@@ -69,7 +69,7 @@ const Header: FC<IHeader> = ({
         >
           {hideEcommerce ? null : (
             <>
-              {/*<Searchbar />*/}
+              <Searchbar />
               <UserNav />
             </>
           )}
@@ -85,8 +85,10 @@ const Header: FC<IHeader> = ({
           sx={{
             display: ['flex', 'flex', 'none'],
             justifyContent: ['flex-end'],
+            alignItems: 'center',
           }}
         >
+          <Searchbar />
           <HamburgerMenu
             mobileNavigationActive={mobileNavigationActive}
             setMobileNavigationActive={setMobileNavigationActive}

@@ -63,7 +63,7 @@ const InnerLayout: React.FC<{
     // @ts-ignore
     const { height, top } = ref?.current?.getBoundingClientRect()
     setHeaderHeight?.(height + top)
-  }, [ref.current])
+  }, [ref.current, brandData])
 
   return (
     <ThemeProvider theme={mainTheme}>

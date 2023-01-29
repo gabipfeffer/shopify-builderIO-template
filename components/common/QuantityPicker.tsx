@@ -1,11 +1,11 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { Themed, jsx, Input, Button, Label } from 'theme-ui'
+import { Themed, jsx, Input, Button } from 'theme-ui'
 import MinusSign from '@components/icons/MinusSign'
 import PlusSign from '@components/icons/PlusSign'
 import React, { MouseEventHandler, ChangeEventHandler } from 'react'
-import i18nKeys from '@constants/i18n'
-import { useTranslation } from 'next-i18next'
+// import i18nKeys from '@constants/i18n'
+// import { useTranslation } from 'next-i18next'
 
 export interface QuantityPickerProps {
   decreaseQuantity?: MouseEventHandler<HTMLButtonElement>
@@ -20,7 +20,6 @@ const QuantityPicker: React.FC<QuantityPickerProps> = ({
   decreaseQuantity,
   increaseQuantity,
 }) => {
-  const { t } = useTranslation()
   return (
     <Themed.div
       sx={{
@@ -28,60 +27,46 @@ const QuantityPicker: React.FC<QuantityPickerProps> = ({
         width: 'auto',
       }}
     >
-      <Label
-        htmlFor={'quantity'}
-        sx={{
-          '@media screen and (max-width: 767px)': {
-            width: '100%',
-            maxWidth: '500px',
-            textAlign: 'center',
-          },
-          display: 'block',
-          position: 'relative',
-          fontWeight: 'body',
-          letterSpacing: '0.5px',
-          width: '100%',
-          mab: '10px',
-          textAlign: 'left',
-        }}
-      >
-        {t(i18nKeys.product.quantity)}
-      </Label>
+      {/*<Label*/}
+      {/*  htmlFor={'quantity'}*/}
+      {/*  sx={{*/}
+      {/*    '@media screen and (max-width: 767px)': {*/}
+      {/*      width: '100%',*/}
+      {/*      maxWidth: '500px',*/}
+      {/*      textAlign: 'center',*/}
+      {/*    },*/}
+      {/*    display: 'block',*/}
+      {/*    position: 'relative',*/}
+      {/*    fontWeight: 'body',*/}
+      {/*    letterSpacing: '0.5px',*/}
+      {/*    width: '100%',*/}
+      {/*    mab: '10px',*/}
+      {/*    textAlign: 'left',*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  {t(i18nKeys.product.quantity)}*/}
+      {/*</Label>*/}
       <Themed.div
         sx={{
           display: 'flex',
           position: 'relative',
-          width: '101px',
-          mb: '20px',
           color: 'text',
           '@media (min-width: 768px)': {
             width: '115px',
           },
           '@media screen and (max-width: 767px)': {
             position: 'relative',
-            margin: '0 auto 20px',
           },
         }}
       >
         <Button
           sx={{
-            left: 0,
-            display: 'block',
-            ml: '0',
-            fontSize: '1.1rem',
             position: 'absolute',
             top: '0',
             bottom: '0',
             width: '30px',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center',
             cursor: 'pointer',
-            color: 'var(--color-text)',
-            padding: '0',
-            margin: '0',
             background: 'none',
-            border: '0',
             '&::focus': {
               outline: 'none',
               border: 'none',
@@ -103,6 +88,9 @@ const QuantityPicker: React.FC<QuantityPickerProps> = ({
             borderColor: 'text',
             color: 'text',
             border: '1px solid',
+            borderRadius: '100px',
+            fontSize: '16px',
+            fontWeight: 700,
             '&::focus': {
               outline: 'none',
               border: 'none',

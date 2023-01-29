@@ -24,17 +24,15 @@ const HamburgerMenu: FC<{
         transitionProperty: 'opacity,filter',
         transitionDuration: '.15s',
         transitionTimingFunction: 'linear',
-        textTransform: 'none',
         backgroundColor: 'transparent',
         border: 0,
         margin: 0,
-        overflow: 'visible',
-        height: '15px',
+        height: '21px',
         outline: 'none!important',
       }}
     >
-      <svg viewBox="0 0 100 60" width="20" height="21" fill={'white'}>
-        <rect width="100" height="7" />
+      <svg viewBox="0 0 100 40" width="20" height="21" fill={'white'}>
+        <rect y="0" width="100" height="7" />
         <rect y="20" width="100" height="7" />
         <rect y="40" width="100" height="7" />
       </svg>

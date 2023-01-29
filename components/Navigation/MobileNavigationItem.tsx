@@ -1,23 +1,25 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { FC, useState } from 'react'
+import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import { Themed, jsx } from 'theme-ui'
 import { fadeIn } from '@assets/keyframes'
 import { INavigation } from '@interfaces/navigation'
-import Link from 'next/link'
 import { ILocales } from '@interfaces/locale'
 import { useRouter } from 'next/router'
 
-const MobileNavigationItem: FC<{ navigationSection: INavigation }> = ({
-  navigationSection,
-}) => {
+const MobileNavigationItem: FC<{
+  navigationSection: INavigation
+  setMobileNavigationActive: Dispatch<SetStateAction<boolean>>
+}> = ({ navigationSection, setMobileNavigationActive }) => {
   const [active, setActive] = useState(false)
   const router = useRouter()
 
   return (
     <>
       <Themed.div
-        onClick={() => setActive(!active)}
+        onClick={() =>
+          navigationSection?.sections?.length ? setActive(!active) : null
+        }
         sx={{
           fontSize: '12px',
           letterSpacing: '2px',
@@ -29,7 +31,9 @@ const MobileNavigationItem: FC<{ navigationSection: INavigation }> = ({
           justifyContent: 'space-between',
         }}
       >
-        {navigationSection?.title[router.locale as ILocales]}
+        <Themed.a href={navigationSection?.link}>
+          {navigationSection?.title[router.locale as ILocales]}
+        </Themed.a>
         {navigationSection?.sections?.length ? (
           <Themed.div
             sx={{
@@ -78,10 +82,9 @@ const MobileNavigationItem: FC<{ navigationSection: INavigation }> = ({
             }}
           >
             <Themed.a
-              as={Link}
+              onClick={() => setMobileNavigationActive(false)}
               href={section?.link}
               sx={{
-                fontSize: '14px',
                 color: 'text',
                 transition: '.3s',
               }}

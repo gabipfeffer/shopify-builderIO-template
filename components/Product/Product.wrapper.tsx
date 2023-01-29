@@ -8,10 +8,6 @@ import { useAddItemToCart } from '@lib/shopify/storefront-data-hooks'
 import { useUI } from '@components/ui/context'
 import { prepareVariantsImages } from '@lib/shopify/storefront-data-hooks/src/utils/product'
 import { IProduct, ISellingPlan, ISellingPlanGroup } from '@interfaces/product'
-import {
-  getEmailInputCartAttribute,
-  InputEmailTypes,
-} from '@utils/emailInputAttribute'
 
 const ProductWrapper: FC<{
   product: IProduct
@@ -28,8 +24,6 @@ const ProductWrapper: FC<{
   >(selectedSellingPlanGroup?.sellingPlans[0])
   const variants = useMemo(() => product?.variants, [product?.variants])
   const [selectedVariant, setSelectedVariant] = useState(variants[0])
-
-  const [emailInputs, setEmailInputs] = useState<Array<string>>([])
 
   const addItem = useAddItemToCart()
   const { openSidebar } = useUI()
@@ -56,17 +50,7 @@ const ProductWrapper: FC<{
   const addToCart = async () => {
     setLoading(true)
     try {
-      await addItem(
-        selectedVariant.id,
-        quantity,
-        selectedSellingPlan?.id,
-        getEmailInputCartAttribute(
-          InputEmailTypes[
-            product?.emailInput?.value as keyof typeof InputEmailTypes
-          ],
-          emailInputs
-        )
-      )
+      await addItem(selectedVariant.id, quantity, selectedSellingPlan?.id)
       openSidebar()
       setLoading(false)
     } catch (err) {
@@ -90,13 +74,11 @@ const ProductWrapper: FC<{
       product={product}
       variants={variants}
       title={title || product.title}
-      description={description || product.description}
+      description={description || product.descriptionHtml}
       addToCart={addToCart}
       loading={loading}
       selectedVariant={selectedVariant}
       images={allImages}
-      emailInputs={emailInputs}
-      setEmailInputs={setEmailInputs}
       onVariantChange={handleVariantChange}
       decreaseQuantity={decreaseQuantity}
       increaseQuantity={increaseQuantity}
